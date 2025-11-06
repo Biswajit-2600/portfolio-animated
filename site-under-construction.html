@@ -1,34 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <!-- Favicon for modern browsers -->
-    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/icons/favicon.svg"
+    />
     <!-- Fallback favicon for older browsers -->
-    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/icons/favicon.ico"
+    />
     <!-- Apple Touch Icon for iOS devices -->
-    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/icons/apple-touch-icon.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio - My World</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
     <!-- Lottie Player -->
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.js"
+    ></script>
+    <script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
+      type="module"
+    ></script>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 25%,
+          #16213e 50%,
+          #0f3460 75%,
+          #533483 100%
+        );
         min-height: 100vh;
         overflow: hidden;
         position: relative;
       }
-      
+
       .construction-container {
         position: fixed;
         top: 0;
@@ -39,9 +71,16 @@
         align-items: center;
         justify-content: center;
         z-index: 1000;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 25%,
+          #16213e 50%,
+          #0f3460 75%,
+          #533483 100%
+        );
       }
-      
+
       .content-wrapper {
         position: relative;
         width: 100%;
@@ -50,7 +89,7 @@
         align-items: center;
         justify-content: center;
       }
-      
+
       .construction-text {
         position: absolute;
         top: 20%;
@@ -59,16 +98,14 @@
         max-width: 600px;
         width: 100%;
       }
-      
+
       .main-title {
-        font-family: 'Orbitron', monospace;
+        font-family: "Orbitron", monospace;
         font-size: clamp(2.5rem, 5vw, 4rem);
         font-weight: 900;
         color: #ffffff;
-        text-shadow: 
-          0 0 10px rgba(255, 255, 255, 0.5),
-          0 0 20px rgba(255, 255, 255, 0.3),
-          0 0 30px rgba(255, 255, 255, 0.2),
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+          0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.2),
           2px 2px 4px rgba(0, 0, 0, 0.3);
         margin-bottom: 1rem;
         line-height: 1.3;
@@ -77,9 +114,9 @@
         white-space: nowrap;
         overflow: visible;
       }
-      
+
       .sub-title {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: clamp(1rem, 2.5vw, 1.5rem);
         font-weight: 300;
         color: #e0e0e0;
@@ -87,27 +124,54 @@
         margin-bottom: 1.5rem;
         letter-spacing: 1px;
       }
-      
+
       .coming-soon {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: clamp(0.9rem, 2vw, 1.2rem);
         font-weight: 600;
-        color: #ffd700;
-        text-shadow: 
-          0 0 5px rgba(255, 215, 0, 0.8),
-          1px 1px 3px rgba(0, 0, 0, 0.5);
-        padding: 0.5rem 1rem;
-        border: 2px solid rgba(255, 215, 0, 0.3);
+        /* lighter, modern frosted pill */
+        color: #ffffff;
+        text-shadow: none;
+        padding: 0.6rem 1.1rem;
+        border: 1px solid rgba(126, 244, 211, 0.28);
         border-radius: 25px;
-        background: rgba(255, 255, 255, 0.1);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.14),
+          rgba(255, 255, 255, 0.08)
+        );
+        box-shadow: 0 8px 24px rgba(2, 6, 20, 0.35),
+          0 0 10px rgba(126, 244, 211, 0.06);
         backdrop-filter: blur(10px);
         display: inline-block;
         animation: pulse 2s ease-in-out infinite;
         margin-bottom: 2rem;
       }
-      
+
+      .coming-soon-static {
+        font-family: "Poppins", sans-serif;
+        font-size: clamp(0.9rem, 2vw, 1.2rem);
+        font-weight: 600;
+        /* lighter, modern frosted pill for mobile */
+        color: #ffffff;
+        text-shadow: none;
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(126, 244, 211, 0.28);
+        border-radius: 25px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.14),
+          rgba(255, 255, 255, 0.08)
+        );
+        box-shadow: 0 8px 24px rgba(2, 6, 20, 0.35),
+          0 0 10px rgba(126, 244, 211, 0.06);
+        backdrop-filter: blur(10px);
+        display: inline-block;
+        margin-bottom: 2rem;
+      }
+
       .visit-link {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: clamp(0.9rem, 2vw, 1.1rem);
         font-weight: 400;
         color: #ffffff;
@@ -121,7 +185,7 @@
         transition: all 0.3s ease;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       }
-      
+
       .visit-link:hover {
         background: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.5);
@@ -129,14 +193,23 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         color: #ffffff;
       }
-      
+
       .visit-text {
         font-size: clamp(0.8rem, 1.5vw, 1rem);
         color: #e0e0e0;
         margin-bottom: 0.5rem;
         font-weight: 300;
       }
-      
+
+      /* Content visibility control */
+      .mobile-content {
+        display: none;
+      }
+
+      .desktop-content {
+        display: block;
+      }
+
       .animation-wrapper {
         position: absolute;
         right: 15%;
@@ -146,37 +219,35 @@
         height: clamp(350px, 45vw, 700px);
         filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
       }
-      
+
       @keyframes textGlow {
-        0%, 100% { 
-          text-shadow: 
-            0 0 10px rgba(255, 255, 255, 0.5),
-            0 0 20px rgba(255, 255, 255, 0.3),
-            0 0 30px rgba(255, 255, 255, 0.2),
+        0%,
+        100% {
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+            0 0 20px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.2),
             2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        50% { 
-          text-shadow: 
-            0 0 15px rgba(255, 255, 255, 0.8),
-            0 0 25px rgba(255, 255, 255, 0.5),
-            0 0 35px rgba(255, 255, 255, 0.3),
+        50% {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+            0 0 25px rgba(255, 255, 255, 0.5), 0 0 35px rgba(255, 255, 255, 0.3),
             2px 2px 4px rgba(0, 0, 0, 0.3);
         }
       }
-      
+
       @keyframes pulse {
-        0%, 100% { 
+        0%,
+        100% {
           transform: scale(1);
           box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
-        50% { 
+        50% {
           transform: scale(1.05);
           box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
         }
       }
-      
+
       /* Responsive Design */
-      
+
       /* Extra Large Screens (1400px and up) */
       @media (min-width: 1400px) {
         .construction-text {
@@ -190,7 +261,7 @@
           height: 750px;
         }
       }
-      
+
       /* Large Screens (1024px to 1399px) */
       @media (max-width: 1399px) and (min-width: 1024px) {
         .construction-text {
@@ -204,13 +275,13 @@
           height: 550px;
         }
       }
-      
+
       /* Medium Screens - Tablets (768px to 1023px) */
       @media (max-width: 1023px) and (min-width: 768px) {
         .construction-container {
           overflow-y: auto;
         }
-        
+
         .content-wrapper {
           flex-direction: column;
           justify-content: center;
@@ -218,7 +289,7 @@
           padding: 2rem 1rem;
           min-height: 100vh;
         }
-        
+
         .construction-text {
           position: relative;
           top: 0;
@@ -227,13 +298,13 @@
           text-align: center;
           margin-bottom: 3rem;
         }
-        
+
         .main-title {
           font-size: clamp(2rem, 6vw, 3rem);
           white-space: normal;
           word-break: break-word;
         }
-        
+
         .animation-wrapper {
           position: relative;
           right: 0;
@@ -244,18 +315,21 @@
           margin: 0 auto;
         }
       }
-      
+
       /* Small Screens - Mobile (480px to 767px) */
       @media (max-width: 767px) and (min-width: 480px) {
+        /* prevent page-level scroll on mobile; mobile UI fills viewport */
         body {
-          overflow-y: auto;
+          overflow: hidden;
+          height: 100%;
         }
-        
+
         .construction-container {
-          overflow-y: auto;
+          overflow: hidden;
           padding: 1rem;
+          height: 100vh;
         }
-        
+
         .content-wrapper {
           flex-direction: column;
           justify-content: center;
@@ -263,67 +337,104 @@
           min-height: 100vh;
           padding: 2rem 0;
         }
-        
+
         .construction-text {
           position: relative;
           top: 0;
           left: 0;
           max-width: 100%;
           text-align: center;
-          margin-bottom: 2rem;
+          margin-bottom: 0;
           padding: 0 1rem;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
-        
+
         .main-title {
           font-size: clamp(1.8rem, 8vw, 2.5rem);
           white-space: normal;
           word-break: break-word;
           line-height: 1.2;
-          margin-bottom: 1rem;
+          /* increased spacing between title and subtitle on mobile */
+          margin-bottom: 2.2rem;
         }
-        
+
         .sub-title {
           font-size: clamp(0.9rem, 4vw, 1.2rem);
-          margin-bottom: 1rem;
+          /* slightly larger gap after subtitle */
+          margin-bottom: 1.6rem;
         }
-        
-        .coming-soon {
+
+        .coming-soon,
+        .coming-soon-static {
           font-size: clamp(0.8rem, 3.5vw, 1rem);
           padding: 0.4rem 0.8rem;
-          margin-bottom: 1.5rem;
+          /* increase gap between badge and following prompt */
+          margin-bottom: 2.6rem;
         }
-        
+
         .visit-text {
           font-size: clamp(0.7rem, 3vw, 0.9rem);
+          margin-bottom: 1.1rem;
         }
-        
+
         .visit-link {
           font-size: clamp(0.8rem, 3.5vw, 1rem);
           padding: 0.6rem 1.2rem;
         }
-        
-        .animation-wrapper {
-          position: relative;
-          right: 0;
+
+        /* Show mobile content, hide desktop content */
+        .mobile-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          position: fixed;
           top: 0;
-          transform: none;
-          width: clamp(200px, 60vw, 300px);
-          height: clamp(200px, 60vw, 300px);
-          margin: 1rem auto 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          /* leave extra bottom padding for the mobile lottie - increased for larger animation */
+          padding: 1.2rem 1rem 8.5rem;
+          box-sizing: border-box;
+          overflow: hidden;
+          background: linear-gradient(
+            135deg,
+            #0a0a0a 0%,
+            #1a1a2e 25%,
+            #16213e 50%,
+            #0f3460 75%,
+            #533483 100%
+          );
+        }
+
+        .desktop-content {
+          display: none;
+        }
+
+        /* Hide animation on mobile */
+        .animation-wrapper {
+          display: none;
         }
       }
-      
+
       /* Extra Small Screens - Small Mobile (320px to 479px) */
       @media (max-width: 479px) {
         body {
-          overflow-y: auto;
+          overflow: hidden;
+          height: 100%;
         }
-        
+
         .construction-container {
-          overflow-y: auto;
+          overflow: hidden;
           padding: 0.5rem;
+          height: 100vh;
         }
-        
+
         .content-wrapper {
           flex-direction: column;
           justify-content: center;
@@ -331,116 +442,161 @@
           min-height: 100vh;
           padding: 1rem 0;
         }
-        
+
         .construction-text {
           position: relative;
           top: 0;
           left: 0;
           max-width: 100%;
           text-align: center;
-          margin-bottom: 1.5rem;
+          margin-bottom: 0;
           padding: 0 0.5rem;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
-        
+
         .main-title {
           font-size: clamp(1.5rem, 10vw, 2rem);
           white-space: normal;
           word-break: break-word;
           line-height: 1.1;
-          margin-bottom: 0.8rem;
+          /* extra spacing on very small screens */
+          margin-bottom: 1.6rem;
           letter-spacing: 0.5px;
         }
-        
+
         .sub-title {
           font-size: clamp(0.8rem, 5vw, 1rem);
-          margin-bottom: 0.8rem;
+          margin-bottom: 1.4rem;
         }
-        
-        .coming-soon {
+
+        .coming-soon,
+        .coming-soon-static {
           font-size: clamp(0.7rem, 4vw, 0.9rem);
           padding: 0.3rem 0.6rem;
-          margin-bottom: 1rem;
+          margin-bottom: 1.9rem;
         }
-        
+
         .visit-text {
           font-size: clamp(0.6rem, 4vw, 0.8rem);
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.9rem;
         }
-        
+
         .visit-link {
           font-size: clamp(0.7rem, 4vw, 0.9rem);
           padding: 0.5rem 1rem;
         }
-        
-        .animation-wrapper {
-          position: relative;
-          right: 0;
+
+        /* Show mobile content, hide desktop content */
+        .mobile-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          position: fixed;
           top: 0;
-          transform: none;
-          width: clamp(150px, 70vw, 250px);
-          height: clamp(150px, 70vw, 250px);
-          margin: 0.5rem auto 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          /* leave extra bottom padding for the mobile lottie - reduced since animation is now in flow */
+          padding: 1rem 0.5rem 2rem;
+          box-sizing: border-box;
+          overflow: hidden;
+          background: linear-gradient(
+            135deg,
+            #0a0a0a 0%,
+            #1a1a2e 25%,
+            #16213e 50%,
+            #0f3460 75%,
+            #533483 100%
+          );
+        }
+
+        .desktop-content {
+          display: none;
+        }
+
+        /* Hide animation on mobile */
+        .animation-wrapper {
+          display: none;
         }
       }
-      
+
       /* Landscape Mobile Phones */
       @media (max-height: 500px) and (orientation: landscape) {
         .construction-container {
           overflow-y: auto;
         }
-        
+
         .content-wrapper {
-          flex-direction: row;
+          flex-direction: column;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
           padding: 1rem;
+          min-height: 100vh;
         }
-        
+
         .construction-text {
           position: relative;
           top: 0;
           left: 0;
-          max-width: 50%;
-          text-align: left;
+          max-width: 100%;
+          text-align: center;
           margin-bottom: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
-        
+
         .main-title {
           font-size: clamp(1.2rem, 4vw, 1.8rem);
           white-space: normal;
           line-height: 1.1;
+          margin-bottom: 1.2rem;
         }
-        
+
         .sub-title {
           font-size: clamp(0.7rem, 2.5vw, 1rem);
         }
-        
-        .coming-soon {
+
+        .coming-soon,
+        .coming-soon-static {
           font-size: clamp(0.6rem, 2vw, 0.8rem);
           padding: 0.2rem 0.5rem;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1.4rem;
         }
-        
+
         .visit-text {
           font-size: clamp(0.5rem, 2vw, 0.7rem);
+          margin-bottom: 0.8rem;
         }
-        
+
         .visit-link {
           font-size: clamp(0.6rem, 2vw, 0.8rem);
           padding: 0.3rem 0.8rem;
         }
-        
+
+        /* Show mobile content, hide desktop content */
+        .mobile-content {
+          display: block;
+        }
+
+        .desktop-content {
+          display: none;
+        }
+
+        /* Hide animation on mobile */
         .animation-wrapper {
-          position: relative;
-          right: 0;
-          top: 0;
-          transform: none;
-          width: clamp(120px, 30vw, 200px);
-          height: clamp(120px, 30vw, 200px);
-          margin: 0;
+          display: none;
         }
       }
-      
+
       #root {
         display: none;
       }
@@ -450,30 +606,92 @@
     <div class="construction-container">
       <div class="content-wrapper">
         <div class="construction-text">
-          <h1 class="main-title">SITE UNDER CONSTRUCTION</h1>
-          <p class="sub-title">Building something amazing...</p>
-          <div class="coming-soon">Coming Soon</div>
-          
-          <div class="visit-text">In the meantime, take a peek at what I’ve built so far:</div>
-          <a href="https://m-biswajit-me.vercel.app/" target="_blank" class="visit-link">
-            🌐 Visit Website
-          </a>
+          <!-- Desktop Content -->
+          <div class="desktop-content">
+            <h1 class="main-title">SITE UNDER CONSTRUCTION</h1>
+            <p class="sub-title">Building something amazing...</p>
+            <!-- Lottie animation (desktop banner) - using dotlottie-wc with local file -->
+            <div class="coming-lottie" style="display: inline-block">
+              <dotlottie-wc
+                src="/assets/coming-soon.lottie"
+                style="width: 220px; height: 96px"
+                autoplay
+                loop
+              ></dotlottie-wc>
+            </div>
+
+            <div class="visit-text">
+              In the meantime, take a peek at what I've built so far:
+            </div>
+            <a
+              href="https://m-biswajit-me.vercel.app/"
+              target="_blank"
+              class="visit-link"
+            >
+              🌐 Visit Website
+            </a>
+          </div>
+
+          <!-- Mobile Content - Use site-under-construction mobile content but keep index background; show coming-soon animation -->
+          <div class="mobile-content">
+            <h1 class="main-title">SITE UNDER CONSTRUCTION</h1>
+            <p class="sub-title">Building something amazing...</p>
+
+            <!-- Bottom mobile-only lottie: website-under-construction mobile animation (moved above text) -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+                pointer-events: none;
+              "
+            >
+              <div style="width: 320px; height: 160px; opacity: 0.98">
+                <dotlottie-wc
+                  src="/assets/website-under-construction-mobile.lottie"
+                  style="width: 100%; height: 100%"
+                  autoplay
+                  loop
+                ></dotlottie-wc>
+              </div>
+            </div>
+
+            <!-- show coming-soon animation on mobile - using local file with dotlottie-wc -->
+            <div
+              class="coming-lottie"
+              style="display: inline-block; margin-bottom: 1.6rem"
+            >
+              <dotlottie-wc
+                src="/assets/coming-soon.lottie"
+                style="width: 160px; height: 80px"
+                autoplay
+                loop
+              ></dotlottie-wc>
+            </div>
+
+            <div class="visit-text">
+              In the meantime, <br />take a peek at what I've built so far:
+            </div>
+            <a
+              href="https://m-biswajit-me.vercel.app/"
+              target="_blank"
+              class="visit-link"
+            >
+              🌐 Visit Website
+            </a>
+          </div>
         </div>
-        
+
         <div class="animation-wrapper">
-          <dotlottie-player
+          <dotlottie-wc
             src="/assets/website-under-construction.lottie"
-            background="transparent"
-            speed="1"
-            style="width: 100%; height: 100%;"
+            style="width: 100%; height: 100%"
+            autoplay
             loop
-            autoplay>
-          </dotlottie-player>
+          ></dotlottie-wc>
         </div>
       </div>
     </div>
-    
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
