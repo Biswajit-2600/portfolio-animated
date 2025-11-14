@@ -13,8 +13,8 @@ let gridCells = [];
 let lastTime = 0;
 
 // Configuration
-const STAR_COUNT = Math.floor(window.innerWidth / 1.5);
-const SPEED = 2;
+const STAR_COUNT = Math.floor(window.innerWidth / 4);
+const SPEED = 3;
 const MAX_DEPTH = 2000;
 const MIN_DEPTH = 1;
 const GRID_SIZE = 40; // Size of each grid cell for even distribution
