@@ -22,16 +22,10 @@
     />
   </head>
   <body>
-    <div class="container">
-      <video
-        class="back-vid"
-        autoplay
-        loop
-        muted
-        plays-inline
-        src="public/assets/videos/galaxy.mp4"
-      ></video>
+    <!-- Starfield Canvas Background -->
+    <canvas id="starfield"></canvas>
 
+    <div class="container">
       <header data-aos="fade-down" data-aos-duration="2000">
         <div class="left">
           <a href="#hero"
@@ -399,6 +393,9 @@
         </div>
       </section>
     </div>
+    <!-- Starfield Background Animation -->
+    <script src="public/assets/js/starfield.js"></script>
+
     <script src="public/assets/js/app.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
