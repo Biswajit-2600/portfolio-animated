@@ -1,7 +1,7 @@
 /**
  * 3D Starfield Animation
- * Stars move toward viewer from entire screen area
- * Similar to moving through space effect
+ * Stars move toward viewer with even distribution
+ * Grid-based spawning ensures uniform coverage
  */
 
 const canvas = document.getElementById("starfield");
@@ -9,12 +9,15 @@ const ctx = canvas.getContext("2d");
 
 let stars = [];
 let w, h, centerX, centerY;
+let gridCells = [];
+let lastTime = 0;
 
 // Configuration
-const STAR_COUNT = 1200;
+const STAR_COUNT = Math.floor(window.innerWidth / 1.5);
 const SPEED = 2;
 const MAX_DEPTH = 2000;
 const MIN_DEPTH = 1;
+const GRID_SIZE = 40; // Size of each grid cell for even distribution
 
 function init() {
   w = canvas.width = window.innerWidth;
@@ -22,29 +25,68 @@ function init() {
   centerX = w / 2;
   centerY = h / 2;
 
-  // Create stars distributed across entire screen
+  // Create grid system for even distribution
+  const cols = Math.ceil(w / GRID_SIZE) + 4; // Extra padding
+  const rows = Math.ceil(h / GRID_SIZE) + 4;
+  gridCells = [];
+  
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      gridCells.push({ x, y });
+    }
+  }
+  
+  // Shuffle grid cells for random selection
+  gridCells.sort(() => Math.random() - 0.5);
+
+  // Create stars distributed evenly using grid
   stars = [];
   for (let i = 0; i < STAR_COUNT; i++) {
-    stars.push(createStar());
+    stars.push(createStar(i));
   }
 }
 
-function createStar() {
-  // Spawn stars across entire screen area (not just center)
-  // Using wider distribution for full-screen coverage
-  const angle = Math.random() * Math.PI * 2;
-  const radius = Math.random() * Math.max(w, h) * 1.5;
-
+function createStar(index) {
+  // Use grid-based distribution for perfectly even spread
+  const cellIndex = index % gridCells.length;
+  const cell = gridCells[cellIndex];
+  
+  // Calculate screen position where we want the star to appear
+  const targetScreenX = (cell.x - 2) * GRID_SIZE;
+  const targetScreenY = (cell.y - 2) * GRID_SIZE;
+  
+  // Add random offset within cell for natural look
+  const offsetX = Math.random() * GRID_SIZE;
+  const offsetY = Math.random() * GRID_SIZE;
+  
+  const finalScreenX = targetScreenX + offsetX;
+  const finalScreenY = targetScreenY + offsetY;
+  
+  // Random depth for this star
+  const z = Math.random() * MAX_DEPTH + MIN_DEPTH;
+  
+  // Reverse the perspective projection to find 3D position
+  // that will project to our desired screen position
+  const k = 128 / z;
+  const x = (finalScreenX - centerX) / k + centerX;
+  const y = (finalScreenY - centerY) / k + centerY;
+  
   return {
-    x: centerX + Math.cos(angle) * radius,
-    y: centerY + Math.sin(angle) * radius,
-    z: Math.random() * MAX_DEPTH + MIN_DEPTH,
-    baseSize: Math.random() * 0.4 + 0.15, // Small base size
-    speed: 0.7 + Math.random() * 1.3,
+    x: x,
+    y: y,
+    z: z,
+    baseSize: Math.random() * 0.4 + 0.15,
+    speed: 1, // Consistent speed for all stars
+    cellIndex: cellIndex,
   };
 }
 
-function animate() {
+function animate(currentTime = 0) {
+  // Calculate delta time for consistent animation speed
+  const deltaTime = currentTime - lastTime;
+  lastTime = currentTime;
+  const normalizedDelta = Math.min(deltaTime / 16.67, 2); // Cap at 2x speed to prevent jumps
+
   // Clear with slight trail for motion blur effect
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, w, h);
@@ -53,12 +95,12 @@ function animate() {
   for (let i = 0; i < stars.length; i++) {
     const star = stars[i];
 
-    // Move star toward viewer
-    star.z -= SPEED * star.speed;
+    // Move star toward viewer with time-based movement
+    star.z -= SPEED * star.speed * normalizedDelta;
 
-    // Reset star if it passes the viewer
+    // Reset star if it passes the viewer, maintaining grid distribution
     if (star.z <= MIN_DEPTH) {
-      stars[i] = createStar();
+      stars[i] = createStar(i);
       stars[i].z = MAX_DEPTH;
       continue;
     }
