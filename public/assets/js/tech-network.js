@@ -141,13 +141,16 @@
   ].map((code) => ({ code, family: "Font Awesome 6 Brands", weight: "400" }));
 
   const CONFIG = {
-    LATITUDE_RINGS: 9, // Number of latitude circles
-    LONGITUDE_LINES: 15, // Number of longitude meridians
+    NUM_ICONS: 150, // Number of moving icons on the globe
     ICON_SIZE: 20,
     MOVE_SPEED: 0.008, // Auto-rotation speed
+    ICON_MOVE_SPEED: 0.000, // Speed of icons moving on surface
     LINE_WIDTH: 1.0,
-    LINE_OPACITY: 0.5,
+    LINE_OPACITY: 2,
     BASE_RADIUS: 180, // Base globe radius (will be recalculated on init)
+    CONNECTION_DISTANCE: 50, // Base max distance for lines (will be scaled with zoom)
+    MAX_CONNECTIONS: 3, // Max connections per icon
+    MIN_ICON_DISTANCE: 2, // Minimum angular distance between icons (in radians) - smaller for more icons
   };
   // Multiplier to tweak the default 'natural' size of the globe.
   // Increase slightly to make globe look larger by default.
@@ -189,45 +192,84 @@
     // Roughly 42-46% of the smaller dimension feels natural; multiply for a little larger look.
     CONFIG.BASE_RADIUS = Math.round(minDim * 0.44 * NATURAL_SIZE_MULTIPLIER);
     CONFIG.ICON_SIZE = Math.round(DEFAULT_ICON_SIZE * NATURAL_SIZE_MULTIPLIER);
+    CONFIG.CONNECTION_DISTANCE = Math.round(minDim * 0.25); // Scale connection distance with canvas size
 
-    // Create nodes at latitude-longitude grid intersections
+    // Create randomly positioned icons that will move on the globe surface
+    // Use minimum distance check to prevent clustering
     iconNodes = [];
     const iconPool = solidIcons.concat(brandIcons);
-    let iconIndex = 0;
 
-    // Create latitude rings (horizontal circles)
-    for (let latRing = 0; latRing <= CONFIG.LATITUDE_RINGS; latRing++) {
-      // phi goes from 0 (north pole) to PI (south pole)
-      const phi = (latRing / CONFIG.LATITUDE_RINGS) * Math.PI;
-
-      // Number of points on this latitude ring (more at equator, fewer at poles)
-      const pointsOnRing =
-        latRing === 0 || latRing === CONFIG.LATITUDE_RINGS
-          ? 1 // Poles have single point
-          : CONFIG.LONGITUDE_LINES;
-
-      for (let lonPoint = 0; lonPoint < pointsOnRing; lonPoint++) {
-        const theta = (lonPoint / pointsOnRing) * Math.PI * 2; // longitude
-        const icon = iconPool[iconIndex % iconPool.length];
-
-        const node = {
-          theta,
-          phi,
-          latRing, // Store which latitude ring
-          lonPoint, // Store which longitude point
-          x: 0,
-          y: 0,
-          z: 0,
-          icon,
-          pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.01 + Math.random() * 0.015,
-        };
-        iconNodes.push(node);
-        iconIndex++;
-      }
+    // Helper function to calculate angular distance between two points on sphere
+    function angularDistance(theta1, phi1, theta2, phi2) {
+      // Using haversine formula for great circle distance
+      const dPhi = phi2 - phi1;
+      const dTheta = theta2 - theta1;
+      const a = Math.sin(dPhi / 2) ** 2 + 
+                Math.sin(phi1) * Math.sin(phi2) * Math.sin(dTheta / 2) ** 2;
+      return 2 * Math.asin(Math.sqrt(a));
     }
 
-    console.log(`Created ${iconNodes.length} nodes on lat-long grid`);
+    let attempts = 0;
+    const maxAttempts = CONFIG.NUM_ICONS * 50; // Increased attempts for large icon counts
+    let minDistanceThreshold = CONFIG.MIN_ICON_DISTANCE;
+
+    for (let i = 0; i < CONFIG.NUM_ICONS && attempts < maxAttempts; i++) {
+      let theta, phi, tooClose;
+      let attemptCount = 0;
+      
+      do {
+        tooClose = false;
+        attempts++;
+        attemptCount++;
+        
+        // Random starting position on sphere (spherical coordinates)
+        theta = Math.random() * Math.PI * 2; // longitude: 0 to 2π
+        phi = Math.acos(2 * Math.random() - 1); // latitude: uniform distribution on sphere
+        
+        // Check distance to all existing nodes
+        for (let j = 0; j < iconNodes.length; j++) {
+          const dist = angularDistance(theta, phi, iconNodes[j].theta, iconNodes[j].phi);
+          if (dist < minDistanceThreshold) {
+            tooClose = true;
+            break;
+          }
+        }
+        
+        // Gradually reduce min distance if having trouble placing icons
+        if (attemptCount > 100 && minDistanceThreshold > 0.05) {
+          minDistanceThreshold *= 0.95;
+          attemptCount = 0;
+        }
+      } while (tooClose && attempts < maxAttempts);
+
+      if (attempts >= maxAttempts) {
+        console.warn(`Placed ${iconNodes.length} icons (requested ${CONFIG.NUM_ICONS})`);
+        break;
+      }
+
+      const icon = iconPool[i % iconPool.length];
+      
+      // Random movement direction (velocity in spherical coords)
+      const thetaVel = (Math.random() - 0.5) * CONFIG.ICON_MOVE_SPEED;
+      const phiVel = (Math.random() - 0.5) * CONFIG.ICON_MOVE_SPEED * 0.5;
+
+      const node = {
+        theta,
+        phi,
+        thetaVel, // movement velocity in theta direction
+        phiVel,   // movement velocity in phi direction
+        x: 0,
+        y: 0,
+        z: 0,
+        icon,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.01 + Math.random() * 0.015,
+        connections: [], // will store active connections
+      };
+      iconNodes.push(node);
+    }
+
+    console.log(`Created ${iconNodes.length} moving nodes on globe`);
   }
 
   let rotationX = 0;
@@ -254,6 +296,20 @@
     const radius = CONFIG.BASE_RADIUS * zoomLevel;
 
     iconNodes.forEach((node) => {
+      // Update icon position on sphere surface (continuous movement)
+      node.theta += node.thetaVel;
+      node.phi += node.phiVel;
+
+      // Keep phi in valid range [0, PI] with bounce effect
+      if (node.phi <= 0 || node.phi >= Math.PI) {
+        node.phiVel = -node.phiVel;
+        node.phi = Math.max(0, Math.min(Math.PI, node.phi));
+      }
+
+      // Theta wraps around naturally at 2π
+      if (node.theta > Math.PI * 2) node.theta -= Math.PI * 2;
+      if (node.theta < 0) node.theta += Math.PI * 2;
+
       // Convert spherical to Cartesian
       let x = radius * Math.sin(node.phi) * Math.cos(node.theta);
       let y = radius * Math.sin(node.phi) * Math.sin(node.theta);
@@ -284,88 +340,73 @@
     iconNodes.sort((a, b) => a.z - b.z);
   }
 
-  function drawGlobeMesh() {
+  function drawDynamicConnections() {
     ctx.lineWidth = CONFIG.LINE_WIDTH;
     ctx.lineCap = "round";
-    ctx.shadowBlur = 2;
-    ctx.shadowColor = "rgba(114, 161, 222, 0.25)";
 
-    // Draw latitude circles (horizontal rings)
-    for (let latRing = 0; latRing <= CONFIG.LATITUDE_RINGS; latRing++) {
-      // Skip poles (single points)
-      if (latRing === 0 || latRing === CONFIG.LATITUDE_RINGS) continue;
+    // Clear all connections first
+    iconNodes.forEach(node => node.connections = []);
 
-      const nodesOnRing = iconNodes.filter((n) => n.latRing === latRing);
-      if (nodesOnRing.length < 2) continue;
+    // Scale connection distance with zoom level to maintain visual consistency
+    const scaledConnectionDistance = CONFIG.CONNECTION_DISTANCE * zoomLevel;
 
-      // Sort by theta to connect in order
-      nodesOnRing.sort((a, b) => a.theta - b.theta);
+    // Calculate connections based on 2D screen distance
+    for (let i = 0; i < iconNodes.length; i++) {
+      const nodeA = iconNodes[i];
+      
+      // Only process nodes on front side of globe (visible)
+      if (nodeA.z < -CONFIG.BASE_RADIUS * zoomLevel * 0.3) continue;
 
-      // Calculate average depth for this ring
-      const avgZ =
-        nodesOnRing.reduce((sum, n) => sum + n.z, 0) / nodesOnRing.length;
-      const depthFactor =
-        (avgZ + CONFIG.BASE_RADIUS * zoomLevel) /
-        (CONFIG.BASE_RADIUS * zoomLevel * 2);
-      const opacity =
-        CONFIG.LINE_OPACITY * Math.max(0.15, Math.min(0.7, depthFactor));
+      const distances = [];
 
-      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-      ctx.beginPath();
-      ctx.moveTo(nodesOnRing[0].x, nodesOnRing[0].y);
+      for (let j = i + 1; j < iconNodes.length; j++) {
+        const nodeB = iconNodes[j];
+        
+        // Skip nodes on back side
+        if (nodeB.z < -CONFIG.BASE_RADIUS * zoomLevel * 0.3) continue;
 
-      for (let i = 1; i < nodesOnRing.length; i++) {
-        ctx.lineTo(nodesOnRing[i].x, nodesOnRing[i].y);
-      }
-      // Close the ring
-      ctx.lineTo(nodesOnRing[0].x, nodesOnRing[0].y);
-      ctx.stroke();
-    }
+        // Calculate 2D screen distance
+        const dx = nodeA.x - nodeB.x;
+        const dy = nodeA.y - nodeB.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-    // Draw longitude meridians (vertical lines from pole to pole)
-    for (let lonLine = 0; lonLine < CONFIG.LONGITUDE_LINES; lonLine++) {
-      const nodesOnMeridian = [];
-
-      // Collect nodes on this longitude line
-      for (let latRing = 0; latRing <= CONFIG.LATITUDE_RINGS; latRing++) {
-        if (latRing === 0 || latRing === CONFIG.LATITUDE_RINGS) {
-          // Poles
-          const poleNode = iconNodes.find((n) => n.latRing === latRing);
-          if (poleNode && !nodesOnMeridian.includes(poleNode)) {
-            nodesOnMeridian.push(poleNode);
-          }
-        } else {
-          // Regular latitude rings
-          const node = iconNodes.find(
-            (n) => n.latRing === latRing && n.lonPoint === lonLine
-          );
-          if (node) nodesOnMeridian.push(node);
+        if (dist < scaledConnectionDistance) {
+          distances.push({ node: nodeB, distance: dist });
         }
       }
 
-      if (nodesOnMeridian.length < 2) continue;
+      // Sort by distance and keep only MAX_CONNECTIONS closest
+      distances.sort((a, b) => a.distance - b.distance);
+      const connections = distances.slice(0, CONFIG.MAX_CONNECTIONS);
 
-      // Sort by phi (latitude) to connect from pole to pole
-      nodesOnMeridian.sort((a, b) => a.phi - b.phi);
+      // Draw connections
+      connections.forEach(({ node: nodeB, distance }) => {
+        // Calculate opacity based on distance (closer = more opaque)
+        const distanceFactor = 1 - (distance / scaledConnectionDistance);
+        
+        // Calculate depth factor (average z position)
+        const avgZ = (nodeA.z + nodeB.z) / 2;
+        const depthFactor = (avgZ + CONFIG.BASE_RADIUS * zoomLevel) / 
+                            (CONFIG.BASE_RADIUS * zoomLevel * 2);
+        
+        const opacity = CONFIG.LINE_OPACITY * distanceFactor * 
+                        Math.max(0.2, Math.min(0.9, depthFactor));
 
-      // Calculate average depth for this meridian
-      const avgZ =
-        nodesOnMeridian.reduce((sum, n) => sum + n.z, 0) /
-        nodesOnMeridian.length;
-      const depthFactor =
-        (avgZ + CONFIG.BASE_RADIUS * zoomLevel) /
-        (CONFIG.BASE_RADIUS * zoomLevel * 2);
-      const opacity =
-        CONFIG.LINE_OPACITY * Math.max(0.15, Math.min(0.7, depthFactor));
+        // Draw line with gradient effect
+        const gradient = ctx.createLinearGradient(nodeA.x, nodeA.y, nodeB.x, nodeB.y);
+        gradient.addColorStop(0, `rgba(114, 161, 222, ${opacity * 0.8})`);
+        gradient.addColorStop(0.5, `rgba(255, 255, 255, ${opacity})`);
+        gradient.addColorStop(1, `rgba(114, 161, 222, ${opacity * 0.8})`);
 
-      ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-      ctx.beginPath();
-      ctx.moveTo(nodesOnMeridian[0].x, nodesOnMeridian[0].y);
-
-      for (let i = 1; i < nodesOnMeridian.length; i++) {
-        ctx.lineTo(nodesOnMeridian[i].x, nodesOnMeridian[i].y);
-      }
-      ctx.stroke();
+        ctx.strokeStyle = gradient;
+        ctx.shadowBlur = 3;
+        ctx.shadowColor = `rgba(114, 161, 222, ${opacity * 0.4})`;
+        
+        ctx.beginPath();
+        ctx.moveTo(nodeA.x, nodeA.y);
+        ctx.lineTo(nodeB.x, nodeB.y);
+        ctx.stroke();
+      });
     }
 
     ctx.shadowBlur = 0;
@@ -411,7 +452,7 @@
 
     // Update and draw
     updatePositions();
-    drawGlobeMesh();
+    drawDynamicConnections(); // Draw connecting lines based on proximity
     drawIcons();
 
     // Continue animation loop
