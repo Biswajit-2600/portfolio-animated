@@ -374,17 +374,19 @@ header ul li a {
   position: relative;
   vertical-align: top;
   overflow: hidden;
-  height: 70px;
+  height: 75px;
   padding: 0 10px;
   line-height: 70px;
   /* Fine-tune baseline alignment */
-  transform: translateY(2px);
+  transform: translateY(4px);
 }
 
 .text-slider-wrapper {
   display: flex;
   flex-direction: column;
   animation: textSlider 21s infinite cubic-bezier(0.9, 0.01, 0.3, 0.99);
+  animation-delay: 3s; /* Delay animation start until fade-right completes */
+  transform: translateY(0.5%); /* Start at first position during delay */
 }
 
 .text-slider-item {
@@ -465,7 +467,7 @@ header ul li a {
   border: 2px solid lightgray;
   position: absolute;
   left: 49%;
-  bottom: 8%;
+  bottom: 15%;
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.626);
@@ -982,12 +984,6 @@ section {
     filter: blur(40px);
     opacity: 1;
   }
-}
-
-/* For hero section children - manual JS control with smooth animation */
-.hero .autoBlurReverse {
-  will-change: filter, opacity;
-  transition: opacity 0.3s ease-out;
 }
 
 /* AUTO DISPLAY ANIMAION */
