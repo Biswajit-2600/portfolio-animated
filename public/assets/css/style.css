@@ -213,7 +213,7 @@ header ul li a {
   margin-top: -23.5%;
 }
 
-.hero {
+.hero-section {
   position: relative;
   display: flex;
   width: 100%;
@@ -642,7 +642,7 @@ section {
   bottom: 35%;
 }
 
-.my-project {
+.project-section {
   display: flex;
   flex-direction: column;
   gap: 10%;
@@ -1188,7 +1188,7 @@ section {
     margin-top: 5%;
   }
 
-  .my-project {
+  .project-section {
     margin-bottom: 200px;
     scale: 0.8;
   }
@@ -1251,7 +1251,7 @@ section {
     animation: none;
   }
 
-  .hero {
+  .hero-section {
     flex-direction: column;
     top: 0;
     bottom: 0;
@@ -1286,7 +1286,7 @@ section {
     bottom: 5%;
   }
 
-  .hero .hero-skills-animation {
+  .hero-section .hero-skills-animation {
     height: 240px;
     width: 240px;
     top: 5%;
@@ -1337,7 +1337,7 @@ section {
     padding: 5px 10px;
   }
 
-  .my-project {
+  .project-section {
     margin-bottom: 600px;
   }
 
@@ -1402,7 +1402,7 @@ section {
 }
 
 @media screen and (max-width: 480px) {
-  .hero .hero-skills-animation {
+  .hero-section .hero-skills-animation {
     display: none;
   }
 
@@ -1424,7 +1424,7 @@ section {
     font-size: 20px;
   }
 
-  .hero {
+  .hero-section {
     scale: 0.9;
   }
 

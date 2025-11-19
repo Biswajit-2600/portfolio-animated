@@ -40,7 +40,7 @@ if (typeof AOS !== "undefined") {
 
 // Manual blur control for hero-skills-animation to match hero-info behavior
 const heroSkillsAnimation = document.querySelector(".hero-skills-animation");
-const heroSection = document.querySelector(".hero");
+const heroSection = document.querySelector(".hero-section");
 
 if (heroSkillsAnimation && heroSection) {
   let currentBlur = 0;
