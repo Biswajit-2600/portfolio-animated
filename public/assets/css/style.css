@@ -523,7 +523,7 @@ section {
   scroll-margin-top: 60px; /* set this to your navbar's height */
 }
 
-.info-section {
+.about-section {
   display: flex;
   align-items: center;
   flex-direction: column;
