@@ -642,12 +642,12 @@ section {
 
 .info-cards.animate-cards .card:nth-child(1) {
   animation: popOutSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  animation-delay: 0.5s;
+  animation-delay: 1.1s;
 }
 
 .info-cards.animate-cards .card:nth-child(2) {
   animation: popOutSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  animation-delay: 0.8s;
+  animation-delay: 1.4s;
 }
 
 @keyframes popOutSmooth {
