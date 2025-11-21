@@ -142,3 +142,51 @@ if (aboutCards && aboutSection) {
 
   aboutObserver.observe(aboutSection);
 }
+
+// About Me Modal Functionality
+const aboutMeBtn = document.getElementById("aboutMeBtn");
+const modal = document.getElementById("aboutMeModal");
+const closeModalBtn = document.getElementById("closeModal");
+const modalOverlay = modal?.querySelector(".modal-overlay");
+
+if (aboutMeBtn && modal) {
+  // Open modal with delayed fade in
+  aboutMeBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    
+    // Show modal with delayed fade
+    modal.style.display = "flex";
+    setTimeout(() => {
+      modal.classList.add("show");
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = "hidden";
+  });
+
+  // Close modal function
+  function closeModal() {
+    modal.classList.remove("show");
+    setTimeout(() => {
+      modal.style.display = "none";
+      document.body.style.overflow = "";
+    }, 500);
+  }
+
+  // Close on X button click
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener("click", closeModal);
+  }
+
+  // Close on overlay click
+  if (modalOverlay) {
+    modalOverlay.addEventListener("click", closeModal);
+  }
+
+  // Close on Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+}
