@@ -1712,15 +1712,17 @@ section {
   filter: drop-shadow(0 0 2px rgba(200, 220, 255, 0.5))
     drop-shadow(0 0 4px rgba(200, 220, 255, 0.3))
     drop-shadow(0 0 8px rgba(200, 220, 255, 0.15));
-    right: 50px;
+  right: 40%;
+  bottom: 7%;
 }
 
 .modal-image-wrapper::after {
   content: "";
   position: absolute;
   bottom: -10px;
-  left: 40%;
-  transform: translateX(-55%);
+  left: 10%;
+  bottom: 5%;
+  transform: translateX(-45%);
 
   width: 250px; /* adjust platform width */
   height: 45px; /* adjust height for oval thickness */
@@ -1769,7 +1771,7 @@ section {
   border: 2px solid rgba(114, 161, 222, 0.3);
   box-shadow: 0 0 60px rgba(114, 161, 222, 0.3),
               0 20px 80px rgba(0, 0, 0, 0.6);
-  padding: 35px 40px;
+  padding-top: 20px;
   z-index: 10001;
   opacity: 0;
   transition: opacity 0.4s ease 0.15s;
@@ -1821,7 +1823,7 @@ section {
 
 .modal-body {
   display: flex;
-  gap: 50px;
+  gap: 10px;
   align-items: flex-start;
   justify-content: space-between;
   flex: 1;
@@ -1831,6 +1833,7 @@ section {
   overflow-y: auto;
   overflow-x: hidden;
   padding: 30px 40px;
+  padding-left: 6%;
   border-radius: 24px;
 }
 
