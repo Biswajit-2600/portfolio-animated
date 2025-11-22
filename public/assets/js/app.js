@@ -166,3 +166,20 @@ if (aboutMeBtn && modal) {
     }
   });
 }
+
+// Ensure tooltip arrows match their background colors
+document.addEventListener('DOMContentLoaded', function() {
+  const tooltips = document.querySelectorAll('.icon-tooltip');
+  tooltips.forEach(tooltip => {
+    const bgColor = tooltip.style.backgroundColor;
+    if (bgColor) {
+      tooltip.style.setProperty('--tooltip-bg', bgColor);
+      // Set the arrow color to match by updating the border-top-color
+      const afterStyle = document.createElement('style');
+      const tooltipId = 'tooltip-' + Math.random().toString(36).substr(2, 9);
+      tooltip.classList.add(tooltipId);
+      afterStyle.textContent = `.${tooltipId}::after { border-top-color: ${bgColor} !important; }`;
+      document.head.appendChild(afterStyle);
+    }
+  });
+});
