@@ -38,14 +38,6 @@
 
         <ul>
           <li>
-            <a href="#about-section">
-              <div class="nav-capsule">
-                <i class="fa-solid fa-user"></i>
-                <span>About</span>
-              </div>
-            </a>
-          </li>
-          <li>
             <a href="#skills-section">
               <div class="nav-capsule">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
@@ -54,7 +46,7 @@
             </a>
           </li>
           <li>
-            <a href="#project-section">
+            <a href="#projects-section">
               <div class="nav-capsule">
                 <i class="fa-solid fa-laptop-code"></i>
                 <span>Projects</span>
@@ -249,7 +241,10 @@
               Resume
             </button>
           </a>
-          <a href="#contact-section" style="margin-left:12px; text-decoration:none">
+          <a
+            href="#contact-section"
+            style="margin-left: 12px; text-decoration: none"
+          >
             <button id="aboutMeBtn">
               <i class="fa-solid fa-user" style="font-size: 18px"></i>
               About Me
@@ -266,7 +261,7 @@
           ></canvas>
         </div>
 
-        <a href="#about-section"><div class="scroll-down"></div></a>
+        <a href="#projects-section"><div class="scroll-down"></div></a>
       </section>
 
       <!-- About Me Modal -->
@@ -276,26 +271,45 @@
           <button class="modal-close" id="closeModal">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          
-          <h1 class="modal-title">Let's Get Introduced 👋</h1>
-          
+
+          <h1 class="modal-title">Let's Get Introduced</h1>
+
           <div class="modal-body">
             <div class="modal-left">
               <div class="modal-text-section">
                 <h1>Hi there, I'm Biswajit</h1>
-                <p>
+                <p class="about-intro">
                   With experience across front-end development, software
-                  engineering, AI/ML workflows, data-driven applications, and
-                  user-centric design, I create intelligent and impactful
-                  digital solutions.
+                  engineering, AI/ML workflows, and data-driven design, I build
+                  digital experiences that balance intelligence, usability, and
+                  visual clarity.
                 </p>
+                <ul class="about-points" style="margin-bottom: 0">
+                  <li style="padding-bottom: 5%">Product-focused mindset</li>
+                  <li style="padding-bottom: 5%">
+                    Solid engineering foundation
+                  </li>
+                  <li style="padding-bottom: 5%">
+                    AI-enhanced problem solving
+                  </li>
+                  <li style="padding-bottom: 5%">
+                    Clean & intuitive UI thinking
+                  </li>
+                  <li style="padding-bottom: 5%">Adaptability to new tech</li>
+                  <li style="padding-bottom: 5%">Detail-oriented</li>
+                  <li>Continuous learner</li>
+                </ul>
               </div>
+            </div>
 
+            <div class="modal-middle">
               <div class="modal-text-section">
-                <h1>Tech Stack</h1>
+                <h1>Achievements</h1>
                 <p>
-                  I specialize in a variety of languages, frameworks, and tools
-                  that allow me to build robust and scalable applications.
+                  Successfully delivered multiple full-stack projects with
+                  modern technologies. Built scalable applications integrating
+                  AI/ML capabilities. Developed user-centric designs with focus
+                  on performance and accessibility.
                 </p>
               </div>
 
@@ -324,48 +338,7 @@
         </div>
       </div>
 
-      <section class="about-section" id="about-section">
-        <h1 class="section-title autoDisplay">Let’s Get Introduced 👋</h1>
-
-        <div class="about-layout">
-          <div
-            class="about-left"
-            data-aos="fade-right"
-            data-aos-duration="1200"
-          >
-            <div class="about-image-wrapper">
-              <img
-                src="public/assets/images/display-picture.png"
-                alt="Biswajit Panda"
-              />
-            </div>
-          </div>
-
-          <div class="about-right">
-            <div class="info-cards autoBlur" id="about-cards">
-              <div class="card">
-                <h1>Hi there, I'm Biswajit</h1>
-                <p>
-                  With experience across front-end development, software
-                  engineering, AI/ML workflows, data-driven applications, and
-                  user-centric design, I create intelligent and impactful
-                  digital solutions.
-                </p>
-              </div>
-
-              <div class="card">
-                <h1>Tech Stack</h1>
-                <p>
-                  I specialize in a variety of languages, frameworks, and tools
-                  that allow me to build robust and scalable applications.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="project-section" id="project-section">
+      <section class="projects-section" id="projects-section">
         <h1 class="section-title autoDisplay">My Projects 👨‍💻</h1>
         <div class="project-card">
           <div class="project-vidbox autoBlur">

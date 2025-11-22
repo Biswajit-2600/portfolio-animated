@@ -119,30 +119,6 @@ if (heroSkillsAnimation && heroSection) {
   observer.observe(heroSection);
 }
 
-// Scroll-triggered card animation for about section
-const aboutCards = document.getElementById("about-cards");
-const aboutSection = document.getElementById("about-section");
-
-if (aboutCards && aboutSection) {
-  const aboutObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          aboutCards.classList.add("animate-cards");
-        } else {
-          aboutCards.classList.remove("animate-cards");
-        }
-      });
-    },
-    {
-      threshold: 0.3, // Trigger when 30% of section is visible
-      rootMargin: "0px",
-    }
-  );
-
-  aboutObserver.observe(aboutSection);
-}
-
 // About Me Modal Functionality
 const aboutMeBtn = document.getElementById("aboutMeBtn");
 const modal = document.getElementById("aboutMeModal");
