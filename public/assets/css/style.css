@@ -1590,17 +1590,18 @@ section {
   height: 90px;
   object-fit: contain;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.certification-icon:hover .cert-popup {
+.cert-popup-icons img:hover {
+  transform: scale(1.15);
+}
+
+.certification-icon:hover .cert-popup,
+.cert-popup:hover {
   opacity: 1;
   transform: translateY(-50%) scale(1);
   pointer-events: auto;
-}
-
-.certification-icon:not(:hover) .cert-popup {
-  transform: translateY(-50%) scale(0);
-  transform-origin: left center;
 }
 
 /* Leadership Popup Styles */
