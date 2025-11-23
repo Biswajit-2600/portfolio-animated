@@ -1,24 +1,113 @@
-const video1 = document.getElementById("projectVideo1");
-const video2 = document.getElementById("projectVideo2");
-const video3 = document.getElementById("projectVideo3");
+// Project video elements removed - no longer used in new layout
+// const video1 = document.getElementById("projectVideo1");
+// const video2 = document.getElementById("projectVideo2");
+// const video3 = document.getElementById("projectVideo3");
 
 // Sidebar elements //
 const sideBar = document.querySelector(".sidebar");
 const menu = document.querySelector(".menu-icon");
 const closeIcon = document.querySelector(".close-icon");
 
-const hoverSign = document.querySelector(".hover-sign");
+// const hoverSign = document.querySelector(".hover-sign");
 
-const videoList = [video1, video2, video3];
+// const videoList = [video1, video2, video3];
 
-videoList.forEach(function (video) {
-  video.addEventListener("mouseover", function () {
-    video.play();
-    hoverSign.classList.add("active");
+// videoList.forEach(function (video) {
+//   video.addEventListener("mouseover", function () {
+//     video.play();
+//     hoverSign.classList.add("active");
+//   });
+//   video.addEventListener("mouseout", function () {
+//     video.pause();
+//     hoverSign.classList.remove("active");
+//   });
+// });
+
+// Project Modal Logic
+function openProjectModal(type) {
+  const modal = document.getElementById("projectModal");
+  const modalBody = document.getElementById("projectModalBody");
+  const projectDetails = {
+    personal: {
+      title: "Personal Projects",
+      content: `<h2>Personal Projects</h2>
+        <p>Here are some random details about personal projects. You can add your own content here later.</p>
+        <ul>
+          <li>Project Alpha: A cool web app for fun.</li>
+          <li>Project Beta: Learning new tech.</li>
+        </ul>`
+    },
+    professional: {
+      title: "Professional Projects",
+      content: `<h2>Professional Projects</h2>
+        <p>Here are some random details about professional projects. You can add your own content here later.</p>
+        <ul>
+          <li>ClientX Dashboard: Enterprise solution.</li>
+          <li>StartupY Platform: Scalable SaaS.</li>
+        </ul>`
+    }
+  };
+  if (projectDetails[type]) {
+    modalBody.innerHTML = projectDetails[type].content;
+    modal.classList.add("show");
+    setTimeout(() => {
+      modal.style.opacity = "1";
+    }, 10);
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeProjectModal() {
+  const modal = document.getElementById("projectModal");
+  modal.style.opacity = "0";
+  setTimeout(() => {
+    modal.classList.remove("show");
+    document.body.style.overflow = "auto";
+  }, 300);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const cards = document.querySelectorAll(".project-category-card");
+  const modalClose = document.getElementById("closeProjectModal");
+  const modal = document.getElementById("projectModal");
+  const modalBody = document.getElementById("projectModalBody");
+
+  const projectDetails = {
+    personal: {
+      title: "Personal Projects",
+      content: `<h2>Personal Projects</h2>
+        <p>Here are some random details about personal projects. You can add your own content here later.</p>
+        <ul>
+          <li>Project Alpha: A cool web app for fun.</li>
+          <li>Project Beta: Learning new tech.</li>
+        </ul>`
+    },
+    professional: {
+      title: "Professional Projects",
+      content: `<h2>Professional Projects</h2>
+        <p>Here are some random details about professional projects. You can add your own content here later.</p>
+        <ul>
+          <li>ClientX Dashboard: Enterprise solution.</li>
+          <li>StartupY Platform: Scalable SaaS.</li>
+        </ul>`
+    }
+  };
+
+  cards.forEach(card => {
+    card.addEventListener("click", function () {
+      const type = card.getAttribute("data-project");
+      openProjectModal(type);
+    });
   });
-  video.addEventListener("mouseout", function () {
-    video.pause();
-    hoverSign.classList.remove("active");
+
+  modalClose.addEventListener("click", function () {
+    closeProjectModal();
+  });
+
+  window.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeProjectModal();
+    }
   });
 });
 
@@ -119,15 +208,15 @@ if (heroSkillsAnimation && heroSection) {
   observer.observe(heroSection);
 }
 
-// About Me Modal Functionality
-const aboutMeBtn = document.getElementById("aboutMeBtn");
-const modal = document.getElementById("aboutMeModal");
+// General Modal Functionality
+const modalBtn = document.getElementById("modalOpen");
+const modal = document.getElementById("allModal");
 const closeModalBtn = document.getElementById("closeModal");
 const modalOverlay = modal?.querySelector(".modal-overlay");
 
-if (aboutMeBtn && modal) {
+if (modalBtn && modal) {
   // Open modal with delayed fade in
-  aboutMeBtn.addEventListener("click", function (e) {
+  modalBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     // Show modal with delayed fade

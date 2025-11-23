@@ -19,7 +19,7 @@ Features from videos in playlist (tentative):-
 -- header: 6 				-- done
 -- landing: 3(changing text feature), 6 -- done
 -- about/overview: 1, 4, 5		-- done
--- projects: 2, 5, 6, 7			-- 
+-- projects: 2, 5, 6, 7			-- ongoing
 -- skills: 3, 5, 6, 7			-- 
 -- experience/education: 1, 3, 7	-- 	
 -- contact: 3, 4			-- 	(ideas -- an icon will be there and on clicking it, all the different icons will open from it like a graph or wheel)
