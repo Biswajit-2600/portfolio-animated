@@ -247,13 +247,6 @@ if (modalBtn && modal) {
   if (modalOverlay) {
     modalOverlay.addEventListener("click", closeModal);
   }
-
-  // Close on Escape key
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && modal.classList.contains("show")) {
-      closeModal();
-    }
-  });
 }
 
 // Ensure tooltip arrows match their background colors
