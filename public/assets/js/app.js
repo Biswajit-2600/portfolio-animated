@@ -129,13 +129,13 @@ if (aboutMeBtn && modal) {
   // Open modal with delayed fade in
   aboutMeBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    
+
     // Show modal with delayed fade
     modal.style.display = "flex";
     setTimeout(() => {
       modal.classList.add("show");
     }, 10);
-    
+
     // Prevent body scroll
     document.body.style.overflow = "hidden";
   });
@@ -168,15 +168,15 @@ if (aboutMeBtn && modal) {
 }
 
 // Ensure tooltip arrows match their background colors
-document.addEventListener('DOMContentLoaded', function() {
-  const tooltips = document.querySelectorAll('.icon-tooltip');
-  tooltips.forEach(tooltip => {
+document.addEventListener("DOMContentLoaded", function () {
+  const tooltips = document.querySelectorAll(".icon-tooltip");
+  tooltips.forEach((tooltip) => {
     const bgColor = tooltip.style.backgroundColor;
     if (bgColor) {
-      tooltip.style.setProperty('--tooltip-bg', bgColor);
+      tooltip.style.setProperty("--tooltip-bg", bgColor);
       // Set the arrow color to match by updating the border-top-color
-      const afterStyle = document.createElement('style');
-      const tooltipId = 'tooltip-' + Math.random().toString(36).substr(2, 9);
+      const afterStyle = document.createElement("style");
+      const tooltipId = "tooltip-" + Math.random().toString(36).substr(2, 9);
       tooltip.classList.add(tooltipId);
       afterStyle.textContent = `.${tooltipId}::after { border-top-color: ${bgColor} !important; }`;
       document.head.appendChild(afterStyle);
