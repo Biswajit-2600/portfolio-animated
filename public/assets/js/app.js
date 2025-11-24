@@ -16,7 +16,7 @@ const projectsData = {
       title: "Portfolio Website - Interactive 3D Experience",
       desc: "A cutting-edge personal portfolio showcasing modern web development skills with interactive 3D elements, smooth animations, and responsive design. Features include dynamic project showcases, skill visualizations, and contact forms.",
       video: "public/assets/videos/portfolio-demo.mp4",
-      href: "https://biswajit-me-3d.vercel.app/",
+      href: "https://biswajit-me-3d.vercel.app",
       github: "https://github.com/Biswajit-2600/portfolio-3d",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
@@ -180,6 +180,9 @@ function renderProject() {
   const btnViewCode = document.getElementById("btnViewCode");
   if (btnViewCode) btnViewCode.href = project.github;
 
+  const btnViewLive = document.getElementById("btnViewLive");
+  if (btnViewLive) btnViewLive.href = project.href;
+
   // Update project counter
   const counterElement = document.getElementById("projectCounter");
   if (counterElement) {
@@ -189,7 +192,7 @@ function renderProject() {
   }
 
   // Initialize 3D model after DOM is updated
-  setTimeout(() => init3DModel(), 100);
+  setTimeout(() => init3DModel(), 350);
 
   // ---------------------------------------------
   // UPDATE LAPTOP SCREEN VIDEO ON PROJECT CHANGE
@@ -230,11 +233,18 @@ function init3DModel() {
 
   if (!canvas || !container) return;
 
-  // Clean up previous instance
-  if (renderer3D) {
-    renderer3D.dispose();
-    if (controls3D) controls3D.dispose();
+  // 🔥 FIX: Wait until modal is fully opened (prevent size=0)
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  if (width === 0 || height === 0) {
+    setTimeout(init3DModel, 100);
+    return;
   }
+
+  // Clean up previous instance
+  if (controls3D) controls3D.dispose();
+
 
   // Scene setup
   scene3D = new THREE.Scene();
@@ -282,7 +292,7 @@ function init3DModel() {
     function (gltf) {
       laptop3D = gltf.scene;
 
-      const screenMesh = laptop3D.getObjectByName("object_8");
+      const screenMesh = laptop3D.getObjectByName("Object_8");
 
       if (screenMesh) {
         const video = document.createElement("video");

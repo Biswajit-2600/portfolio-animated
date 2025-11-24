@@ -540,38 +540,66 @@
         <!-- Modal Popup for Project Details -->
         <div id="projectModal" class="modal">
           <div class="modal-overlay"></div>
-          
+
           <div class="modal-content project-modal-content">
             <button class="modal-close" id="closeProjectModal">
               <i class="fa-solid fa-xmark"></i>
             </button>
             <h1 class="modal-title" id="projectModalTitle">My Selected Work</h1>
             <!-- Left Navigation Arrow (edge of left div) -->
-            <div class="project-arrow left" onclick="navigateProject('previous')">
+            <div
+              class="project-arrow left"
+              onclick="navigateProject('previous')"
+            >
               <i class="fa-solid fa-chevron-left"></i>
             </div>
             <div class="project-modal-body" id="projectModalBody">
-              
               <!-- Left Side - Project Details -->
               <div class="project-details-side">
-                <img src="" alt="spotlight" class="project-spotlight" id="projectSpotlight" />
+                <img
+                  src=""
+                  alt="spotlight"
+                  class="project-spotlight"
+                  id="projectSpotlight"
+                />
                 <div class="project-logo-container" id="projectLogoContainer">
-                  <img class="project-logo" src="" alt="logo" id="projectLogo" />
+                  <img
+                    class="project-logo"
+                    src=""
+                    alt="logo"
+                    id="projectLogo"
+                  />
                 </div>
                 <div class="project-info">
                   <h2 class="project-title" id="projectTitle">Project Title</h2>
-                  <p class="project-desc" id="projectDesc">Project description goes here...</p>
-                  <p class="project-subdesc" id="projectSubdesc">Additional details...</p>
+                  <p class="project-desc" id="projectDesc">
+                    Project description goes here...
+                  </p>
+                  <p class="project-subdesc" id="projectSubdesc">
+                    Additional details...
+                  </p>
                 </div>
                 <div class="project-tags" id="projectTags">
                   <!-- Tech tags will be inserted here -->
                 </div>
                 <div class="project-actions">
-                  <a class="project-btn btn-view-code" id="btnViewCode" href="#" target="_blank" rel="noreferrer">
+                  <a
+                    class="project-btn btn-view-code"
+                    id="btnViewCode"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i class="fa-brands fa-github"></i>
                     <span>View Code</span>
                   </a>
-                  <a class="project-btn btn-view-live" href="https://website-under-construction.vercel.app/" target="_blank" rel="noreferrer">
+                  <a
+                    class="project-btn btn-view-live"
+                    id="btnViewLive"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     <span>View Live Site</span>
                   </a>
@@ -581,13 +609,12 @@
               <div class="project-preview-side" id="project3DContainer">
                 <canvas id="laptopCanvas"></canvas>
               </div>
-              
             </div>
             <!-- Right Navigation Arrow (edge of right div) -->
             <div class="project-arrow right" onclick="navigateProject('next')">
               <i class="fa-solid fa-chevron-right"></i>
             </div>
-            
+
             <!-- Project Counter -->
             <div class="project-counter" id="projectCounter">1 / 1</div>
           </div>
