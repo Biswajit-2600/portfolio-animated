@@ -107,7 +107,6 @@ let currentProjectType = "personal";
 // Project Modal Logic
 function openProjectModal(type) {
   const modal = document.getElementById("projectModal");
-  const modalBody = document.getElementById("projectModalBody");
   const modalTitle = document.getElementById("projectModalTitle");
 
   currentProjectType = type;
@@ -119,12 +118,8 @@ function openProjectModal(type) {
   renderProject();
 
   modal.classList.add("show");
-  setTimeout(() => {
-    modal.style.opacity = "1";
-  }, 10);
+  setTimeout(() => (modal.style.opacity = "1"), 10);
   document.body.style.overflow = "hidden";
-
-  loadLaptopModel();
 }
 
 function renderProject() {
@@ -244,7 +239,6 @@ function init3DModel() {
 
   // Clean up previous instance
   if (controls3D) controls3D.dispose();
-
 
   // Scene setup
   scene3D = new THREE.Scene();

@@ -648,12 +648,6 @@ section {
 
 /* Project Modal Body */
 
-#project3DContainer {
-  min-width: 100%;
-  min-height: 100%;
-  position: relative;
-}
-
 #laptopCanvas {
   width: 100%;
   height: 100%;

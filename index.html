@@ -741,19 +741,21 @@
         </div>
       </section>
     </div>
-    <!-- Starfield Background Animation -->
+    <!-- Three.js (MUST BE FIRST) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.core.min.js"></script>
+
+    <!-- GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Now load your scripts -->
     <script src="public/assets/js/starfield.js"></script>
-    <!-- Tech Network Animation -->
     <script src="public/assets/js/tech-network.js"></script>
-    <!-- AOS Library -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <!-- Three.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.min.js"></script>
-    <!-- Three.js GLTFLoader -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.164.1/examples/js/loaders/GLTFLoader.js"></script>
-    <!-- Three.js OrbitControls -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.164.1/examples/js/controls/OrbitControls.js"></script>
-    <!-- Main App Script (includes AOS initialization) -->
+
+    <!-- Finally your app -->
     <script src="public/assets/js/app.js"></script>
   </body>
 </html>
