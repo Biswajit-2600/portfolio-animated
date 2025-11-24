@@ -1,27 +1,13 @@
-// Project video elements removed - no longer used in new layout
-// const video1 = document.getElementById("projectVideo1");
-// const video2 = document.getElementById("projectVideo2");
-// const video3 = document.getElementById("projectVideo3");
-
 // Sidebar elements //
 const sideBar = document.querySelector(".sidebar");
 const menu = document.querySelector(".menu-icon");
 const closeIcon = document.querySelector(".close-icon");
+// 3D Laptop Model Canvas
+const laptopCanvas = document.getElementById("laptopCanvas");
 
-// const hoverSign = document.querySelector(".hover-sign");
-
-// const videoList = [video1, video2, video3];
-
-// videoList.forEach(function (video) {
-//   video.addEventListener("mouseover", function () {
-//     video.play();
-//     hoverSign.classList.add("active");
-//   });
-//   video.addEventListener("mouseout", function () {
-//     video.pause();
-//     hoverSign.classList.remove("active");
-//   });
-// });
+let screenMesh3D = null;
+let videoElement3D = null;
+let videoTexture3D = null;
 
 // Project Data
 const projectsData = {
@@ -29,8 +15,9 @@ const projectsData = {
     {
       title: "Portfolio Website - Interactive 3D Experience",
       desc: "A cutting-edge personal portfolio showcasing modern web development skills with interactive 3D elements, smooth animations, and responsive design. Features include dynamic project showcases, skill visualizations, and contact forms.",
-      subdesc: "Built with HTML5, CSS3, JavaScript, and Matter.js for physics-based animations. Incorporates AOS (Animate On Scroll) library and custom canvas animations for an immersive user experience.",
-      href: "#",
+      video: "public/assets/videos/portfolio-demo.mp4",
+      href: "https://biswajit-me-3d.vercel.app/",
+      github: "https://github.com/Biswajit-2600/portfolio-3d",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
         backgroundColor: "#2A1816",
@@ -49,8 +36,9 @@ const projectsData = {
     {
       title: "Weather Dashboard - Real-time Updates",
       desc: "A comprehensive weather application providing real-time weather data, forecasts, and interactive maps. Features location-based weather updates, hourly and weekly forecasts, and beautiful weather visualizations.",
-      subdesc: "Developed using React.js, OpenWeather API, and Chart.js for data visualization. Implements responsive design principles and local storage for saved locations.",
-      href: "#",
+      video: "public/assets/videos/portfolio-demo.mp4",
+      href: "https://website-under-construction.vercel.app/",
+      github: "#",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
         backgroundColor: "#13202F",
@@ -70,12 +58,14 @@ const projectsData = {
     {
       title: "E-Commerce Platform - Full Stack Solution",
       desc: "A comprehensive e-commerce platform with product management, shopping cart functionality, secure payment integration, and order tracking. Features include user authentication, product search, and admin dashboard.",
-      subdesc: "Built with React.js frontend, Node.js/Express backend, MongoDB database, and Stripe payment integration. Implements JWT authentication and RESTful API architecture.",
-      href: "#",
+      video: "public/assets/videos/portfolio-demo.mp4",
+      href: "https://website-under-construction.vercel.app/",
+      github: "#",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
         backgroundColor: "#60f5a1",
-        background: "linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)",
+        background:
+          "linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)",
         border: "0.2px solid rgba(208, 213, 221, 1)",
         boxShadow: "0px 0px 60px 0px rgba(35, 131, 96, 0.3)",
       },
@@ -91,8 +81,9 @@ const projectsData = {
     {
       title: "CRM Dashboard - Business Management",
       desc: "A sophisticated Customer Relationship Management system designed to streamline business operations. Features include client management, sales tracking, analytics dashboard, and automated reporting.",
-      subdesc: "Developed with Vue.js, Laravel backend, MySQL database, and Chart.js for data visualization. Implements role-based access control and real-time notifications.",
-      href: "#",
+      video: "public/assets/videos/portfolio-demo.mp4",
+      href: "https://website-under-construction.vercel.app/",
+      github: "#",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
         backgroundColor: "#0E1F38",
@@ -122,7 +113,8 @@ function openProjectModal(type) {
   currentProjectType = type;
   currentProjectIndex = 0;
 
-  modalTitle.textContent = type === "personal" ? "Personal Projects" : "Professional Projects";
+  modalTitle.textContent =
+    type === "personal" ? "Personal Projects" : "Professional Projects";
 
   renderProject();
 
@@ -131,86 +123,278 @@ function openProjectModal(type) {
     modal.style.opacity = "1";
   }, 10);
   document.body.style.overflow = "hidden";
+
+  loadLaptopModel();
 }
 
 function renderProject() {
-  const modalBody = document.getElementById("projectModalBody");
   const projects = projectsData[currentProjectType];
   const project = projects[currentProjectIndex];
 
-  const logoStyleString = Object.entries(project.logoStyle)
-    .map(([key, value]) => {
-      const cssKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-      return `${cssKey}: ${value}`;
-    })
-    .join("; ");
+  // Update spotlight image
+  const spotlight = document.getElementById("projectSpotlight");
+  if (spotlight) spotlight.src = project.spotlight;
 
-  const tagsHTML = project.tags
-    .map(
-      (tag) => `
-    <div class="tech-logo" title="${tag.name}">
-      <img src="${tag.path}" alt="${tag.name}" />
-    </div>
-  `
-    )
-    .join("");
+  // Update logo container styles
+  const logoContainer = document.getElementById("projectLogoContainer");
+  if (logoContainer) {
+    const logoStyleString = Object.entries(project.logoStyle)
+      .map(([key, value]) => {
+        const cssKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+        return `${cssKey}: ${value}`;
+      })
+      .join("; ");
+    logoContainer.setAttribute("style", logoStyleString);
+  }
 
-  const previewHTML = project.texture
-    ? `<video autoplay loop muted playsinline>
-         <source src="${project.texture}" type="video/mp4" />
-       </video>`
-    : `<div class="project-preview-placeholder">Project Preview Coming Soon</div>`;
+  // Update logo image
+  const logo = document.getElementById("projectLogo");
+  if (logo) logo.src = project.logo;
 
-  modalBody.innerHTML = `
-    <div class="project-details-side">
-      <img src="${project.spotlight}" alt="spotlight" class="project-spotlight" />
-      
-      <div class="project-logo-container" style="${logoStyleString}">
-        <img class="project-logo" src="${project.logo}" alt="logo" />
+  // Update project info
+  const title = document.getElementById("projectTitle");
+  if (title) title.textContent = project.title;
+
+  const desc = document.getElementById("projectDesc");
+  if (desc) desc.textContent = project.desc;
+
+  const subdesc = document.getElementById("projectSubdesc");
+  if (subdesc) subdesc.textContent = project.subdesc;
+
+  // Update tags
+  const tagsContainer = document.getElementById("projectTags");
+  if (tagsContainer) {
+    const tagsHTML = project.tags
+      .map(
+        (tag) => `
+      <div class="tech-logo" title="${tag.name}">
+        <img src="${tag.path}" alt="${tag.name}" />
       </div>
+    `
+      )
+      .join("");
+    tagsContainer.innerHTML = tagsHTML;
+  }
 
-      <div class="project-info">
-        <h2 class="project-title">${project.title}</h2>
-        <p class="project-desc">${project.desc}</p>
-        <p class="project-subdesc">${project.subdesc}</p>
-      </div>
+  // Update View Code button link
+  const btnViewCode = document.getElementById("btnViewCode");
+  if (btnViewCode) btnViewCode.href = project.github;
 
-      <div class="project-tags">
-        ${tagsHTML}
-      </div>
+  // Update project counter
+  const counterElement = document.getElementById("projectCounter");
+  if (counterElement) {
+    counterElement.textContent = `${currentProjectIndex + 1} / ${
+      projects.length
+    }`;
+  }
 
-      <a class="project-link" href="${project.href}" target="_blank" rel="noreferrer">
-        <p>Check Live Site</p>
-        <img src="public/assets/icons/arrow-up.png" alt="arrow" />
-      </a>
+  // Initialize 3D model after DOM is updated
+  setTimeout(() => init3DModel(), 100);
 
-      <div class="project-navigation">
-        <button class="arrow-btn" onclick="navigateProject('previous')">
-          <img src="public/assets/icons/left-arrow.png" alt="previous" />
-        </button>
-        <span style="color: #888;">${currentProjectIndex + 1} / ${projects.length}</span>
-        <button class="arrow-btn" onclick="navigateProject('next')">
-          <img src="public/assets/icons/right-arrow.png" alt="next" />
-        </button>
-      </div>
-    </div>
+  // ---------------------------------------------
+  // UPDATE LAPTOP SCREEN VIDEO ON PROJECT CHANGE
+  // ---------------------------------------------
+  if (videoElement3D && screenMesh3D) {
+    const videoSrc = project.video;
 
-    <div class="project-preview-side">
-      ${previewHTML}
-    </div>
-  `;
+    if (videoSrc) {
+      videoElement3D.src = videoSrc;
+      videoElement3D
+        .play()
+        .catch((err) => console.log("Autoplay blocked:", err));
+    }
+  }
 }
 
 function navigateProject(direction) {
   const projects = projectsData[currentProjectType];
-  
+
   if (direction === "previous") {
-    currentProjectIndex = currentProjectIndex === 0 ? projects.length - 1 : currentProjectIndex - 1;
+    currentProjectIndex =
+      currentProjectIndex === 0 ? projects.length - 1 : currentProjectIndex - 1;
   } else {
-    currentProjectIndex = currentProjectIndex === projects.length - 1 ? 0 : currentProjectIndex + 1;
+    currentProjectIndex =
+      currentProjectIndex === projects.length - 1 ? 0 : currentProjectIndex + 1;
   }
-  
+
   renderProject();
+}
+
+// 3D Model Variables
+let scene3D, camera3D, renderer3D, laptop3D, controls3D;
+let isModel3DInitialized = false;
+
+function init3DModel() {
+  const canvas = document.getElementById("laptopCanvas");
+  const container = document.getElementById("project3DContainer");
+
+  if (!canvas || !container) return;
+
+  // Clean up previous instance
+  if (renderer3D) {
+    renderer3D.dispose();
+    if (controls3D) controls3D.dispose();
+  }
+
+  // Scene setup
+  scene3D = new THREE.Scene();
+
+  // Camera setup - front facing view
+  camera3D = new THREE.PerspectiveCamera(
+    45,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    1000
+  );
+  camera3D.position.set(0, 0, 5); // Front facing position
+  camera3D.lookAt(0, 0, 0);
+
+  // Renderer setup
+  renderer3D = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+    alpha: true,
+  });
+  renderer3D.setSize(container.clientWidth, container.clientHeight);
+  renderer3D.setPixelRatio(window.devicePixelRatio);
+  renderer3D.setClearColor(0x000000, 0);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  scene3D.add(ambientLight);
+
+  const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+  directionalLight1.position.set(5, 5, 5);
+  scene3D.add(directionalLight1);
+
+  const directionalLight2 = new THREE.DirectionalLight(0x72a1de, 0.8);
+  directionalLight2.position.set(-5, 3, -5);
+  scene3D.add(directionalLight2);
+
+  const directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.6);
+  directionalLight3.position.set(0, -5, 0);
+  scene3D.add(directionalLight3);
+
+  // Load laptop model
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    "public/assets/models/laptop-model.glb",
+    function (gltf) {
+      laptop3D = gltf.scene;
+
+      const screenMesh = laptop3D.getObjectByName("object_8");
+
+      if (screenMesh) {
+        const video = document.createElement("video");
+        video.src = "public/assets/videos/sample.mp4"; // temporary placeholder
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.autoplay = true;
+
+        video.addEventListener("loadeddata", () => {
+          const videoTex = new THREE.VideoTexture(video);
+          videoTex.minFilter = THREE.LinearFilter;
+          videoTex.magFilter = THREE.LinearFilter;
+          videoTex.format = THREE.RGBAFormat;
+
+          screenMesh.material = new THREE.MeshBasicMaterial({
+            map: videoTex,
+            toneMapped: false,
+          });
+
+          video.play();
+        });
+      }
+
+      // Center and scale the model
+      const box = new THREE.Box3().setFromObject(laptop3D);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const scale = 2.5 / maxDim;
+      laptop3D.scale.setScalar(scale);
+
+      laptop3D.position.sub(center.multiplyScalar(scale));
+
+      // Rotate to face front (adjust based on model orientation)
+      laptop3D.rotation.y = 0;
+      laptop3D.rotation.x = 0;
+      laptop3D.rotation.z = 0;
+
+      screenMesh3D = laptop3D.getObjectByName("Object_8");
+
+      if (screenMesh3D) {
+        console.log("Laptop screen found:", screenMesh3D);
+
+        // Create HTML5 video element
+        videoElement3D = document.createElement("video");
+        videoElement3D.muted = true;
+        videoElement3D.loop = true;
+        videoElement3D.playsInline = true;
+        videoElement3D.autoplay = true;
+
+        // Create Three.js VideoTexture
+        videoTexture3D = new THREE.VideoTexture(videoElement3D);
+        videoTexture3D.minFilter = THREE.LinearFilter;
+        videoTexture3D.magFilter = THREE.LinearFilter;
+        videoTexture3D.format = THREE.RGBAFormat;
+
+        // Apply video material to screen
+        screenMesh3D.material = new THREE.MeshBasicMaterial({
+          map: videoTexture3D,
+          toneMapped: false,
+        });
+      }
+
+      scene3D.add(laptop3D);
+
+      // Setup drag controls
+      controls3D = new THREE.OrbitControls(camera3D, renderer3D.domElement);
+      controls3D.enableDamping = true;
+      controls3D.dampingFactor = 0.05;
+      controls3D.enableZoom = true;
+      controls3D.enablePan = false;
+      controls3D.minDistance = 3;
+      controls3D.maxDistance = 10;
+      controls3D.target.set(0, 0, 0);
+
+      animate3D();
+    },
+    undefined,
+    function (error) {
+      console.error("Error loading 3D model:", error);
+      // Show fallback message
+      container.innerHTML =
+        '<div class="project-preview-placeholder">3D Model Loading...</div>';
+    }
+  );
+
+  // Handle window resize
+  function onWindowResize() {
+    if (!container || !camera3D || !renderer3D) return;
+
+    camera3D.aspect = container.clientWidth / container.clientHeight;
+    camera3D.updateProjectionMatrix();
+    renderer3D.setSize(container.clientWidth, container.clientHeight);
+  }
+
+  window.addEventListener("resize", onWindowResize);
+
+  isModel3DInitialized = true;
+}
+
+function animate3D() {
+  if (!renderer3D || !scene3D || !camera3D) return;
+
+  requestAnimationFrame(animate3D);
+
+  if (controls3D) {
+    controls3D.update();
+  }
+
+  renderer3D.render(scene3D, camera3D);
 }
 
 function closeProjectModal() {
@@ -227,27 +411,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalClose = document.getElementById("closeProjectModal");
   const modal = document.getElementById("projectModal");
   const modalBody = document.getElementById("projectModalBody");
-
-  const projectDetails = {
-    personal: {
-      title: "Personal Projects",
-      content: `<h2>Personal Projects</h2>
-        <p>Here are some random details about personal projects. You can add your own content here later.</p>
-        <ul>
-          <li>Project Alpha: A cool web app for fun.</li>
-          <li>Project Beta: Learning new tech.</li>
-        </ul>`,
-    },
-    professional: {
-      title: "Professional Projects",
-      content: `<h2>Professional Projects</h2>
-        <p>Here are some random details about professional projects. You can add your own content here later.</p>
-        <ul>
-          <li>ClientX Dashboard: Enterprise solution.</li>
-          <li>StartupY Platform: Scalable SaaS.</li>
-        </ul>`,
-    },
-  };
 
   cards.forEach((card) => {
     card.addEventListener("click", function () {
