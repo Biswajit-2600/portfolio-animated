@@ -23,38 +23,194 @@ const closeIcon = document.querySelector(".close-icon");
 //   });
 // });
 
+// Project Data
+const projectsData = {
+  personal: [
+    {
+      title: "Portfolio Website - Interactive 3D Experience",
+      desc: "A cutting-edge personal portfolio showcasing modern web development skills with interactive 3D elements, smooth animations, and responsive design. Features include dynamic project showcases, skill visualizations, and contact forms.",
+      subdesc: "Built with HTML5, CSS3, JavaScript, and Matter.js for physics-based animations. Incorporates AOS (Animate On Scroll) library and custom canvas animations for an immersive user experience.",
+      href: "#",
+      logo: "public/assets/icons/favicon.svg",
+      logoStyle: {
+        backgroundColor: "#2A1816",
+        border: "0.2px solid #36201D",
+        boxShadow: "0px 0px 60px 0px #AA3C304D",
+      },
+      spotlight: "public/assets/images/1.png",
+      tags: [
+        { name: "HTML5", path: "public/assets/images/1.png" },
+        { name: "CSS3", path: "public/assets/images/2.png" },
+        { name: "JavaScript", path: "public/assets/images/3.webp" },
+        { name: "Matter.js", path: "public/assets/images/4.webp" },
+      ],
+      texture: null,
+    },
+    {
+      title: "Weather Dashboard - Real-time Updates",
+      desc: "A comprehensive weather application providing real-time weather data, forecasts, and interactive maps. Features location-based weather updates, hourly and weekly forecasts, and beautiful weather visualizations.",
+      subdesc: "Developed using React.js, OpenWeather API, and Chart.js for data visualization. Implements responsive design principles and local storage for saved locations.",
+      href: "#",
+      logo: "public/assets/icons/favicon.svg",
+      logoStyle: {
+        backgroundColor: "#13202F",
+        border: "0.2px solid #17293E",
+        boxShadow: "0px 0px 60px 0px #2F6DB54D",
+      },
+      spotlight: "public/assets/images/5.png",
+      tags: [
+        { name: "React", path: "public/assets/images/5.png" },
+        { name: "JavaScript", path: "public/assets/images/3.webp" },
+        { name: "API", path: "public/assets/images/6.png" },
+      ],
+      texture: null,
+    },
+  ],
+  professional: [
+    {
+      title: "E-Commerce Platform - Full Stack Solution",
+      desc: "A comprehensive e-commerce platform with product management, shopping cart functionality, secure payment integration, and order tracking. Features include user authentication, product search, and admin dashboard.",
+      subdesc: "Built with React.js frontend, Node.js/Express backend, MongoDB database, and Stripe payment integration. Implements JWT authentication and RESTful API architecture.",
+      href: "#",
+      logo: "public/assets/icons/favicon.svg",
+      logoStyle: {
+        backgroundColor: "#60f5a1",
+        background: "linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)",
+        border: "0.2px solid rgba(208, 213, 221, 1)",
+        boxShadow: "0px 0px 60px 0px rgba(35, 131, 96, 0.3)",
+      },
+      spotlight: "public/assets/images/7.png",
+      tags: [
+        { name: "React", path: "public/assets/images/5.png" },
+        { name: "Node.js", path: "public/assets/images/6.png" },
+        { name: "MongoDB", path: "public/assets/images/7.png" },
+        { name: "Express", path: "public/assets/images/8.png" },
+      ],
+      texture: null,
+    },
+    {
+      title: "CRM Dashboard - Business Management",
+      desc: "A sophisticated Customer Relationship Management system designed to streamline business operations. Features include client management, sales tracking, analytics dashboard, and automated reporting.",
+      subdesc: "Developed with Vue.js, Laravel backend, MySQL database, and Chart.js for data visualization. Implements role-based access control and real-time notifications.",
+      href: "#",
+      logo: "public/assets/icons/favicon.svg",
+      logoStyle: {
+        backgroundColor: "#0E1F38",
+        border: "0.2px solid #0E2D58",
+        boxShadow: "0px 0px 60px 0px #2F67B64D",
+      },
+      spotlight: "public/assets/images/9.png",
+      tags: [
+        { name: "Vue.js", path: "public/assets/images/8.png" },
+        { name: "Laravel", path: "public/assets/images/7.png" },
+        { name: "MySQL", path: "public/assets/images/9.png" },
+      ],
+      texture: null,
+    },
+  ],
+};
+
+let currentProjectIndex = 0;
+let currentProjectType = "personal";
+
 // Project Modal Logic
 function openProjectModal(type) {
   const modal = document.getElementById("projectModal");
   const modalBody = document.getElementById("projectModalBody");
-  const projectDetails = {
-    personal: {
-      title: "Personal Projects",
-      content: `<h2>Personal Projects</h2>
-        <p>Here are some random details about personal projects. You can add your own content here later.</p>
-        <ul>
-          <li>Project Alpha: A cool web app for fun.</li>
-          <li>Project Beta: Learning new tech.</li>
-        </ul>`
-    },
-    professional: {
-      title: "Professional Projects",
-      content: `<h2>Professional Projects</h2>
-        <p>Here are some random details about professional projects. You can add your own content here later.</p>
-        <ul>
-          <li>ClientX Dashboard: Enterprise solution.</li>
-          <li>StartupY Platform: Scalable SaaS.</li>
-        </ul>`
-    }
-  };
-  if (projectDetails[type]) {
-    modalBody.innerHTML = projectDetails[type].content;
-    modal.classList.add("show");
-    setTimeout(() => {
-      modal.style.opacity = "1";
-    }, 10);
-    document.body.style.overflow = "hidden";
+  const modalTitle = document.getElementById("projectModalTitle");
+
+  currentProjectType = type;
+  currentProjectIndex = 0;
+
+  modalTitle.textContent = type === "personal" ? "Personal Projects" : "Professional Projects";
+
+  renderProject();
+
+  modal.classList.add("show");
+  setTimeout(() => {
+    modal.style.opacity = "1";
+  }, 10);
+  document.body.style.overflow = "hidden";
+}
+
+function renderProject() {
+  const modalBody = document.getElementById("projectModalBody");
+  const projects = projectsData[currentProjectType];
+  const project = projects[currentProjectIndex];
+
+  const logoStyleString = Object.entries(project.logoStyle)
+    .map(([key, value]) => {
+      const cssKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+      return `${cssKey}: ${value}`;
+    })
+    .join("; ");
+
+  const tagsHTML = project.tags
+    .map(
+      (tag) => `
+    <div class="tech-logo" title="${tag.name}">
+      <img src="${tag.path}" alt="${tag.name}" />
+    </div>
+  `
+    )
+    .join("");
+
+  const previewHTML = project.texture
+    ? `<video autoplay loop muted playsinline>
+         <source src="${project.texture}" type="video/mp4" />
+       </video>`
+    : `<div class="project-preview-placeholder">Project Preview Coming Soon</div>`;
+
+  modalBody.innerHTML = `
+    <div class="project-details-side">
+      <img src="${project.spotlight}" alt="spotlight" class="project-spotlight" />
+      
+      <div class="project-logo-container" style="${logoStyleString}">
+        <img class="project-logo" src="${project.logo}" alt="logo" />
+      </div>
+
+      <div class="project-info">
+        <h2 class="project-title">${project.title}</h2>
+        <p class="project-desc">${project.desc}</p>
+        <p class="project-subdesc">${project.subdesc}</p>
+      </div>
+
+      <div class="project-tags">
+        ${tagsHTML}
+      </div>
+
+      <a class="project-link" href="${project.href}" target="_blank" rel="noreferrer">
+        <p>Check Live Site</p>
+        <img src="public/assets/icons/arrow-up.png" alt="arrow" />
+      </a>
+
+      <div class="project-navigation">
+        <button class="arrow-btn" onclick="navigateProject('previous')">
+          <img src="public/assets/icons/left-arrow.png" alt="previous" />
+        </button>
+        <span style="color: #888;">${currentProjectIndex + 1} / ${projects.length}</span>
+        <button class="arrow-btn" onclick="navigateProject('next')">
+          <img src="public/assets/icons/right-arrow.png" alt="next" />
+        </button>
+      </div>
+    </div>
+
+    <div class="project-preview-side">
+      ${previewHTML}
+    </div>
+  `;
+}
+
+function navigateProject(direction) {
+  const projects = projectsData[currentProjectType];
+  
+  if (direction === "previous") {
+    currentProjectIndex = currentProjectIndex === 0 ? projects.length - 1 : currentProjectIndex - 1;
+  } else {
+    currentProjectIndex = currentProjectIndex === projects.length - 1 ? 0 : currentProjectIndex + 1;
   }
+  
+  renderProject();
 }
 
 function closeProjectModal() {
@@ -80,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <ul>
           <li>Project Alpha: A cool web app for fun.</li>
           <li>Project Beta: Learning new tech.</li>
-        </ul>`
+        </ul>`,
     },
     professional: {
       title: "Professional Projects",
@@ -89,11 +245,11 @@ document.addEventListener("DOMContentLoaded", function () {
         <ul>
           <li>ClientX Dashboard: Enterprise solution.</li>
           <li>StartupY Platform: Scalable SaaS.</li>
-        </ul>`
-    }
+        </ul>`,
+    },
   };
 
-  cards.forEach(card => {
+  cards.forEach((card) => {
     card.addEventListener("click", function () {
       const type = card.getAttribute("data-project");
       openProjectModal(type);
