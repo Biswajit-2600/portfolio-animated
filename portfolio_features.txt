@@ -26,3 +26,19 @@ Features from videos in playlist (tentative):-
 -- background: 6			-- done
 
 social icons -- contact section (facebook, instagram, whatsapp, phone, linkedin, github, mail, twitter, discord, telegram)
+
+
+
+add the laptop model to the right side div of project modal. 
+
+please adust the height and width of the laptop model glb file and also adjust its position so that it is visible inside the right div then add it to the right modal so that it is completely visible. currently no model is visible
+
+add mouse drag functionality to it.
+
+aldo add a 45 degree rotate animation to the model using gsap everytime the model comes into view.
+
+the natural default view of the model should be straight and front faced.
+
+when applying gsap animation, the animation should start from the right profile view of the model, then it should rotate clockwise and then come front faced straight to the viewer.
+
+to incorporate this, please make whatever changes you need to make

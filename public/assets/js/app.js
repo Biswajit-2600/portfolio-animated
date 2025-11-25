@@ -20,11 +20,11 @@ const projectsData = {
       github: "https://github.com/Biswajit-2600/portfolio-3d",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
-        backgroundColor: "#2A1816",
-        border: "0.2px solid #36201D",
-        boxShadow: "0px 0px 60px 0px #AA3C304D",
+        backgroundColor: "#0E1F38",
+        border: "0.2px solid #0E2D58",
+        boxShadow: "0px 0px 60px 0px #2F67B64D",
       },
-      spotlight: "public/assets/images/1.png",
+      spotlight: "public/assets/images/spotlight.png",
       tags: [
         { name: "HTML5", path: "public/assets/images/1.png" },
         { name: "CSS3", path: "public/assets/images/2.png" },
@@ -41,11 +41,11 @@ const projectsData = {
       github: "#",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
-        backgroundColor: "#13202F",
-        border: "0.2px solid #17293E",
-        boxShadow: "0px 0px 60px 0px #2F6DB54D",
+        backgroundColor: "#0E1F38",
+        border: "0.2px solid #0E2D58",
+        boxShadow: "0px 0px 60px 0px #2F67B64D",
       },
-      spotlight: "public/assets/images/5.png",
+      spotlight: "public/assets/images/spotlight.png",
       tags: [
         { name: "React", path: "public/assets/images/5.png" },
         { name: "JavaScript", path: "public/assets/images/3.webp" },
@@ -63,13 +63,11 @@ const projectsData = {
       github: "#",
       logo: "public/assets/icons/favicon.svg",
       logoStyle: {
-        backgroundColor: "#60f5a1",
-        background:
-          "linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)",
-        border: "0.2px solid rgba(208, 213, 221, 1)",
-        boxShadow: "0px 0px 60px 0px rgba(35, 131, 96, 0.3)",
+        backgroundColor: "#0E1F38",
+        border: "0.2px solid #0E2D58",
+        boxShadow: "0px 0px 60px 0px #2F67B64D",
       },
-      spotlight: "public/assets/images/7.png",
+      spotlight: "public/assets/images/spotlight.png",
       tags: [
         { name: "React", path: "public/assets/images/5.png" },
         { name: "Node.js", path: "public/assets/images/6.png" },
@@ -90,7 +88,7 @@ const projectsData = {
         border: "0.2px solid #0E2D58",
         boxShadow: "0px 0px 60px 0px #2F67B64D",
       },
-      spotlight: "public/assets/images/9.png",
+      spotlight: "public/assets/images/spotlight.png",
       tags: [
         { name: "Vue.js", path: "public/assets/images/8.png" },
         { name: "Laravel", path: "public/assets/images/7.png" },
