@@ -656,33 +656,21 @@ function initExperienceAnimations() {
         timelineMask.style.height = fullHeight + 'px';
       }
 
-      gsap.set(timelineMask, { transformOrigin: 'bottom', scaleY: 1 });
-      // Prefer the internal scrollable container if present
+      // Hide the mask and keep the timeline fully visible; ensure the line spans the full content
+      try {
+        if (timelineMask) timelineMask.style.display = 'none';
+      } catch (e) {}
+
+      // Prefer the internal scrollable container if present (used for layout sizing only)
       const scrollerEl = section.querySelector('.experience-content') || null;
-
-      // If we have an internal scroller, map the mask progress to its scrollable range.
-      // Otherwise fall back to the viewport scroller.
-      const maskTriggerOpts = {
-        trigger: section,
-        start: 'top top',
-        scrub: true,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          gsap.set(timelineMask, { scaleY: 1 - self.progress });
+      // We already set wrapper/line heights above; ensure the visual line fills the container
+      if (timelineWrapper) {
+        const line = timelineWrapper.querySelector('.timeline-line');
+        if (line && expCardsContainer) {
+          const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
+          line.style.height = fullHeight + 'px';
         }
-      };
-
-      if (scrollerEl && scrollerEl.scrollHeight > scrollerEl.clientHeight) {
-        // Use a dynamic end equal to the scrollable distance of the element.
-        maskTriggerOpts.scroller = scrollerEl;
-        maskTriggerOpts.end = () => `+=${scrollerEl.scrollHeight - scrollerEl.clientHeight}`;
-      } else {
-        // No internal scroll: use viewport mapping
-        maskTriggerOpts.end = 'bottom bottom';
       }
-
-      const maskTrigger = ScrollTrigger.create(maskTriggerOpts);
-      registerExperienceAnimation(maskTrigger);
     }
 
     // Animate each card in this section
