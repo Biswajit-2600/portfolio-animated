@@ -19,13 +19,28 @@ Features from videos in playlist (tentative):-
 -- background: 6			-- done
 -- header: 6 				-- done
 -- landing: 3(changing text feature), 6 -- done
--- about/overview: 1, 4, 5		-- done
+-- about/overview: 1, 4, 5		-- pending (put carousel in certification section)
 -- projects: 2, 5, 6, 7			-- on hold (laptop model incorporation)
--- skills: 3, 5, 6, 7			-- ongoing
--- experience/education: 1, 3, 7	-- 	
+-- skills: 6, 7				-- ongoing
+-- experience/education: 3, 7		-- 	
 -- contact: 3, 4			-- 	(ideas -- an icon will be there and on clicking it, all the different icons will open from it like a 							  graph or wheel)
 
 social icons -- contact section (facebook, instagram, whatsapp, phone, linkedin, github, mail, twitter, discord, telegram)
+
+
+also, i noticed one more thing and this is very odd thing but i will try to explain it as best as i can.
+
+when i go to the top of the page and reload the page, then when i scroll down to the experience section then this happens.
+          -- the experience section animations work very well and they work as intended, when i scroll down, the cards flyin from the right and when i scroll up then the cards disappear and again scrolling down gives the same effect and all of this is great. so far so good.
+          -- the only problem is that the progession line on the left doesn't show the gradient colors. it appears dark.
+
+
+now the second issue.
+          -- when i am at the experience section and then reload the page, then the progression line properly shows the color gradients and all but the issue is that now the animations are gone and no matter how much i scroll up or down the flying in animations for each card is not being applied.
+
+the whole situation is confusing for me.
+
+can you analyze what is the issue from my explanation and then do a fix?
 
 
 

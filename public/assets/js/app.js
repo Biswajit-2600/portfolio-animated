@@ -169,12 +169,33 @@ function renderProject() {
     tagsContainer.innerHTML = tagsHTML;
   }
 
-  // Update View Code button link
+  // Update View Code button link - hide for professional projects
   const btnViewCode = document.getElementById("btnViewCode");
-  if (btnViewCode) btnViewCode.href = project.github;
-
   const btnViewLive = document.getElementById("btnViewLive");
-  if (btnViewLive) btnViewLive.href = project.href;
+  
+  if (currentProjectType === "professional") {
+    // Hide View Code button for professional projects
+    if (btnViewCode) {
+      btnViewCode.style.display = "none";
+    }
+    // Make View Live button take full width
+    if (btnViewLive) {
+      btnViewLive.href = project.href;
+      btnViewLive.style.flex = "1";
+      btnViewLive.style.width = "100%";
+    }
+  } else {
+    // Show both buttons for personal projects
+    if (btnViewCode) {
+      btnViewCode.style.display = "flex";
+      btnViewCode.href = project.github;
+    }
+    if (btnViewLive) {
+      btnViewLive.href = project.href;
+      btnViewLive.style.flex = "";
+      btnViewLive.style.width = "";
+    }
+  }
 
   // Update project counter
   const counterElement = document.getElementById("projectCounter");
@@ -585,4 +606,223 @@ document.addEventListener("DOMContentLoaded", function () {
       document.head.appendChild(afterStyle);
     }
   });
+});
+
+// ============================================
+// EXPERIENCE SECTION GSAP SCROLL ANIMATIONS
+// ============================================
+const experienceAnimations = [];
+let glowCardEffectInitialized = false;
+let experienceScrollSetupDone = false;
+
+function registerExperienceAnimation(animation) {
+  if (animation) {
+    experienceAnimations.push(animation);
+  }
+}
+
+function cleanupExperienceAnimations() {
+  while (experienceAnimations.length) {
+    const animation = experienceAnimations.pop();
+    if (animation.scrollTrigger) {
+      animation.scrollTrigger.kill();
+    }
+    animation.kill();
+  }
+}
+
+function initExperienceAnimations() {
+  // Initialize animations for every timeline-section (experience, education)
+  const timelineSections = document.querySelectorAll('.timeline-section');
+  if (!timelineSections || timelineSections.length === 0) return;
+
+  timelineSections.forEach((section) => {
+    const timelineWrapper = section.querySelector('.timeline-wrapper');
+    const timelineMask = section.querySelector('.timeline-line-mask');
+    const expCardsContainer = section.querySelector('.experience-cards-container');
+    const expCards = section.querySelectorAll('.exp-card-wrapper');
+    const timelineIcons = section.querySelectorAll('.timeline-icon');
+
+    if (timelineMask) {
+      // Ensure the vertical line covers the full cards container (not just the visible viewport)
+      if (timelineWrapper && expCardsContainer) {
+        // Set wrapper top to align with the cards container and height to the full scrollable height
+        timelineWrapper.style.top = expCardsContainer.offsetTop + 'px';
+        const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
+        timelineWrapper.style.height = fullHeight + 'px';
+        // Also set the mask and line to match
+        const line = timelineWrapper.querySelector('.timeline-line');
+        if (line) line.style.height = fullHeight + 'px';
+        timelineMask.style.height = fullHeight + 'px';
+      }
+
+      gsap.set(timelineMask, { transformOrigin: 'bottom', scaleY: 1 });
+      // Prefer the internal scrollable container if present
+      const scrollerEl = section.querySelector('.experience-content') || null;
+
+      // If we have an internal scroller, map the mask progress to its scrollable range.
+      // Otherwise fall back to the viewport scroller.
+      const maskTriggerOpts = {
+        trigger: section,
+        start: 'top top',
+        scrub: true,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          gsap.set(timelineMask, { scaleY: 1 - self.progress });
+        }
+      };
+
+      if (scrollerEl && scrollerEl.scrollHeight > scrollerEl.clientHeight) {
+        // Use a dynamic end equal to the scrollable distance of the element.
+        maskTriggerOpts.scroller = scrollerEl;
+        maskTriggerOpts.end = () => `+=${scrollerEl.scrollHeight - scrollerEl.clientHeight}`;
+      } else {
+        // No internal scroll: use viewport mapping
+        maskTriggerOpts.end = 'bottom bottom';
+      }
+
+      const maskTrigger = ScrollTrigger.create(maskTriggerOpts);
+      registerExperienceAnimation(maskTrigger);
+    }
+
+    // Animate each card in this section
+    expCards.forEach((card, index) => {
+      const glowCard = card.querySelector('.glow-card');
+      const icon = card.querySelector('.timeline-icon');
+
+    // Card slide in animation from right - each card animates independently on scroll
+    const glowAnimation = gsap.fromTo(
+      glowCard,
+      { 
+        xPercent: 100, 
+        opacity: 0 
+      },
+      {
+        xPercent: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          scroller: (section.querySelector('.experience-content') || section),
+          start: "top 85%",
+          end: "top 60%",
+          scrub: false,
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+    registerExperienceAnimation(glowAnimation);
+
+    // Timeline icon pop in animation
+    if (icon) {
+      const iconAnimation = gsap.fromTo(
+        icon,
+        { 
+          scale: 0, 
+          opacity: 0 
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: card,
+            scroller: (section.querySelector('.experience-content') || section),
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+      registerExperienceAnimation(iconAnimation);
+    }
+
+    // Text elements fade in
+    const cardContent = card.querySelector('.card-content');
+    if (cardContent) {
+      const textElements = cardContent.querySelectorAll('h3, p, li');
+      const textAnimation = gsap.fromTo(
+        textElements,
+        { 
+          y: 20, 
+          opacity: 0 
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            scroller: (section.querySelector('.experience-content') || section),
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+      registerExperienceAnimation(textAnimation);
+    }
+  });
+  });
+}
+
+// Rotating glow border effect for cards
+function initGlowCardEffect() {
+  if (glowCardEffectInitialized) return;
+  glowCardEffectInitialized = true;
+
+  const glowCards = document.querySelectorAll('.glow-card');
+  
+  glowCards.forEach(card => {
+    let rotation = 0;
+    let animating = false;
+
+    card.addEventListener('mouseenter', () => {
+      animating = true;
+      animateGlow();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      animating = false;
+    });
+
+    function animateGlow() {
+      if (!animating) return;
+      rotation = (rotation + 2) % 360;
+      card.style.setProperty('--start', rotation);
+      requestAnimationFrame(animateGlow);
+    }
+  });
+}
+
+function setupExperienceSectionAnimations({ forceReinit = false } = {}) {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+  if (forceReinit) {
+    cleanupExperienceAnimations();
+  } else if (experienceScrollSetupDone) {
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  initExperienceAnimations();
+  initGlowCardEffect();
+  ScrollTrigger.refresh();
+  experienceScrollSetupDone = true;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupExperienceSectionAnimations();
+});
+
+window.addEventListener('load', () => {
+  setupExperienceSectionAnimations({ forceReinit: true });
+});
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    setupExperienceSectionAnimations({ forceReinit: true });
+  }
 });

@@ -74,7 +74,7 @@ header ul {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  width: 25%;
+  width: 20%;
   padding: 15px;
   border-radius: 50px;
   background-color: rgba(0, 0, 69, 0.4);
@@ -536,6 +536,10 @@ section {
   scroll-margin-top: 60px; /* set this to your navbar's height */
 }
 
+section h1 img{
+  height: 3rem;
+}
+
 .section-title .title-text {
   display: inline-block;
   position: relative;
@@ -551,6 +555,11 @@ section {
   color: #fff;
   letter-spacing: 1px;
   line-height: 1.1;
+}
+
+/* Slightly larger gap specifically for the Journey section header */
+.journey-section .section-title {
+  margin-bottom: 36px;
 }
 
 .projects-section {
@@ -640,10 +649,6 @@ section {
 .projects-section .project-category-card:active {
   transform: scale(0.98);
   box-shadow: 0 4px 16px #72a1de55;
-}
-
-.projects-section h1 img {
-  width: 3rem;
 }
 
 /* Project Modal Body */
@@ -1207,10 +1212,6 @@ section {
   position: relative;
 }
 
-.skills-section h1 img {
-  width: 3rem;
-}
-
 .skills-box {
   width: 100%;
   height: 90vh;
@@ -1318,6 +1319,399 @@ section {
 }
 .slider .item:hover {
   filter: grayscale(0);
+}
+
+/* NEW SKILLS SECTION STYLES */
+.skills-categories-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 5%;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.skill-category-card {
+  background: rgba(17, 17, 40, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(114, 161, 222, 0.3);
+  padding: 24px 32px;
+  width: calc(50% - 10px);
+  min-width: 300px;
+  box-shadow: 0 0 20px 1px rgba(114, 161, 222, 0.2);
+  transition: all 0.3s ease;
+}
+
+.skill-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px 5px rgba(114, 161, 222, 0.3);
+  border-color: rgba(114, 161, 222, 0.5);
+}
+
+.skill-category-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 2px solid rgba(75, 85, 99, 0.7);
+  border-radius: 24px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+  border-color: rgba(114, 161, 222, 0.6);
+  background: rgba(114, 161, 222, 0.1);
+  transform: translateY(-2px);
+}
+
+.skill-item img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.skill-item span {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  white-space: nowrap;
+}
+
+/* EXPERIENCE SECTION STYLES */
+.experience-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 5%;
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* Journey layout (two columns) */
+.journey-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.journey-columns {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+}
+
+.timeline-section {
+  flex: 1 1 0;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 2%;
+  background: rgba(34, 0, 73, 0.18);
+  border: 1px solid rgba(114, 161, 222, 0.18);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.timeline-section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(114, 161, 222, 0.32);
+  border-color: rgba(114, 161, 222, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.timeline-section .sub-section-title {
+  margin-bottom: 12px;
+  color: #cbd5e1;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Scrollable content inside the timeline card - scrollbar hidden visually */
+.timeline-section .experience-content {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 16px;
+  max-height: 480px; /* reduced to 3/4 of previous height */
+  overflow-y: auto;
+  padding-right: 10px;
+  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.timeline-section .experience-content::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.skills-subtitle {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.experience-content {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 40px;
+}
+
+.experience-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding-left: 100px;
+}
+
+.exp-card-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+/* Timeline icon positioned on the line - line passes through it */
+.timeline-icon {
+  position: absolute;
+  left: -100px;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e8dfd0; /* slightly darker, warmer off-white */
+  border: 3px solid transparent;
+  background-image: linear-gradient(#e8dfd0, #e8dfd0), linear-gradient(180deg, #62e0ff 0%, #52aeff 30%, #fd5c79 60%, #6d45ce 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  box-shadow: none; /* remove glow/shadow from icon border */
+}
+
+.timeline-icon img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+/* Glow Card with rotating border effect */
+.glow-card {
+  --start: 0;
+  position: relative;
+  z-index: 40;
+  overflow: hidden;
+  background: rgba(14, 14, 16, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(28, 28, 33, 0.8);
+  padding: 24px;
+  transition: border-color 0.5s ease-in-out;
+  flex: 1;
+  will-change: transform, opacity;
+}
+
+.glow-border {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
+  background-attachment: fixed;
+  mask: linear-gradient(#0000, #0000),
+    conic-gradient(
+      from calc((var(--start) - 15) * 1deg),
+      #ffffff1f 0deg,
+      white,
+      #ffffff00 100deg
+    );
+  mask-composite: exclude;
+  -webkit-mask-composite: source-out;
+  mask-clip: padding-box, border-box;
+  opacity: 0;
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+
+.glow-card:hover .glow-border {
+  opacity: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: contain;
+  /* removed from cards - keep markup but hide image */
+  display: none;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.company-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.job-position {
+  font-size: 1rem;
+  color: #9ca3af;
+  margin: 4px 0 0 0;
+}
+
+.job-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.job-date i {
+  color: #72a1de;
+}
+
+.responsibilities {
+  list-style: disc;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+.responsibilities li {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Timeline wrapper - positioned to pass through icons */
+.timeline-wrapper {
+  position: absolute;
+  top: 0;
+  left: 33px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  width: 4px;
+  transform: translateX(-50%);
+}
+
+/* The solid timeline line */
+.timeline-line {
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(69, 222, 196, 0) 0%,
+    #62e0ff 25%,
+    #52aeff 37.51%,
+    #fd5c79 62.83%,
+    #6d45ce 92.91%
+  );
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  position: absolute;
+  z-index: 20;
+  transform-origin: top;
+}
+
+/* The mask that covers the timeline (for scroll animation) */
+.timeline-line-mask {
+  width: 4px;
+  height: 100%;
+  background: #0e0e10;
+  position: absolute;
+  z-index: 25;
+  transform-origin: bottom;
+}
+
+/* Responsive styles for skills and experience */
+@media (max-width: 768px) {
+  .journey-columns {
+    flex-direction: column;
+  }
+
+  .timeline-section {
+    width: 100%;
+  }
+  .skill-category-card {
+    width: 100%;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .experience-cards-container {
+    padding-left: 60px;
+    gap: 60px;
+  }
+
+  .timeline-wrapper {
+    left: 28px;
+  }
+
+  .timeline-icon {
+    left: -60px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .exp-card-wrapper {
+    flex-direction: column;
+  }
 }
 
 /* CONTACT SECTION */
@@ -1502,16 +1896,17 @@ section {
   cursor: pointer;
 }
 
-.sidebar ul {
-  padding-left: 20px;
-}
+  /* lighter inner background so markers feel less heavy */
+  background: rgba(255,255,255,0.03);
+  border: 3px solid transparent;
+  background-image: linear-gradient(rgba(255,255,255,0.03), rgba(255,255,255,0.03)), linear-gradient(180deg, #62e0ff 0%, #52aeff 30%, #fd5c79 60%, #6d45ce 100%);
 
 .sidebar ul li {
   list-style: none;
   margin-bottom: 30px;
 }
 
-.sidebar ul li a {
+  box-shadow: 0 0 10px rgba(98, 224, 255, 0.18), 0 0 22px rgba(82, 174, 255, 0.12);
   text-decoration: none;
   color: lightgray;
   font-size: 30px;
