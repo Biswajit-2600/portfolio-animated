@@ -38,6 +38,14 @@
 
         <ul>
           <li>
+            <a href="#hero-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-house-chimney-window"></i>
+                <span>Home</span>
+              </div>
+            </a>
+          </li>
+          <li>
             <a href="#projects-section">
               <div class="nav-capsule">
                 <i class="fa-solid fa-laptop-code"></i>
@@ -501,140 +509,249 @@
 
           <!-- Academics Tab Content -->
           <div class="modal-tab-content" id="academics-tab">
-            <h1 class="modal-title">Academic Timeline</h1>
+            <h1 class="modal-title">Learning Path</h1>
 
             <div class="modal-body academics-body">
               <div class="modal-academics-left">
                 <div class="modal-image-wrapper">
                   <img
-                    src="public/assets/images/experience-dp.png"
+                    src="public/assets/images/education-dp.png"
                     alt="Biswajit Panda"
                   />
                 </div>
               </div>
 
               <div class="modal-academics-content">
-                <div
-                  class="timeline-section modal-timeline"
-                  id="modal-education-section"
-                >
-                  <div class="experience-content">
-                    <div class="timeline-wrapper">
-                      <div class="timeline-line"></div>
-                      <div class="timeline-line-mask"></div>
+                <!-- Experience Timeline -->
+                <div class="modal-timeline-section">
+                  <h2 class="modal-timeline-title">Work Experience</h2>
+                  <div
+                    class="timeline-section modal-timeline"
+                    id="modal-experience-section"
+                  >
+                    <div class="experience-content">
+                      <div class="timeline-wrapper">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-line-mask"></div>
+                      </div>
+
+                      <div class="experience-cards-container">
+                        <div class="exp-card-wrapper">
+                          <div class="glow-card" data-card="1">
+                            <div class="glow-border"></div>
+                            <div class="card-content">
+                              <div class="card-header">
+                                <img
+                                  src="public/assets/images/work/tech-mahindra.png"
+                                  alt="Company Logo"
+                                  class="company-logo"
+                                />
+                                <div class="header-text">
+                                  <h3 class="company-name">Tech Mahindra</h3>
+                                  <p class="job-position">
+                                    Associate Software Engineer
+                                  </p>
+                                </div>
+                              </div>
+                              <p class="job-date">
+                                <i class="fa-regular fa-calendar"></i> September 2024 -
+                                Present
+                              </p>
+                              <ul class="responsibilities">
+                                <li>
+                                  Developed and maintained web applications using React
+                                  and Node.js
+                                </li>
+                                <li>
+                                  Collaborated with cross-functional teams to define,
+                                  design, and ship new features
+                                </li>
+                                <li>
+                                  Implemented responsive design and ensured
+                                  cross-browser compatibility
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="timeline-icon">
+                            <img
+                              src="public/assets/images/work/tech-mahindra.png"
+                              alt="Experience Icon"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="exp-card-wrapper">
+                          <div class="glow-card" data-card="2">
+                            <div class="glow-border"></div>
+                            <div class="card-content">
+                              <div class="card-header">
+                                <img
+                                  src="public/assets/images/experience/logo2.png"
+                                  alt="Company Logo"
+                                  class="company-logo"
+                                />
+                                <div class="header-text">
+                                  <h3 class="company-name">Novion Technologies</h3>
+                                  <p class="job-position">Data Engineering Intern</p>
+                                </div>
+                              </div>
+                              <p class="job-date">
+                                <i class="fa-regular fa-calendar"></i> December 2023 -
+                                July 2024
+                              </p>
+                              <ul class="responsibilities">
+                                <li>
+                                  Built user interfaces for enterprise-level
+                                  applications
+                                </li>
+                                <li>
+                                  Optimized application performance and reduced load
+                                  times by 40%
+                                </li>
+                                <li>
+                                  Mentored junior developers and conducted code reviews
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="timeline-icon">
+                            <img
+                              src="public/assets/images/work/novion.png"
+                              alt="Experience Icon"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                </div>
 
-                    <div class="experience-cards-container">
-                      <div class="exp-card-wrapper">
-                        <div class="glow-card" data-card="1">
-                          <div class="glow-border"></div>
-                          <div class="card-content">
-                            <div class="card-header">
-                              <img
-                                src="public/assets/images/experience/logo1.png"
-                                alt="School Logo"
-                                class="company-logo"
-                              />
-                              <div class="header-text">
-                                <h3 class="company-name">
-                                  Veer Surendra Sai University of Technology
-                                </h3>
-                                <p class="job-position">
-                                  B.Tech in Information Technology
-                                </p>
-                              </div>
-                            </div>
-                            <p class="job-date">
-                              <i class="fa-regular fa-calendar"></i> 2020 - 2024
-                            </p>
-                            <ul class="responsibilities">
-                              <li>
-                                Major in Computer Science with coursework in
-                                algorithms and systems
-                              </li>
-                              <li>Graduated with honors</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="timeline-icon">
-                          <img
-                            src="public/assets/images/education/vssut.png"
-                            alt="Education Icon"
-                          />
-                        </div>
+                <!-- Education Timeline -->
+                <div class="modal-timeline-section">
+                  <h2 class="modal-timeline-title">Education</h2>
+                  <div
+                    class="timeline-section modal-timeline"
+                    id="modal-education-section"
+                  >
+                    <div class="experience-content">
+                      <div class="timeline-wrapper">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-line-mask"></div>
                       </div>
 
-                      <div class="exp-card-wrapper">
-                        <div class="glow-card" data-card="2">
-                          <div class="glow-border"></div>
-                          <div class="card-content">
-                            <div class="card-header">
-                              <img
-                                src="public/assets/images/experience/logo2.png"
-                                alt="School Logo"
-                                class="company-logo"
-                              />
-                              <div class="header-text">
-                                <h3 class="company-name">
-                                  Gonasika Higher Secondary School
-                                </h3>
-                                <p class="job-position">
-                                  Intermediate in Science
-                                </p>
+                      <div class="experience-cards-container">
+                        <div class="exp-card-wrapper">
+                          <div class="glow-card" data-card="1">
+                            <div class="glow-border"></div>
+                            <div class="card-content">
+                              <div class="card-header">
+                                <img
+                                  src="public/assets/images/experience/logo1.png"
+                                  alt="School Logo"
+                                  class="company-logo"
+                                />
+                                <div class="header-text">
+                                  <h3 class="company-name">
+                                    Veer Surendra Sai University of Technology
+                                  </h3>
+                                  <p class="job-position">
+                                    B.Tech in Information Technology
+                                  </p>
+                                </div>
                               </div>
+                              <p class="job-date">
+                                <i class="fa-regular fa-calendar"></i> 2020 - 2024
+                              </p>
+                              <ul class="responsibilities">
+                                <li>
+                                  Major in Computer Science with coursework in
+                                  algorithms and systems
+                                </li>
+                                <li>Graduated with honors</li>
+                              </ul>
                             </div>
-                            <p class="job-date">
-                              <i class="fa-regular fa-calendar"></i> 2017 - 2019
-                            </p>
-                            <ul class="responsibilities">
-                              <li>
-                                Hands-on training in front-end technologies and
-                                UX
-                              </li>
-                            </ul>
+                          </div>
+                          <div class="timeline-icon">
+                            <img
+                              src="public/assets/images/education/vssut.png"
+                              alt="Education Icon"
+                            />
                           </div>
                         </div>
-                        <div class="timeline-icon">
-                          <img
-                            src="public/assets/images/education/gonasika.png"
-                            alt="Education Icon"
-                          />
-                        </div>
-                      </div>
 
-                      <div class="exp-card-wrapper">
-                        <div class="glow-card" data-card="3">
-                          <div class="glow-border"></div>
-                          <div class="card-content">
-                            <div class="card-header">
-                              <img
-                                src="public/assets/images/experience/logo3.png"
-                                alt="School Logo"
-                                class="company-logo"
-                              />
-                              <div class="header-text">
-                                <h3 class="company-name">
-                                  Nirmala Convent School
-                                </h3>
-                                <p class="job-position">Secondary Schooling</p>
+                        <div class="exp-card-wrapper">
+                          <div class="glow-card" data-card="2">
+                            <div class="glow-border"></div>
+                            <div class="card-content">
+                              <div class="card-header">
+                                <img
+                                  src="public/assets/images/experience/logo2.png"
+                                  alt="School Logo"
+                                  class="company-logo"
+                                />
+                                <div class="header-text">
+                                  <h3 class="company-name">
+                                    Gonasika Higher Secondary School
+                                  </h3>
+                                  <p class="job-position">
+                                    Intermediate in Science
+                                  </p>
+                                </div>
                               </div>
+                              <p class="job-date">
+                                <i class="fa-regular fa-calendar"></i> 2017 - 2019
+                              </p>
+                              <ul class="responsibilities">
+                                <li>
+                                  Hands-on training in front-end technologies and
+                                  UX
+                                </li>
+                              </ul>
                             </div>
-                            <p class="job-date">
-                              <i class="fa-regular fa-calendar"></i> 2013 - 2017
-                            </p>
-                            <ul class="responsibilities">
-                              <li>
-                                Completed courses in modern web development and
-                                cloud fundamentals
-                              </li>
-                            </ul>
+                          </div>
+                          <div class="timeline-icon">
+                            <img
+                              src="public/assets/images/education/gonasika.png"
+                              alt="Education Icon"
+                            />
                           </div>
                         </div>
-                        <div class="timeline-icon">
-                          <img
-                            src="public/assets/images/education/nirmala-convent.png"
-                            alt="Education Icon"
-                          />
+
+                        <div class="exp-card-wrapper">
+                          <div class="glow-card" data-card="3">
+                            <div class="glow-border"></div>
+                            <div class="card-content">
+                              <div class="card-header">
+                                <img
+                                  src="public/assets/images/experience/logo3.png"
+                                  alt="School Logo"
+                                  class="company-logo"
+                                />
+                                <div class="header-text">
+                                  <h3 class="company-name">
+                                    Nirmala Convent School
+                                  </h3>
+                                  <p class="job-position">Secondary Schooling</p>
+                                </div>
+                              </div>
+                              <p class="job-date">
+                                <i class="fa-regular fa-calendar"></i> 2013 - 2017
+                              </p>
+                              <ul class="responsibilities">
+                                <li>
+                                  Completed courses in modern web development and
+                                  cloud fundamentals
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="timeline-icon">
+                            <img
+                              src="public/assets/images/education/nirmala-convent.png"
+                              alt="Education Icon"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1035,9 +1152,9 @@
       <!-- Experience Section -->
       <section class="experience-section" id="experience-section">
         <h1 class="section-title autoDisplay">
-          <span class="title-text">Work Experience</span>
+          <span class="title-text">Professional Engagements</span>
           <img
-            src="public/assets/icons/journey-section-header-icon.png"
+            src="public/assets/icons/experience-section-header-icon.png"
             alt="experience-section-header-icon"
           />
         </h1>
