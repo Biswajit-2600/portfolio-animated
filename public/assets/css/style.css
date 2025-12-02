@@ -557,8 +557,8 @@ section h1 img{
   line-height: 1.1;
 }
 
-/* Slightly larger gap specifically for the Journey section header */
-.journey-section .section-title {
+/* Slightly larger gap specifically for the Experience section header */
+.experience-section .section-title {
   margin-bottom: 36px;
 }
 
@@ -1060,8 +1060,8 @@ section h1 img{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45%;
-  min-width: 300px;
+  width: 38%;
+  min-width: 280px;
   padding: 2%;
   background: rgba(34, 0, 73, 0.2);
   border: 1px solid rgba(114, 161, 222, 0.3);
@@ -1404,8 +1404,8 @@ section h1 img{
   max-width: 1400px;
 }
 
-/* Journey layout (two columns) */
-.journey-section {
+/* Experience section layout */
+.experience-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2673,6 +2673,118 @@ section h1 img{
     transparent 100%
   );
   filter: blur(10px);
+}
+
+/* Modal Tabs - Browser-like styling */
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 40px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(114, 161, 222, 0.2);
+}
+
+.modal-tab {
+  padding: 12px 28px;
+  background: rgba(30, 30, 35, 0.6);
+  border: 1px solid rgba(114, 161, 222, 0.15);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  top: 1px;
+  margin-right: -1px;
+}
+
+.modal-tab:hover {
+  background: rgba(45, 45, 55, 0.8);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-tab.active {
+  background: #191919;
+  color: #fff;
+  border-color: rgba(114, 161, 222, 0.4);
+  border-bottom: 1px solid #191919;
+}
+
+/* Modal Tab Content */
+.modal-tab-content {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.modal-tab-content.active {
+  display: flex;
+}
+
+/* Academics Tab Layout */
+.academics-body {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  padding: 30px 40px;
+}
+
+.modal-academics-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-academics-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.modal-academics-content .timeline-section {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.modal-academics-content .timeline-section:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Experience Section Layout */
+.experience-section-wrapper {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.experience-image-side {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.experience-section .timeline-section {
+  flex: 1;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.experience-section .timeline-section:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .modal.show {
