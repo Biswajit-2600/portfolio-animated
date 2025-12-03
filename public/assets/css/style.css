@@ -2645,7 +2645,7 @@ section h1 img{
     drop-shadow(0 0 4px rgba(200, 220, 255, 0.3))
     drop-shadow(0 0 8px rgba(200, 220, 255, 0.15));
   top: -5%;
-  right: 20%;
+  right: 15%;
 }
 
 .modal-image-wrapper::after {
@@ -2753,9 +2753,9 @@ section h1 img{
 /* Academics Tab Layout */
 .academics-body {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   align-items: flex-start;
-  padding: 30px 40px;
+  padding: 30px 60px;
   justify-content: center;
   flex: 1;
   min-height: 0;
@@ -2763,7 +2763,7 @@ section h1 img{
 }
 
 .modal-academics-left {
-  flex: 0 0 350px;
+  flex: 0 0 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2775,7 +2775,8 @@ section h1 img{
 }
 
 .modal-academics-content {
-  flex: 0 1 550px;
+  flex: 1 1 auto;
+  max-width: 700px;
   overflow-y: auto;
   max-height: 100%;
   padding-right: 10px;

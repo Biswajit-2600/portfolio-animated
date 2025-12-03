@@ -565,6 +565,24 @@ if (modalBtn && modal) {
     modal.style.display = "flex";
     setTimeout(() => {
       modal.classList.add("show");
+      
+      // Initialize modal timeline animations after modal is visible
+      setTimeout(() => {
+        if (typeof ScrollTrigger !== 'undefined' && typeof reinitModalTimelineAnimations === 'function') {
+          // Kill existing modal ScrollTriggers and reinitialize
+          const modalSections = document.querySelectorAll('#modal-education-section');
+          modalSections.forEach(section => {
+            ScrollTrigger.getAll().forEach(st => {
+              if (st.trigger && section.contains(st.trigger)) {
+                st.kill();
+              }
+            });
+          });
+          
+          reinitModalTimelineAnimations();
+          ScrollTrigger.refresh();
+        }
+      }, 300);
     }, 10);
 
     // Prevent body scroll
@@ -609,6 +627,29 @@ document.addEventListener("DOMContentLoaded", function () {
       const targetContent = document.getElementById(targetTab + "-tab");
       if (targetContent) {
         targetContent.classList.add("active");
+        
+        // If academics tab is opened, refresh ScrollTrigger and reinitialize modal timelines
+        if (targetTab === "academics") {
+          setTimeout(() => {
+            if (typeof ScrollTrigger !== 'undefined') {
+              // Kill existing ScrollTrigger instances for modal sections to recreate them
+              const modalSections = document.querySelectorAll('#modal-education-section');
+              modalSections.forEach(section => {
+                ScrollTrigger.getAll().forEach(st => {
+                  if (st.trigger && section.contains(st.trigger)) {
+                    st.kill();
+                  }
+                });
+              });
+              
+              // Reinitialize animations for modal timeline sections
+              reinitModalTimelineAnimations();
+              
+              // Refresh all ScrollTrigger instances
+              ScrollTrigger.refresh();
+            }
+          }, 100);
+        }
       }
     });
   });
@@ -656,7 +697,8 @@ function cleanupExperienceAnimations() {
 
 function initExperienceAnimations() {
   // Initialize animations for every timeline-section (experience, education)
-  const timelineSections = document.querySelectorAll('.timeline-section');
+  // Skip modal sections - they will be initialized when modal opens
+  const timelineSections = document.querySelectorAll('.timeline-section:not(#modal-education-section)');
   if (!timelineSections || timelineSections.length === 0) return;
 
   timelineSections.forEach((section) => {
@@ -776,6 +818,115 @@ function initExperienceAnimations() {
       registerExperienceAnimation(textAnimation);
     }
   });
+  });
+}
+
+// Reinitialize animations specifically for modal timeline sections
+function reinitModalTimelineAnimations() {
+  const modalSections = document.querySelectorAll('#modal-education-section');
+  
+  modalSections.forEach((section) => {
+    const timelineWrapper = section.querySelector('.timeline-wrapper');
+    const timelineMask = section.querySelector('.timeline-line-mask');
+    const expCardsContainer = section.querySelector('.experience-cards-container');
+    const expCards = section.querySelectorAll('.exp-card-wrapper');
+
+    if (timelineMask) {
+      // Recalculate and set wrapper heights now that elements are visible
+      if (timelineWrapper && expCardsContainer) {
+        timelineWrapper.style.top = expCardsContainer.offsetTop + 'px';
+        const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
+        timelineWrapper.style.height = fullHeight + 'px';
+        
+        const line = timelineWrapper.querySelector('.timeline-line');
+        if (line) line.style.height = fullHeight + 'px';
+        timelineMask.style.height = fullHeight + 'px';
+      }
+
+      // Hide mask and show full timeline
+      if (timelineMask) timelineMask.style.display = 'none';
+    }
+
+    // Recreate animations for each card in this modal section
+    expCards.forEach((card, index) => {
+      const glowCard = card.querySelector('.glow-card');
+      const icon = card.querySelector('.timeline-icon');
+
+      // Card slide in animation
+      const glowAnimation = gsap.fromTo(
+        glowCard,
+        { 
+          xPercent: 100, 
+          opacity: 0 
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            scroller: section.querySelector('.experience-content'),
+            start: "top 85%",
+            end: "top 60%",
+            scrub: false,
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+      registerExperienceAnimation(glowAnimation);
+
+      // Timeline icon animation
+      if (icon) {
+        const iconAnimation = gsap.fromTo(
+          icon,
+          { 
+            scale: 0, 
+            opacity: 0 
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: card,
+              scroller: section.querySelector('.experience-content'),
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+        registerExperienceAnimation(iconAnimation);
+      }
+
+      // Text elements fade in
+      const cardContent = card.querySelector('.card-content');
+      if (cardContent) {
+        const textElements = cardContent.querySelectorAll('h3, p, li');
+        const textAnimation = gsap.fromTo(
+          textElements,
+          { 
+            y: 20, 
+            opacity: 0 
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              scroller: section.querySelector('.experience-content'),
+              start: "top 70%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+        registerExperienceAnimation(textAnimation);
+      }
+    });
   });
 }
 
