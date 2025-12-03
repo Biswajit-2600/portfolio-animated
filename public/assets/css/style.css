@@ -2645,7 +2645,7 @@ section h1 img{
     drop-shadow(0 0 4px rgba(200, 220, 255, 0.3))
     drop-shadow(0 0 8px rgba(200, 220, 255, 0.15));
   top: -5%;
-  right: 15%;
+  right: 20%;
 }
 
 .modal-image-wrapper::after {
