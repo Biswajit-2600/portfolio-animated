@@ -1834,10 +1834,10 @@ section h1 img{
   position: relative;
   z-index: 40;
   overflow: hidden;
-  background: rgba(14, 14, 16, 0.9);
-  border-radius: 14px;
-  border: 1px solid rgba(28, 28, 33, 0.8);
-  padding: 18px;
+  background: rgba(114, 161, 222, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(114, 161, 222, 0.25);
+  padding: 24px;
   transition: border-color 0.5s ease-in-out;
   flex: 1;
   max-width: 100%;
@@ -2733,10 +2733,10 @@ section h1 img{
 /* Certification Popup Styles */
 .cert-popup {
   position: absolute;
-  left: calc(100% + 30px);
-  top: 50%;
-  transform: translateY(-50%) scale(0);
-  transform-origin: left center;
+  left: 50%;
+  top: calc(100% + 18px);
+  transform: translate(-50%, 0) scale(0);
+  transform-origin: top center;
   padding: 1rem;
   padding-top: 1.5rem;
   border-radius: 16px;
@@ -2761,29 +2761,29 @@ section h1 img{
 .cert-popup::before {
   content: "";
   position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-top: 13px solid transparent;
-  border-bottom: 13px solid transparent;
-  border-right: 15px solid rgba(200, 230, 255, 0.4);
-  filter: drop-shadow(-2px 0 8px rgba(0, 0, 0, 0.6))
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 15px solid rgba(200, 230, 255, 0.4);
+  filter: drop-shadow(0 -2px 8px rgba(0, 0, 0, 0.6))
     drop-shadow(0 0 4px rgba(114, 161, 222, 0.4));
 }
 
 .cert-popup::after {
   content: "";
   position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-right: 14px solid rgba(160, 210, 255, 0.7);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 14px solid rgba(160, 210, 255, 0.7);
 }
 
 .cert-popup-icons {
@@ -2807,7 +2807,7 @@ section h1 img{
 .certification-icon:hover .cert-popup,
 .cert-popup:hover {
   opacity: 1;
-  transform: translateY(-50%) scale(1);
+  transform: translate(-50%, 0) scale(1);
   pointer-events: auto;
 }
 
@@ -3054,20 +3054,20 @@ section h1 img{
 }
 
 .modal-academics-left {
-  flex: 0 0 280px;
+  flex: 0 0 290px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modal-academics-left .modal-image-wrapper {
-  width: 260px;
-  height: 380px;
+  width: 270px;
+  height: 400px;
 }
 
 .academic-image-wrapper {
-  width: 240px;
-  height: 360px;
+  width: 250px;
+  height: 390px;
   border-radius: 24px;
   display: flex;
   align-items: center;
@@ -3087,18 +3087,18 @@ section h1 img{
   filter: drop-shadow(0 0 2px rgba(200, 220, 255, 0.5))
     drop-shadow(0 0 4px rgba(200, 220, 255, 0.3))
     drop-shadow(0 0 8px rgba(200, 220, 255, 0.15));
-  top: -5%;
-  right: 5%;
+  top: -6%;
+  right: -10%;
 }
 
 .academic-image-wrapper::after {
   content: "";
   position: absolute;
   bottom: 2%;
-  left: 20%;
-  transform: translateX(-25%);
-  width: 250px;
-  height: 45px;
+  left: 60%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 50px;
   background: rgba(220, 230, 255, 0.85);
   border-radius: 50%;
   z-index: 1;
@@ -3242,7 +3242,7 @@ section h1 img{
   position: relative;
   width: 75%;
   max-width: 1400px;
-  height: 88vh;
+  height: 80vh;
   background: #191919;
   border-radius: 24px;
   border: 2px solid rgba(114, 161, 222, 0.3);
@@ -3251,7 +3251,7 @@ section h1 img{
   z-index: 10001;
   opacity: 0;
   transition: opacity 0.4s ease 0.15s;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   padding-bottom: 1%;
@@ -3306,7 +3306,7 @@ section h1 img{
   flex: 1;
   width: 100%;
   min-height: 0;
-  max-height: calc(80vh - 120px);
+  max-height: calc(84vh - 120px);
   overflow: visible; /* allow tooltips/popovers to escape */
   padding: 30px 40px;
   border-radius: 24px;
