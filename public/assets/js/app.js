@@ -172,7 +172,7 @@ function renderProject() {
   // Update View Code button link - hide for professional projects
   const btnViewCode = document.getElementById("btnViewCode");
   const btnViewLive = document.getElementById("btnViewLive");
-  
+
   if (currentProjectType === "professional") {
     // Hide View Code button for professional projects
     if (btnViewCode) {
@@ -565,20 +565,25 @@ if (modalBtn && modal) {
     modal.style.display = "flex";
     setTimeout(() => {
       modal.classList.add("show");
-      
+
       // Initialize modal timeline animations after modal is visible
       setTimeout(() => {
-        if (typeof ScrollTrigger !== 'undefined' && typeof reinitModalTimelineAnimations === 'function') {
+        if (
+          typeof ScrollTrigger !== "undefined" &&
+          typeof reinitModalTimelineAnimations === "function"
+        ) {
           // Kill existing modal ScrollTriggers and reinitialize
-          const modalSections = document.querySelectorAll('#modal-education-section');
-          modalSections.forEach(section => {
-            ScrollTrigger.getAll().forEach(st => {
+          const modalSections = document.querySelectorAll(
+            "#modal-education-section"
+          );
+          modalSections.forEach((section) => {
+            ScrollTrigger.getAll().forEach((st) => {
               if (st.trigger && section.contains(st.trigger)) {
                 st.kill();
               }
             });
           });
-          
+
           reinitModalTimelineAnimations();
           ScrollTrigger.refresh();
         }
@@ -627,24 +632,26 @@ document.addEventListener("DOMContentLoaded", function () {
       const targetContent = document.getElementById(targetTab + "-tab");
       if (targetContent) {
         targetContent.classList.add("active");
-        
+
         // If academics tab is opened, refresh ScrollTrigger and reinitialize modal timelines
         if (targetTab === "academics") {
           setTimeout(() => {
-            if (typeof ScrollTrigger !== 'undefined') {
+            if (typeof ScrollTrigger !== "undefined") {
               // Kill existing ScrollTrigger instances for modal sections to recreate them
-              const modalSections = document.querySelectorAll('#modal-education-section');
-              modalSections.forEach(section => {
-                ScrollTrigger.getAll().forEach(st => {
+              const modalSections = document.querySelectorAll(
+                "#modal-education-section"
+              );
+              modalSections.forEach((section) => {
+                ScrollTrigger.getAll().forEach((st) => {
                   if (st.trigger && section.contains(st.trigger)) {
                     st.kill();
                   }
                 });
               });
-              
+
               // Reinitialize animations for modal timeline sections
               reinitModalTimelineAnimations();
-              
+
               // Refresh all ScrollTrigger instances
               ScrollTrigger.refresh();
             }
@@ -698,166 +705,82 @@ function cleanupExperienceAnimations() {
 function initExperienceAnimations() {
   // Initialize animations for every timeline-section (experience, education)
   // Skip modal sections - they will be initialized when modal opens
-  const timelineSections = document.querySelectorAll('.timeline-section:not(#modal-education-section), .academic-timeline-section');
+  const timelineSections = document.querySelectorAll(
+    ".timeline-section:not(#modal-education-section), .academic-timeline-section"
+  );
   if (!timelineSections || timelineSections.length === 0) return;
 
   timelineSections.forEach((section) => {
-    const timelineWrapper = section.querySelector('.timeline-wrapper, .academic-timeline-wrapper');
-    const timelineMask = section.querySelector('.timeline-line-mask, .academic-timeline-line-mask');
-    const expCardsContainer = section.querySelector('.experience-cards-container, .academic-cards-container');
-    const expCards = section.querySelectorAll('.exp-card-wrapper, .academic-card-wrapper');
-    const timelineIcons = section.querySelectorAll('.timeline-icon, .academic-timeline-icon');
+    const timelineWrapper = section.querySelector(
+      ".timeline-wrapper, .academic-timeline-wrapper"
+    );
+    const timelineMask = section.querySelector(
+      ".timeline-line-mask, .academic-timeline-line-mask"
+    );
+    const expCardsContainer = section.querySelector(
+      ".experience-cards-container, .academic-cards-container"
+    );
+    const expCards = section.querySelectorAll(
+      ".exp-card-wrapper, .academic-card-wrapper"
+    );
+    const timelineIcons = section.querySelectorAll(
+      ".timeline-icon, .academic-timeline-icon"
+    );
 
     if (timelineMask) {
       // Ensure the vertical line covers the full cards container (not just the visible viewport)
       if (timelineWrapper && expCardsContainer) {
         // Set wrapper top to align with the cards container and height to the full scrollable height
-        timelineWrapper.style.top = expCardsContainer.offsetTop + 'px';
-        const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
-        timelineWrapper.style.height = fullHeight + 'px';
+        timelineWrapper.style.top = expCardsContainer.offsetTop + "px";
+        const fullHeight = Math.max(
+          expCardsContainer.scrollHeight,
+          expCardsContainer.offsetHeight
+        );
+        timelineWrapper.style.height = fullHeight + "px";
         // Also set the mask and line to match
-        const line = timelineWrapper.querySelector('.timeline-line, .academic-timeline-line');
-        if (line) line.style.height = fullHeight + 'px';
-        timelineMask.style.height = fullHeight + 'px';
+        const line = timelineWrapper.querySelector(
+          ".timeline-line, .academic-timeline-line"
+        );
+        if (line) line.style.height = fullHeight + "px";
+        timelineMask.style.height = fullHeight + "px";
       }
 
       // Hide the mask and keep the timeline fully visible; ensure the line spans the full content
       try {
-        if (timelineMask) timelineMask.style.display = 'none';
+        if (timelineMask) timelineMask.style.display = "none";
       } catch (e) {}
 
       // Prefer the internal scrollable container if present (used for layout sizing only)
-      const scrollerEl = section.querySelector('.experience-content, .academic-content') || null;
+      const scrollerEl =
+        section.querySelector(".experience-content, .academic-content") || null;
       // We already set wrapper/line heights above; ensure the visual line fills the container
       if (timelineWrapper) {
-        const line = timelineWrapper.querySelector('.timeline-line, .academic-timeline-line');
+        const line = timelineWrapper.querySelector(
+          ".timeline-line, .academic-timeline-line"
+        );
         if (line && expCardsContainer) {
-          const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
-          line.style.height = fullHeight + 'px';
+          const fullHeight = Math.max(
+            expCardsContainer.scrollHeight,
+            expCardsContainer.offsetHeight
+          );
+          line.style.height = fullHeight + "px";
         }
       }
     }
 
     // Animate each card in this section
     expCards.forEach((card, index) => {
-      const glowCard = card.querySelector('.glow-card, .academic-glow-card');
-      const icon = card.querySelector('.timeline-icon, .academic-timeline-icon');
-
-    // Card slide in animation from right - each card animates independently on scroll
-    const glowAnimation = gsap.fromTo(
-      glowCard,
-      { 
-        xPercent: 100, 
-        opacity: 0 
-      },
-      {
-        xPercent: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: card,
-          scroller: (section.querySelector('.experience-content, .academic-content') || section),
-          start: "top 85%",
-          end: "top 60%",
-          scrub: false,
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-    registerExperienceAnimation(glowAnimation);
-
-    // Timeline icon pop in animation
-    if (icon) {
-      const iconAnimation = gsap.fromTo(
-        icon,
-        { 
-          scale: 0, 
-          opacity: 0 
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.5,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: card,
-            scroller: (section.querySelector('.experience-content, .academic-content') || section),
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        }
+      const glowCard = card.querySelector(".glow-card, .academic-glow-card");
+      const icon = card.querySelector(
+        ".timeline-icon, .academic-timeline-icon"
       );
-      registerExperienceAnimation(iconAnimation);
-    }
 
-    // Text elements fade in
-    const cardContent = card.querySelector('.card-content, .academic-card-content');
-    if (cardContent) {
-      const textElements = cardContent.querySelectorAll('h3, p, li');
-      const textAnimation = gsap.fromTo(
-        textElements,
-        { 
-          y: 20, 
-          opacity: 0 
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: card,
-            scroller: (section.querySelector('.experience-content, .academic-content') || section),
-            start: "top 70%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-      registerExperienceAnimation(textAnimation);
-    }
-  });
-  });
-}
-
-// Reinitialize animations specifically for modal timeline sections
-function reinitModalTimelineAnimations() {
-  const modalSections = document.querySelectorAll('#modal-education-section');
-  
-  modalSections.forEach((section) => {
-    const timelineWrapper = section.querySelector('.timeline-wrapper, .academic-timeline-wrapper');
-    const timelineMask = section.querySelector('.timeline-line-mask, .academic-timeline-line-mask');
-    const expCardsContainer = section.querySelector('.experience-cards-container, .academic-cards-container');
-    const expCards = section.querySelectorAll('.exp-card-wrapper, .academic-card-wrapper');
-
-    if (timelineMask) {
-      // Recalculate and set wrapper heights now that elements are visible
-      if (timelineWrapper && expCardsContainer) {
-        timelineWrapper.style.top = expCardsContainer.offsetTop + 'px';
-        const fullHeight = Math.max(expCardsContainer.scrollHeight, expCardsContainer.offsetHeight);
-        timelineWrapper.style.height = fullHeight + 'px';
-        
-        const line = timelineWrapper.querySelector('.timeline-line, .academic-timeline-line');
-        if (line) line.style.height = fullHeight + 'px';
-        timelineMask.style.height = fullHeight + 'px';
-      }
-
-      // Hide mask and show full timeline
-      if (timelineMask) timelineMask.style.display = 'none';
-    }
-
-    // Recreate animations for each card in this modal section
-    expCards.forEach((card, index) => {
-      const glowCard = card.querySelector('.glow-card, .academic-glow-card');
-      const icon = card.querySelector('.timeline-icon, .academic-timeline-icon');
-
-      // Card slide in animation
+      // Card slide in animation from right - each card animates independently on scroll
       const glowAnimation = gsap.fromTo(
         glowCard,
-        { 
-          xPercent: 100, 
-          opacity: 0 
+        {
+          xPercent: 100,
+          opacity: 0,
         },
         {
           xPercent: 0,
@@ -866,23 +789,25 @@ function reinitModalTimelineAnimations() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,
-            scroller: section.querySelector('.experience-content, .academic-content'),
+            scroller:
+              section.querySelector(".experience-content, .academic-content") ||
+              section,
             start: "top 85%",
             end: "top 60%",
             scrub: false,
-            toggleActions: "play none none reverse"
-          }
+            toggleActions: "play none none reverse",
+          },
         }
       );
       registerExperienceAnimation(glowAnimation);
 
-      // Timeline icon animation
+      // Timeline icon pop in animation
       if (icon) {
         const iconAnimation = gsap.fromTo(
           icon,
-          { 
-            scale: 0, 
-            opacity: 0 
+          {
+            scale: 0,
+            opacity: 0,
           },
           {
             scale: 1,
@@ -891,24 +816,29 @@ function reinitModalTimelineAnimations() {
             ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: card,
-              scroller: section.querySelector('.experience-content, .academic-content'),
+              scroller:
+                section.querySelector(
+                  ".experience-content, .academic-content"
+                ) || section,
               start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
+              toggleActions: "play none none reverse",
+            },
           }
         );
         registerExperienceAnimation(iconAnimation);
       }
 
       // Text elements fade in
-      const cardContent = card.querySelector('.card-content, .academic-card-content');
+      const cardContent = card.querySelector(
+        ".card-content, .academic-card-content"
+      );
       if (cardContent) {
-        const textElements = cardContent.querySelectorAll('h3, p, li');
+        const textElements = cardContent.querySelectorAll("h3, p, li");
         const textAnimation = gsap.fromTo(
           textElements,
-          { 
-            y: 20, 
-            opacity: 0 
+          {
+            y: 20,
+            opacity: 0,
           },
           {
             y: 0,
@@ -918,10 +848,145 @@ function reinitModalTimelineAnimations() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-              scroller: section.querySelector('.experience-content, .academic-content'),
+              scroller:
+                section.querySelector(
+                  ".experience-content, .academic-content"
+                ) || section,
               start: "top 70%",
-              toggleActions: "play none none reverse"
-            }
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+        registerExperienceAnimation(textAnimation);
+      }
+    });
+  });
+}
+
+// Reinitialize animations specifically for modal timeline sections
+function reinitModalTimelineAnimations() {
+  const modalSections = document.querySelectorAll("#modal-education-section");
+
+  modalSections.forEach((section) => {
+    const timelineWrapper = section.querySelector(
+      ".timeline-wrapper, .academic-timeline-wrapper"
+    );
+    const timelineMask = section.querySelector(
+      ".timeline-line-mask, .academic-timeline-line-mask"
+    );
+    const expCardsContainer = section.querySelector(
+      ".experience-cards-container, .academic-cards-container"
+    );
+    const expCards = section.querySelectorAll(
+      ".exp-card-wrapper, .academic-card-wrapper"
+    );
+
+    if (timelineMask) {
+      // Recalculate and set wrapper heights now that elements are visible
+      if (timelineWrapper && expCardsContainer) {
+        timelineWrapper.style.top = expCardsContainer.offsetTop + "px";
+        const fullHeight = Math.max(
+          expCardsContainer.scrollHeight,
+          expCardsContainer.offsetHeight
+        );
+        timelineWrapper.style.height = fullHeight + "px";
+
+        const line = timelineWrapper.querySelector(
+          ".timeline-line, .academic-timeline-line"
+        );
+        if (line) line.style.height = fullHeight + "px";
+        timelineMask.style.height = fullHeight + "px";
+      }
+
+      // Hide mask and show full timeline
+      if (timelineMask) timelineMask.style.display = "none";
+    }
+
+    // Recreate animations for each card in this modal section
+    expCards.forEach((card, index) => {
+      const glowCard = card.querySelector(".glow-card, .academic-glow-card");
+      const icon = card.querySelector(
+        ".timeline-icon, .academic-timeline-icon"
+      );
+
+      // Card slide in animation
+      const glowAnimation = gsap.fromTo(
+        glowCard,
+        {
+          xPercent: 100,
+          opacity: 0,
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            scroller: section.querySelector(
+              ".experience-content, .academic-content"
+            ),
+            start: "top 85%",
+            end: "top 60%",
+            scrub: false,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+      registerExperienceAnimation(glowAnimation);
+
+      // Timeline icon animation
+      if (icon) {
+        const iconAnimation = gsap.fromTo(
+          icon,
+          {
+            scale: 0,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: card,
+              scroller: section.querySelector(
+                ".experience-content, .academic-content"
+              ),
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+        registerExperienceAnimation(iconAnimation);
+      }
+
+      // Text elements fade in
+      const cardContent = card.querySelector(
+        ".card-content, .academic-card-content"
+      );
+      if (cardContent) {
+        const textElements = cardContent.querySelectorAll("h3, p, li");
+        const textAnimation = gsap.fromTo(
+          textElements,
+          {
+            y: 20,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              scroller: section.querySelector(
+                ".experience-content, .academic-content"
+              ),
+              start: "top 70%",
+              toggleActions: "play none none reverse",
+            },
           }
         );
         registerExperienceAnimation(textAnimation);
@@ -935,32 +1000,35 @@ function initGlowCardEffect() {
   if (glowCardEffectInitialized) return;
   glowCardEffectInitialized = true;
 
-  const glowCards = document.querySelectorAll('.glow-card, .academic-glow-card');
-  
-  glowCards.forEach(card => {
+  const glowCards = document.querySelectorAll(
+    ".glow-card, .academic-glow-card"
+  );
+
+  glowCards.forEach((card) => {
     let rotation = 0;
     let animating = false;
 
-    card.addEventListener('mouseenter', () => {
+    card.addEventListener("mouseenter", () => {
       animating = true;
       animateGlow();
     });
 
-    card.addEventListener('mouseleave', () => {
+    card.addEventListener("mouseleave", () => {
       animating = false;
     });
 
     function animateGlow() {
       if (!animating) return;
       rotation = (rotation + 2) % 360;
-      card.style.setProperty('--start', rotation);
+      card.style.setProperty("--start", rotation);
       requestAnimationFrame(animateGlow);
     }
   });
 }
 
 function setupExperienceSectionAnimations({ forceReinit = false } = {}) {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined")
+    return;
 
   if (forceReinit) {
     cleanupExperienceAnimations();
@@ -975,15 +1043,15 @@ function setupExperienceSectionAnimations({ forceReinit = false } = {}) {
   experienceScrollSetupDone = true;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   setupExperienceSectionAnimations();
 });
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   setupExperienceSectionAnimations({ forceReinit: true });
 });
 
-window.addEventListener('pageshow', (event) => {
+window.addEventListener("pageshow", (event) => {
   if (event.persisted) {
     setupExperienceSectionAnimations({ forceReinit: true });
   }
