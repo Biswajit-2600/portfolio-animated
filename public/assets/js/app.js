@@ -9,6 +9,332 @@ let screenMesh3D = null;
 let videoElement3D = null;
 let videoTexture3D = null;
 
+// Copy to clipboard function for contact section
+function initCopyToClipboard() {
+  const copyItems = document.querySelectorAll('.contact-copy-item');
+  
+  copyItems.forEach(item => {
+    const textToCopy = item.getAttribute('data-copy');
+    
+    // Make the whole item clickable
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      if (textToCopy) {
+        // Try modern clipboard API first
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            showCopiedFeedback(item);
+          }).catch(err => {
+            // Fallback if clipboard API fails
+            fallbackCopy(textToCopy, item);
+          });
+        } else {
+          // Fallback for non-secure context or older browsers
+          fallbackCopy(textToCopy, item);
+        }
+      }
+    });
+  });
+}
+
+function fallbackCopy(text, item) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-9999px';
+  textArea.style.top = '-9999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopiedFeedback(item);
+  } catch (err) {
+    console.error('Fallback copy failed:', err);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopiedFeedback(item) {
+  // Add copied class for visual feedback
+  item.classList.add('copied');
+  
+  // Remove the class after 1 second
+  setTimeout(() => {
+    item.classList.remove('copied');
+  }, 700);
+}
+
+// Initialize copy functionality immediately since script is at end of body
+initCopyToClipboard();
+
+// ========== EMAIL SENDING FUNCTIONALITY ==========
+// Initialize EmailJS with your public key
+// IMPORTANT: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+// Get it from: https://dashboard.emailjs.com/admin/account
+(function() {
+  emailjs.init({
+    publicKey: "mMo8ENFpHo6GipbAk", // Replace with your EmailJS public key
+  });
+})();
+
+// Contact form submission handler
+function initContactForm() {
+  const contactForm = document.getElementById('contactForm');
+  const submitBtn = contactForm?.querySelector('.submit-btn');
+  const btnText = submitBtn?.querySelector('.btn-text');
+  
+  if (!contactForm) return;
+  
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    // Validate
+    if (!fullName || !email || !message) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
+    // Disable button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    const originalText = btnText.textContent;
+    btnText.textContent = 'Sending...';
+    
+    // Prepare email parameters with tabular format
+    const currentDate = new Date().toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    const templateParams = {
+      to_email: 'biswajitpanda754@gmail.com',
+      from_name: fullName,
+      from_email: email,
+      subject: `Portfolio Contact: New Message from ${fullName}`,
+      message_html: `
+        <table style="width: 100%; max-width: 600px; border-collapse: collapse; font-family: Arial, sans-serif;">
+          <tr style="background: linear-gradient(135deg, #72a1de, #5a8fd4);">
+            <td colspan="2" style="padding: 20px; color: white; text-align: center; font-size: 24px; font-weight: bold;">
+              📩 New Message from Portfolio Site
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd; background: #f8f9fa; font-weight: bold; width: 30%;">
+              Sender Name
+            </td>
+            <td style="padding: 15px; border: 1px solid #ddd;">
+              ${fullName}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd; background: #f8f9fa; font-weight: bold;">
+              Email Address
+            </td>
+            <td style="padding: 15px; border: 1px solid #ddd;">
+              <a href="mailto:${email}" style="color: #72a1de;">${email}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd; background: #f8f9fa; font-weight: bold;">
+              Date & Time
+            </td>
+            <td style="padding: 15px; border: 1px solid #ddd;">
+              ${currentDate}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd; background: #f8f9fa; font-weight: bold; vertical-align: top;">
+              Message
+            </td>
+            <td style="padding: 15px; border: 1px solid #ddd; line-height: 1.6;">
+              ${message.replace(/\n/g, '<br>')}
+            </td>
+          </tr>
+          <tr style="background: #f8f9fa;">
+            <td colspan="2" style="padding: 15px; text-align: center; color: #666; font-size: 12px;">
+              This message was sent from your portfolio website contact form.
+            </td>
+          </tr>
+        </table>
+      `,
+      reply_to: email
+    };
+    
+    // Auto-reply template parameters for the sender
+    const autoReplyParams = {
+      to_email: email,
+      to_name: fullName,
+      from_name: "Biswajit Panda",
+      subject: "Message Received! | Portfolio | Biswajit Panda",
+      message_html: `
+        <table style="width: 100%; max-width: 600px; border-collapse: collapse; font-family: Arial, sans-serif; margin: 0 auto;">
+          <tr style="background: linear-gradient(135deg, #72a1de, #5a8fd4);">
+            <td style="padding: 30px; text-align: center;">
+              <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align: middle; padding-right: 15px;">
+                    <img src="https://res.cloudinary.com/dzdc6ob53/image/upload/v1767111144/apple-touch-icon_pj98hg.png" alt="Portfolio Logo" width="50" height="50" style="display: block; border-radius: 12px; border: 0;" />
+                  </td>
+                  <td style="vertical-align: middle;">
+                    <h1 style="color: white; margin: 0; font-size: 28px; line-height: 1;">Thank You for Reaching Out!</h1>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 30px; background: #ffffff;">
+              <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0 0 20px 0;">
+                Hi <strong>${fullName}</strong>,
+              </p>
+              <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0 0 20px 0;">
+                Thank you for contacting me through my portfolio website! I've received your message and truly appreciate you taking the time to get in touch.
+              </p>
+              <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0 0 20px 0;">
+                I'll review your message and get back to you as soon as possible.
+              </p>
+              <div style="background: #f8f9fa; border-left: 4px solid #72a1de; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+                <p style="font-size: 14px; color: #666; margin: 0 0 10px 0; font-weight: bold;">Your Message:</p>
+                <p style="font-size: 14px; color: #555; margin: 0; line-height: 1.6; font-style: italic;">
+                  "${message.replace(/\n/g, '<br>')}"
+                </p>
+              </div>
+              <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0 0 10px 0;">
+                In the meantime, feel free to connect with me on:
+              </p>
+              <p style="margin: 20px 0;">
+                <a href="https://www.linkedin.com/in/biswajit-panda-me/" style="display: inline-block; padding: 10px 20px; background: #0077b5; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">LinkedIn</a>
+                <a href="https://github.com/Biswajit-2600" style="display: inline-block; padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px;">GitHub</a>
+              </p>
+              <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 25px 0 0 0;">
+                Best Regards,<br>
+                <strong style="color: #72a1de;">Biswajit Panda</strong><br>
+                <span style="font-size: 14px; color: #666;">Tech Enthusiast</span>
+              </p>
+            </td>
+          </tr>
+          <tr style="background: #f8f9fa;">
+            <td style="padding: 20px; text-align: center;">
+              <p style="font-size: 12px; color: #999; margin: 0;">
+                This is an automated response from my website.<br>
+                Please do not reply directly to this email.
+              </p>
+            </td>
+          </tr>
+        </table>
+      `,
+      reply_to: "biswajitpanda754@gmail.com"
+    };
+    
+    try {
+      // Send email using EmailJS
+      // IMPORTANT: Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs
+      // Get them from: https://dashboard.emailjs.com/admin
+      await emailjs.send("service_erbwy1p", "template_tmvk8ui", templateParams);
+      
+      // Send auto-reply to the sender
+      // IMPORTANT: Create a new template in EmailJS for auto-reply and replace 'template_autoreply' with your template ID
+      await emailjs.send("service_erbwy1p", "template_zvbdnqb", autoReplyParams);
+      
+      // Show success modal
+      showMessageSentModal();
+      
+      // Reset form
+      contactForm.reset();
+      
+    } catch (error) {
+      console.error('Email send failed:', error);
+      alert('Failed to send message. Please try again or contact directly via email.');
+    } finally {
+      // Re-enable button and remove loading state
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      btnText.textContent = originalText;
+    }
+  });
+}
+
+// Show success modal with animation
+function showMessageSentModal() {
+  const modal = document.getElementById('messageSentModal');
+  const loaderBar = document.getElementById('modalLoaderBar');
+  const lottiePlayer = document.getElementById('successLottie');
+  
+  if (!modal || !loaderBar) return;
+  
+  // Show modal
+  modal.classList.add('active');
+  
+  // Play the Lottie animation
+  if (lottiePlayer) {
+    // Reset and play the animation
+    lottiePlayer.stop();
+    lottiePlayer.play();
+  }
+  
+  // Animate loader bar (reverse - from 100% to 0%)
+  let progress = 100;
+  const duration = 4000; // 6 seconds
+  const interval = 50; // Update every 50ms
+  const decrement = (100 / duration) * interval;
+  
+  loaderBar.style.width = '100%';
+  
+  const loaderInterval = setInterval(() => {
+    progress -= decrement;
+    if (progress <= 0) {
+      progress = 0;
+      clearInterval(loaderInterval);
+      
+      // Close modal and reset
+      closeMessageSentModal();
+    }
+    loaderBar.style.width = progress + '%';
+  }, interval);
+  
+  // Store interval ID so we can clear it if needed
+  modal.dataset.loaderInterval = loaderInterval;
+}
+
+// Close success modal
+function closeMessageSentModal() {
+  const modal = document.getElementById('messageSentModal');
+  if (!modal) return;
+  
+  // Clear any running interval
+  if (modal.dataset.loaderInterval) {
+    clearInterval(parseInt(modal.dataset.loaderInterval));
+  }
+  
+  // Hide modal with animation
+  modal.classList.remove('active');
+  
+  // Scroll to contact section after modal closes
+  setTimeout(() => {
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 400);
+}
+
+// Initialize contact form
+initContactForm();
+
 // Project Data
 const projectsData = {
   personal: [
@@ -240,6 +566,67 @@ function navigateProject(direction) {
 // 3D Model Variables
 let scene3D, camera3D, renderer3D, laptop3D, controls3D;
 let isModel3DInitialized = false;
+let animationFrame3D = null;
+
+// Cleanup function to dispose 3D resources and prevent memory leaks
+function cleanup3DResources() {
+  // Cancel animation frame
+  if (animationFrame3D) {
+    cancelAnimationFrame(animationFrame3D);
+    animationFrame3D = null;
+  }
+
+  // Pause and cleanup video
+  if (videoElement3D) {
+    videoElement3D.pause();
+    videoElement3D.src = "";
+    videoElement3D.load();
+  }
+
+  // Dispose video texture
+  if (videoTexture3D) {
+    videoTexture3D.dispose();
+    videoTexture3D = null;
+  }
+
+  // Dispose controls
+  if (controls3D) {
+    controls3D.dispose();
+    controls3D = null;
+  }
+
+  // Dispose scene objects
+  if (scene3D) {
+    scene3D.traverse((object) => {
+      if (object.geometry) {
+        object.geometry.dispose();
+      }
+      if (object.material) {
+        if (Array.isArray(object.material)) {
+          object.material.forEach((material) => {
+            if (material.map) material.map.dispose();
+            material.dispose();
+          });
+        } else {
+          if (object.material.map) object.material.map.dispose();
+          object.material.dispose();
+        }
+      }
+    });
+    scene3D.clear();
+  }
+
+  // Dispose renderer
+  if (renderer3D) {
+    renderer3D.dispose();
+    renderer3D.forceContextLoss();
+    renderer3D = null;
+  }
+
+  laptop3D = null;
+  screenMesh3D = null;
+  isModel3DInitialized = false;
+}
 
 function init3DModel() {
   const canvas = document.getElementById("laptopCanvas");
@@ -256,8 +643,8 @@ function init3DModel() {
     return;
   }
 
-  // Clean up previous instance
-  if (controls3D) controls3D.dispose();
+  // Clean up previous instance completely to prevent memory leaks
+  cleanup3DResources();
 
   // Scene setup
   scene3D = new THREE.Scene();
@@ -411,7 +798,7 @@ function init3DModel() {
 function animate3D() {
   if (!renderer3D || !scene3D || !camera3D) return;
 
-  requestAnimationFrame(animate3D);
+  animationFrame3D = requestAnimationFrame(animate3D);
 
   if (controls3D) {
     controls3D.update();
@@ -423,6 +810,10 @@ function animate3D() {
 function closeProjectModal() {
   const modal = document.getElementById("projectModal");
   modal.style.opacity = "0";
+  
+  // Cleanup 3D resources when modal closes
+  cleanup3DResources();
+  
   setTimeout(() => {
     modal.classList.remove("show");
     document.body.style.overflow = "auto";

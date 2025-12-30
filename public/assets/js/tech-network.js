@@ -141,7 +141,7 @@
   ].map((code) => ({ code, family: "Font Awesome 6 Brands", weight: "400" }));
 
   const CONFIG = {
-    NUM_ICONS: 150, // Number of moving icons on the globe
+    NUM_ICONS: 80, // Reduced from 150 for better performance
     ICON_SIZE: 20,
     MOVE_SPEED: 0.008, // Auto-rotation speed
     ICON_MOVE_SPEED: 0.0, // Speed of icons moving on surface
@@ -150,7 +150,7 @@
     BASE_RADIUS: 180, // Base globe radius (will be recalculated on init)
     EARTH_RADIUS_RATIO: 0.85, // Earth size relative to satellite orbit (55% of BASE_RADIUS)
     CONNECTION_DISTANCE: 50, // Base max distance for lines (will be scaled with zoom)
-    MAX_CONNECTIONS: 3, // Max connections per icon
+    MAX_CONNECTIONS: 2, // Reduced from 3 for better performance
     MIN_ICON_DISTANCE: 2, // Minimum angular distance between icons (in radians) - smaller for more icons
   };
   // Multiplier to tweak the default 'natural' size of the globe.
@@ -173,6 +173,12 @@
   let dragVelocityY = 0;
   let zoomLevel = 1.0;
   let autoRotate = true;
+  
+  // Visibility and performance tracking
+  let isVisible = true;
+  let lastFrameTime = 0;
+  const TARGET_FPS = 30; // Limit to 30fps for better performance
+  const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
   function initNetwork() {
     // Match CSS size and scale by device pixel ratio for crisp rendering
@@ -357,8 +363,8 @@
     iconNodes.forEach((node) => (node.connections = []));
 
     // Scale connection distance with zoom level to maintain visual consistency
-    // Add time-based oscillation for frequent connect/disconnect without moving icons
-    const timeOscillation = Math.sin(Date.now() * 0.005) * 0.2 + 1; // Oscillates between 0.8 and 1.2 (faster)
+    // Simplified oscillation calculation (less frequent updates)
+    const timeOscillation = Math.sin(Date.now() * 0.003) * 0.15 + 1;
     const scaledConnectionDistance =
       CONFIG.CONNECTION_DISTANCE * zoomLevel * timeOscillation;
 
@@ -391,7 +397,7 @@
       distances.sort((a, b) => a.distance - b.distance);
       const connections = distances.slice(0, CONFIG.MAX_CONNECTIONS);
 
-      // Draw connections
+      // Draw connections - optimized without gradients to reduce memory
       connections.forEach(({ node: nodeB, distance }) => {
         // Calculate opacity based on distance (closer = more opaque)
         const distanceFactor = 1 - distance / scaledConnectionDistance;
@@ -407,20 +413,10 @@
           distanceFactor *
           Math.max(0.2, Math.min(0.9, depthFactor));
 
-        // Draw line with gradient effect
-        const gradient = ctx.createLinearGradient(
-          nodeA.x,
-          nodeA.y,
-          nodeB.x,
-          nodeB.y
-        );
-        gradient.addColorStop(0, `rgba(114, 161, 222, ${opacity * 0.8})`);
-        gradient.addColorStop(0.5, `rgba(255, 255, 255, ${opacity})`);
-        gradient.addColorStop(1, `rgba(114, 161, 222, ${opacity * 0.8})`);
-
-        ctx.strokeStyle = gradient;
-        ctx.shadowBlur = 3;
-        ctx.shadowColor = `rgba(114, 161, 222, ${opacity * 0.4})`;
+        // Draw line with solid color instead of gradient (memory optimization)
+        ctx.strokeStyle = `rgba(160, 200, 255, ${opacity * 0.7})`;
+        ctx.shadowBlur = 2;
+        ctx.shadowColor = `rgba(114, 161, 222, ${opacity * 0.3})`;
 
         ctx.beginPath();
         ctx.moveTo(nodeA.x, nodeA.y);
@@ -441,7 +437,7 @@
 
   function initBinaryDigits() {
     binaryDigits = [];
-    const numDigits = 400;
+    const numDigits = 150; // Reduced from 400 for better performance
     const goldenRatio = (1 + Math.sqrt(5)) / 2;
 
     for (let i = 0; i < numDigits; i++) {
@@ -938,7 +934,21 @@
     });
   }
 
-  function animate() {
+  function animate(currentTime = 0) {
+    // Skip animation if page is not visible
+    if (!isVisible) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    
+    // Throttle to target FPS for better performance
+    const elapsed = currentTime - lastFrameTime;
+    if (elapsed < FRAME_INTERVAL) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    lastFrameTime = currentTime - (elapsed % FRAME_INTERVAL);
+
     // Clear canvas completely for crisp rendering
     ctx.clearRect(0, 0, width, height);
 
@@ -1066,6 +1076,14 @@
       faBrandWeight = brandRes.wt;
     }
   }
+
+  // Visibility change handler - pause when tab is not visible
+  document.addEventListener("visibilitychange", () => {
+    isVisible = !document.hidden;
+    if (isVisible) {
+      lastFrameTime = performance.now(); // Reset time to prevent large delta jumps
+    }
+  });
 
   // Initialize after fonts are ready
   loadFonts()

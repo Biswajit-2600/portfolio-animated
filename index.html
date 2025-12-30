@@ -20,6 +20,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- DotLottie Player -->
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
   </head>
   <body>
     <!-- Starfield Canvas Background -->
@@ -1059,7 +1063,7 @@
           />
         </h1>
 
-        <div class="experience-section-wrapper">
+        <div class="experience-section-wrapper autoBlur">
           <!-- Left side: Image -->
           <div class="experience-image-side">
             <div class="modal-image-wrapper">
@@ -1176,49 +1180,92 @@
           <span class="title-text">Let's Connect</span>
           <img
             src="public/assets/icons/contact-section-header-icon.png"
-            alt="projects-section-header-icon"
+            alt="contact-section-header-icon"
           />
         </h1>
 
-        <div class="social-box autoBlur">
-          <a href="#"><i class="bx bxs-phone"></i> +39 111 222 444</a>
-          <a href="#"><i class="bx bxl-telegram"></i> Contact Example.com</a>
-          <a href="#"
-            ><i class="bx bxl-linkedin-square"></i> Contact Example.com</a
-          >
-          <div class="social-icons">
-            <a href="#"><i class="bx bxl-youtube"></i></a>
-            <a href="#"><i class="bx bxl-twitter"></i></a>
-            <a href="#"><i class="bx bxl-facebook-circle"></i></a>
+        <div class="contact-form-wrapper autoBlur">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="fullName" class="form-label">Full Name <span class="required-star">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user input-icon"></i>
+                <input type="text" id="fullName" name="fullName" placeholder="Your Name" required />
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address <span class="required-star">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <input type="email" id="email" name="email" placeholder="Your Email" required />
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message <span class="required-star">*</span></label>
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fa-solid fa-message input-icon"></i>
+                <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span class="btn-spinner"><i class="fa-solid fa-spinner"></i></span>
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
+              <div class="btn-glow"></div>
+            </button>
+          </form>
+
+          <!-- Contact Info Below Form -->
+          <div class="contact-info-row">
+            <div class="contact-copy-item" data-copy="biswajitpanda754@gmail.com">
+              <i class="fa-solid fa-envelope contact-type-icon"></i>
+              <span class="contact-copy-text">biswajitpanda754@gmail.com</span>
+              <span class="copy-icon-wrapper">
+                <i class="fa-regular fa-copy copy-icon"></i>
+                <span class="copy-tooltip">Copied!</span>
+              </span>
+            </div>
+            <div class="contact-copy-item" data-copy="+919658309750">
+              <i class="fa-solid fa-phone contact-type-icon"></i>
+              <span class="contact-copy-text">+91 9658309750</span>
+              <span class="copy-icon-wrapper">
+                <i class="fa-regular fa-copy copy-icon"></i>
+                <span class="copy-tooltip">Copied!</span>
+              </span>
+            </div>
           </div>
         </div>
-
-        <div class="contact-box autoBlur">
-          <p>Full Name</p>
-          <input placeholder="Your Full name" type="full name" />
-
-          <p>Email Address</p>
-          <input placeholder="Your Email" type="Contact" />
-
-          <p>Your Message</p>
-          <input
-            class="input-message"
-            type="contact"
-            placeholder="shaire your thoughts..."
-          />
-
-          <button>Send Message <i class="bx bx-mail-send"></i></button>
-        </div>
       </section>
 
-      <section class="footer">
-        <h1>©️2025, Made with ❤️ by Biswajit</h1>
-        <div class="fav-icons">
-          <p><i class="bx bxl-youtube"></i></p>
-          <p><i class="bx bxl-github"></i></p>
-          <p><i class="bx bxl-linkedin-square"></i></p>
+      <footer class="footer">
+        <p><img src="public/assets/icons/footer-icon.png" alt="Design Icon"> Designed and developed by Biswajit Panda. © 2025 All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- Message Sent Success Modal (outside container for proper z-index) -->
+    <div class="message-sent-modal" id="messageSentModal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <dotlottie-player
+          id="successLottie"
+          src="public/assets/animations/message-sent.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 120px; height: 120px; margin: 0 auto 15px;"
+          loop="false"
+        ></dotlottie-player>
+        <h2 class="modal-title">Thank You!</h2>
+        <p class="modal-message">Your Message Has Been Sent Successfully! </p>
+        <div class="modal-loader-container">
+          <div class="modal-loader-bar" id="modalLoaderBar"></div>
         </div>
-      </section>
+      </div>
     </div>
     <!-- Three.js (MUST BE FIRST) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.core.min.js"></script>

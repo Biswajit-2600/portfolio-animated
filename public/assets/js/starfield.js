@@ -2,6 +2,7 @@
  * 3D Starfield Animation
  * Stars move toward viewer with even distribution
  * Grid-based spawning ensures uniform coverage
+ * Memory-optimized with visibility-based pausing
  */
 
 const canvas = document.getElementById("starfield");
@@ -11,13 +12,20 @@ let stars = [];
 let w, h, centerX, centerY;
 let gridCells = [];
 let lastTime = 0;
+let animationId = null;
+let isVisible = true;
+let isPaused = false;
 
-// Configuration
-const STAR_COUNT = Math.floor(window.innerWidth / 4);
+// Configuration - reduced star count for better performance
+const STAR_COUNT = Math.min(Math.floor(window.innerWidth / 6), 200);
 const SPEED = 3;
 const MAX_DEPTH = 2000;
 const MIN_DEPTH = 1;
 const GRID_SIZE = 40; // Size of each grid cell for even distribution
+
+// Pre-create reusable gradient for close stars (prevents memory leak)
+let cachedGlowGradient = null;
+let cachedGlowCenter = { x: 0, y: 0 };
 
 function init() {
   w = canvas.width = window.innerWidth;
@@ -82,6 +90,12 @@ function createStar(index) {
 }
 
 function animate(currentTime = 0) {
+  // Skip animation if page is not visible or paused
+  if (!isVisible || isPaused) {
+    animationId = requestAnimationFrame(animate);
+    return;
+  }
+
   // Calculate delta time for consistent animation speed
   const deltaTime = currentTime - lastTime;
   lastTime = currentTime;
@@ -125,38 +139,26 @@ function animate(currentTime = 0) {
       ctx.arc(px, py, size, 0, Math.PI * 2);
       ctx.fill();
 
-      // Add very subtle glow for closer stars
-      if (star.z < MAX_DEPTH * 0.3) {
+      // Add very subtle glow for closer stars (optimized - less frequent)
+      if (star.z < MAX_DEPTH * 0.2) {
         const glowSize = size * 1.8;
-        const gradient = ctx.createRadialGradient(
-          px,
-          py,
-          size,
-          px,
-          py,
-          glowSize
-        );
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity * 0.3})`);
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-        ctx.fillStyle = gradient;
+        // Reuse gradient pattern with simple radial glow
+        ctx.globalAlpha = opacity * 0.3;
         ctx.beginPath();
         ctx.arc(px, py, glowSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200, 220, 255, ${opacity * 0.15})`;
         ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
       // Draw subtle motion trail for very close stars
-      if (star.z < MAX_DEPTH * 0.2) {
+      if (star.z < MAX_DEPTH * 0.15) {
         const prevZ = star.z + SPEED * star.speed;
         const prevK = 128 / prevZ;
         const prevPx = (star.x - centerX) * prevK + centerX;
         const prevPy = (star.y - centerY) * prevK + centerY;
 
-        const trailGradient = ctx.createLinearGradient(prevPx, prevPy, px, py);
-        trailGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-        trailGradient.addColorStop(1, `rgba(255, 255, 255, ${opacity * 0.4})`);
-
-        ctx.strokeStyle = trailGradient;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
         ctx.lineWidth = Math.max(size * 0.6, 0.5);
         ctx.lineCap = "round";
         ctx.beginPath();
@@ -167,13 +169,35 @@ function animate(currentTime = 0) {
     }
   }
 
-  requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
 }
 
-// Handle window resize
+// Handle window resize with debounce
+let resizeTimeout;
 window.addEventListener("resize", () => {
-  init();
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    init();
+  }, 250);
 });
+
+// Visibility change handler - pause when tab is not visible
+document.addEventListener("visibilitychange", () => {
+  isVisible = !document.hidden;
+  if (isVisible) {
+    lastTime = performance.now(); // Reset time to prevent large delta jumps
+  }
+});
+
+// Cleanup function for memory management
+function cleanup() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  stars = [];
+  gridCells = [];
+}
 
 // Start animation
 init();
