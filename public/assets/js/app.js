@@ -741,7 +741,7 @@ function initExperienceAnimations() {
         const line = timelineWrapper.querySelector(
           ".timeline-line, .academic-timeline-line"
         );
-        if (line) line.style.height = fullHeight + "px";
+        if (line) line.style.height = (fullHeight * 0.92) + "px";
         timelineMask.style.height = fullHeight + "px";
       }
 
@@ -763,7 +763,7 @@ function initExperienceAnimations() {
             expCardsContainer.scrollHeight,
             expCardsContainer.offsetHeight
           );
-          line.style.height = fullHeight + "px";
+          line.style.height = (fullHeight * 0.92) + "px";
         }
       }
     }
@@ -894,7 +894,7 @@ function reinitModalTimelineAnimations() {
         const line = timelineWrapper.querySelector(
           ".timeline-line, .academic-timeline-line"
         );
-        if (line) line.style.height = fullHeight + "px";
+        if (line) line.style.height = (fullHeight * 0.92) + "px";
         timelineMask.style.height = fullHeight + "px";
       }
 
