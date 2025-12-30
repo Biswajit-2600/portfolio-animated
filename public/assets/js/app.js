@@ -292,22 +292,26 @@ function showMessageSentModal() {
   const interval = 50; // Update every 50ms
   const decrement = (100 / duration) * interval;
   
+  // Set initial width to 100%
   loaderBar.style.width = '100%';
   
-  const loaderInterval = setInterval(() => {
-    progress -= decrement;
-    if (progress <= 0) {
-      progress = 0;
-      clearInterval(loaderInterval);
-      
-      // Close modal and reset
-      closeMessageSentModal();
-    }
-    loaderBar.style.width = progress + '%';
-  }, interval);
-  
-  // Store interval ID so we can clear it if needed
-  modal.dataset.loaderInterval = loaderInterval;
+  // Start countdown after a brief delay to ensure smooth animation
+  setTimeout(() => {
+    const loaderInterval = setInterval(() => {
+      progress -= decrement;
+      if (progress <= 0) {
+        progress = 0;
+        clearInterval(loaderInterval);
+        
+        // Close modal and reset
+        closeMessageSentModal();
+      }
+      loaderBar.style.width = progress + '%';
+    }, interval);
+    
+    // Store interval ID so we can clear it if needed
+    modal.dataset.loaderInterval = loaderInterval;
+  }, 100);
 }
 
 // Close success modal
