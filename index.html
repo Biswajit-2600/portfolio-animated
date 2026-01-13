@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portflio - Biswajit Panda</title>
+    <link rel="stylesheet" href="public/assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="public/assets/icons/favicon.ico"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="public/assets/icons/favicon.svg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- DotLottie Player -->
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+  </head>
+  <body>
+    <!-- Starfield Canvas Background -->
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+      <header data-aos="fade-down" data-aos-duration="2000">
+        <div class="left">
+          <a href="#hero-section"
+            ><img src="public/assets/icons/favicon.svg" alt="logo"
+          /></a>
+          <a href="#hero-section" style="color: inherit; text-decoration: none"
+            ><h2><span style="color: #72a1dea2">Biswajit</span> P.</h2></a
+          >
+        </div>
+
+        <ul>
+          <li>
+            <a href="#hero-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-house-chimney-window"></i>
+                <span>Home</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#projects-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-laptop-code"></i>
+                <span>Projects</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#skills-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span>Skills</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#experience-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Experience</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#contact-section">
+              <div class="nav-capsule">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Contact</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <div class="fav-icons">
+          <a
+            href="mailto:biswajitpanda754@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span><i class="fa-solid fa-envelope"></i></span
+          ></a>
+          <a href="tel:+919658309750" target="_blank" rel="noopener noreferrer"
+            ><span><i class="fa-solid fa-phone"></i></span
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/biswajit-panda-me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span><i class="fa-brands fa-linkedin-in"></i></span
+          ></a>
+          <a
+            href="https://github.com/Biswajit-2600"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span><i class="fa-brands fa-github"></i></span
+          ></a>
+        </div>
+
+        <div class="menu-icon">
+          <i class="bx bx-menu"></i>
+        </div>
+      </header>
+      <div class="sidebar">
+        <div class="close-icon">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Skills</a></li>
+          <li><a href="#">Projects</a></li>
+        </ul>
+
+        <div class="social-sidebar">
+          <a
+            href="mailto:biswajitpanda754@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-solid fa-envelope"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/biswajit-panda-me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-linkedin-in"></i
+          ></a>
+          <a
+            href="https://github.com/Biswajit-2600"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+        </div>
+      </div>
+
+      <div class="blackhole-box" data-aos="fade-down" data-aos-duration="2000">
+        <video
+          autoplay
+          loop
+          div
+          muted
+          plays-inline
+          src="public/assets/videos/blackhole.mp4"
+        ></video>
+      </div>
+
+      <section class="hero-section" id="hero-section">
+        <div
+          class="hero-info autoBlur"
+          data-aos="fade-right"
+          data-aos-duration="1000"
+        >
+          <h1 class="autoBlur" data-aos="fade-right" data-aos-duration="3000">
+            Crafting
+            <span class="text-slider">
+              <span class="text-slider-wrapper">
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img
+                      src="public/assets/icons/rotating-text/intelligent.svg"
+                    />
+                  </span>
+                  <span class="gradient">Intelligent</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img src="public/assets/icons/rotating-text/modern.svg" />
+                  </span>
+                  <span class="gradient">Modern</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img
+                      src="public/assets/icons/rotating-text/immersive.svg"
+                    />
+                  </span>
+                  <span class="gradient">Immersive</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img
+                      src="public/assets/icons/rotating-text/scalable.svg"
+                      style="width: 80%; height: 80%"
+                    />
+                  </span>
+                  <span class="gradient">Scalable</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img src="public/assets/icons/rotating-text/adaptive.svg" />
+                  </span>
+                  <span class="gradient">Adaptive</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img
+                      src="public/assets/icons/rotating-text/interactive.svg"
+                      style="width: 85%; height: 85%"
+                    />
+                  </span>
+                  <span class="gradient">Interactive</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img src="public/assets/icons/rotating-text/dynamic.svg" />
+                  </span>
+                  <span class="gradient">Dynamic</span>
+                </span>
+                <span class="text-slider-item">
+                  <span class="slider-icon">
+                    <img src="public/assets/icons/rotating-text/seamless.svg" />
+                  </span>
+                  <span class="gradient">Seamless</span>
+                </span>
+              </span> </span
+            ><br />
+            Digital <span class="gradient">Experiences</span>
+          </h1>
+
+          <p>
+            I build software solutions that combine modern development practices
+            with growing expertise in data and machine learning. Check out my
+            projects and skills.
+          </p>
+          <a href="#contact-section">
+            <button id="modalOpen">
+              <i class="fa-solid fa-user"></i>
+              About Me
+            </button>
+          </a>
+        </div>
+
+        <div class="hero-skills-animation" data-aos-duration="1000">
+          <canvas
+            id="tech-network-canvas"
+            class="tech-network"
+            data-aos="fade-left"
+            data-aos-duration="3000"
+          ></canvas>
+        </div>
+
+        <a href="#projects-section"><div class="scroll-down"></div></a>
+      </section>
+
+      <!-- About Me Modal -->
+      <div id="allModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="closeModal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <!-- Browser-like tabs -->
+          <div class="modal-tabs">
+            <button class="modal-tab active" data-tab="profile">Profile</button>
+            <button class="modal-tab" data-tab="academics">Academics</button>
+          </div>
+
+          <!-- Profile Tab Content -->
+          <div class="modal-tab-content active" id="profile-tab">
+            <h1 class="modal-title">Let's Get Introduced</h1>
+
+            <div class="modal-body">
+              <div class="modal-left">
+                <div class="modal-text-section">
+                  <h1>Hi there, I'm Biswajit</h1>
+                  <p class="about-intro">
+                    With experience across front-end development, software
+                    engineering, AI/ML workflows, and data-driven design, I
+                    build digital experiences that balance intelligence,
+                    usability, and visual clarity. I bring:
+                  </p>
+                  <ul class="about-points" style="margin-bottom: 0">
+                    <li style="padding-bottom: 5%">Product-focused mindset</li>
+                    <li style="padding-bottom: 5%">
+                      Solid engineering foundation
+                    </li>
+                    <li style="padding-bottom: 5%">
+                      AI-enhanced problem solving
+                    </li>
+                    <li style="padding-bottom: 5%">Adaptability to new tech</li>
+                    <li style="padding-bottom: 5%">Detail-oriented</li>
+                    <li>Continuous learner</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="modal-middle">
+                <div class="modal-text-section">
+                  <h1>Achievements</h1>
+                  <h2 style="margin-top: 1.1rem">Certifications</h2>
+                  <div class="achievement-icons">
+                    <div class="icon-tooltip-wrapper certification-icon">
+                      <img
+                        src="public/assets/icons/about/aws.png"
+                        alt="AWS"
+                        style="border-radius: 5px"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #ff9900"
+                        >AWS</span
+                      >
+                      <div class="cert-popup">
+                        <div class="cert-popup-icons">
+                          <img
+                            src="public/assets/icons/about/certificates/aws/aws-cloud-foundations.png"
+                            alt="AWS Cert 1"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/aws/ml-associate.png"
+                            alt="AWS Cert 2"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/aws/de-associate.png"
+                            alt="AWS Cert 3"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="icon-tooltip-wrapper certification-icon">
+                      <img
+                        src="public/assets/icons/about/google.png"
+                        alt="Google"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #4285f4"
+                        >Google</span
+                      >
+                      <div class="cert-popup">
+                        <div class="cert-popup-icons">
+                          <img
+                            src="public/assets/icons/about/certificates/google/generative-ai-leader.png"
+                            alt="Google Cert 1"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/google/associate-cloud-engineer.png"
+                            alt="Google Cert 2"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="icon-tooltip-wrapper certification-icon">
+                      <img
+                        src="public/assets/icons/about/microsoft.png"
+                        alt="Microsoft"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #00a4ef"
+                        >Microsoft</span
+                      >
+                      <div class="cert-popup">
+                        <div class="cert-popup-icons">
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/azure-fundamentals.png"
+                            alt="Microsoft Cert 1"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/azure-ai-fundamentals.png"
+                            alt="Microsoft Cert 2"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/ai-engineer-associate.png"
+                            alt="Microsoft Cert 3"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/data-scientist-associate.png"
+                            alt="Microsoft Cert 4"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/azure-developer-associate.png"
+                            alt="Microsoft Cert 5"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/microsoft/github-copilot.svg"
+                            alt="Microsoft Cert 6"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="icon-tooltip-wrapper certification-icon">
+                      <img
+                        src="public/assets/icons/about/coursera-logo.png"
+                        alt="Coursera"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #0056d2"
+                        >Coursera</span
+                      >
+                      <div class="cert-popup">
+                        <div class="cert-popup-icons">
+                          <img
+                            src="public/assets/icons/about/certificates/coursera/ml-specialization.png"
+                            alt="Coursera Cert 1"
+                          />
+                          <img
+                            src="public/assets/icons/about/certificates/coursera/ibm-cs-analyst.png"
+                            alt="Coursera Cert 2"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 style="margin-top: 2rem">Leadership</h2>
+                  <div class="achievement-icons">
+                    <div class="icon-tooltip-wrapper leadership-icon">
+                      <img
+                        src="public/assets/icons/about/cisco.png"
+                        alt="cisco"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #049fd9"
+                        data-color="#049FD9"
+                        >Cisco</span
+                      >
+                      <div class="leadership-popup" data-color="#049FD9">
+                        <p>
+                          <span style="font-size: 1.2rem"
+                            >Campus Ambassador</span
+                          ><br />
+                          Cisco Ambassador Program <br />
+                          <i class="fa-solid fa-calendar"></i> Aug 2023 - May
+                          2024
+                        </p>
+                      </div>
+                    </div>
+                    <div class="icon-tooltip-wrapper leadership-icon">
+                      <img
+                        src="public/assets/icons/about/ieee.png"
+                        alt="IEEE"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #00629b"
+                        data-color="#00629B"
+                        >IEEE</span
+                      >
+                      <div class="leadership-popup" data-color="#049FD9">
+                        <p>
+                          <span style="font-size: 1.2rem">Secretary</span><br />
+                          IEEE Student Branch, VSSUT <br />
+                          <i class="fa-solid fa-calendar"></i> Aug 2022 - Aug
+                          2023
+                        </p>
+                      </div>
+                    </div>
+                    <div class="icon-tooltip-wrapper leadership-icon">
+                      <img
+                        src="public/assets/icons/about/gdsc.png"
+                        alt="GDSC"
+                      />
+                      <span
+                        class="icon-tooltip"
+                        style="background-color: #4285f4"
+                        data-color="#00629B"
+                        >GDSC</span
+                      >
+                      <div class="leadership-popup" data-color="#049FD9">
+                        <p>
+                          <span style="font-size: 1.2rem"
+                            >Cyber Security Lead</span
+                          ><br />
+                          GDSC, VSSUT <br />
+                          <i class="fa-solid fa-calendar"></i> Aug 2022 - Aug
+                          2023
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    href="https://drive.google.com/file/d/1Wuc64EMk7bjlaTG3G6RCglI_wO44cpIu/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="modal-resume-link"
+                  >
+                    <button class="modal-resume-btn" style="margin-top: 1rem">
+                      <i
+                        class="fa-solid fa-file-lines"
+                        style="font-size: 18px"
+                      ></i>
+                      Resume
+                    </button>
+                  </a>
+                </div>
+              </div>
+
+              <div class="modal-right">
+                <div class="modal-image-wrapper">
+                  <img
+                    src="public/assets/images/display-picture-flip.png"
+                    alt="Biswajit Panda"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academics Tab Content -->
+          <div class="modal-tab-content" id="academics-tab">
+            <h1 class="modal-title">Learning Path</h1>
+
+            <div class="modal-body academics-body">
+              <div class="modal-academics-left">
+                <div class="academic-image-wrapper">
+                  <img
+                    src="public/assets/images/education-dp.png"
+                    alt="Biswajit Panda"
+                  />
+                </div>
+              </div>
+
+              <div class="modal-academics-content">
+                <!-- Education Timeline -->
+                <div class="modal-timeline-section">
+                  <div
+                    class="academic-timeline-section modal-timeline"
+                    id="modal-education-section"
+                  >
+                    <div class="academic-content">
+                      <div class="academic-timeline-wrapper">
+                        <div class="academic-timeline-line"></div>
+                        <div class="academic-timeline-line-mask"></div>
+                      </div>
+
+                      <div class="academic-cards-container">
+                        <div class="academic-card-wrapper">
+                          <div class="academic-glow-card" data-card="1">
+                            <div class="academic-glow-border"></div>
+                            <div class="academic-card-content">
+                              <div class="academic-card-header">
+                                <img
+                                  src="public/assets/images/experience/logo1.png"
+                                  alt="School Logo"
+                                  class="academic-company-logo"
+                                />
+                                <div class="academic-header-text">
+                                  <h3 class="academic-company-name">
+                                    Veer Surendra Sai University of Technology
+                                  </h3>
+                                  <p class="academic-job-position">
+                                    B.Tech in Information Technology
+                                  </p>
+                                </div>
+                              </div>
+                              <p class="academic-job-date">
+                                <i class="fa-regular fa-calendar"></i> 2020 -
+                                2024
+                              </p>
+                              <ul class="academic-responsibilities">
+                                <li>
+                                  <b>Course Work:</b> Arificial Intelligence,
+                                  Machine Learning, Neural Networks and Deep
+                                  Learning, Cryptographic Foundations
+                                </li>
+                                <li><b>Activities:</b> IEEE, GDSC, Cisco</li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="academic-timeline-icon">
+                            <img
+                              src="public/assets/images/education/vssut.png"
+                              alt="Education Icon"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="academic-card-wrapper">
+                          <div class="academic-glow-card" data-card="2">
+                            <div class="academic-glow-border"></div>
+                            <div class="academic-card-content">
+                              <div class="academic-card-header">
+                                <img
+                                  src="public/assets/images/experience/logo2.png"
+                                  alt="School Logo"
+                                  class="academic-company-logo"
+                                />
+                                <div class="academic-header-text">
+                                  <h3 class="academic-company-name">
+                                    Gonasika Higher Secondary School
+                                  </h3>
+                                  <p class="academic-job-position">
+                                    Intermediate in Science
+                                  </p>
+                                </div>
+                              </div>
+                              <p class="academic-job-date">
+                                <i class="fa-regular fa-calendar"></i> 2017 -
+                                2019
+                              </p>
+                              <ul class="academic-responsibilities">
+                                <li>
+                                  Completed Intermediate (Higher Secondary
+                                  Education) with Science as Major
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="academic-timeline-icon">
+                            <img
+                              src="public/assets/images/education/gonasika.png"
+                              alt="Education Icon"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="academic-card-wrapper">
+                          <div class="academic-glow-card" data-card="3">
+                            <div class="academic-glow-border"></div>
+                            <div class="academic-card-content">
+                              <div class="academic-card-header">
+                                <img
+                                  src="public/assets/images/experience/logo3.png"
+                                  alt="School Logo"
+                                  class="academic-company-logo"
+                                />
+                                <div class="academic-header-text">
+                                  <h3 class="academic-company-name">
+                                    Nirmala Convent School
+                                  </h3>
+                                  <p class="academic-job-position">
+                                    Secondary Schooling
+                                  </p>
+                                </div>
+                              </div>
+                              <p class="academic-job-date">
+                                <i class="fa-regular fa-calendar"></i> 2013 -
+                                2017
+                              </p>
+                              <ul class="academic-responsibilities">
+                                <li>
+                                  Completed Secondary Schooling with Varied
+                                  Course Curriculum.
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="academic-timeline-icon">
+                            <img
+                              src="public/assets/images/education/nirmala-convent.png"
+                              alt="Education Icon"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="projects-section" id="projects-section">
+        <h1 class="section-title autoDisplay">
+          <span class="title-text">Work Gallery</span>
+          <img
+            src="public/assets/icons/projects-section-header-icon.png"
+            alt="projects-section-header-icon"
+          />
+        </h1>
+
+        <div class="projects-section-wrapper">
+          <!-- Personal Projects -->
+          <div
+            id="modalOpen"
+            class="project-category-card autoBlur"
+            data-project="personal"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <div class="project-image-container">
+              <img
+                src="public/assets/images/personal-projects.png"
+                alt="Personal Projects"
+                class="project-thumbnail"
+              />
+            </div>
+            <h2 class="project-category-heading">Personal Projects</h2>
+            <p class="project-category-description">
+              Innovative side projects showcasing creative problem-solving,
+              cutting-edge technologies, and passion-driven development.
+            </p>
+          </div>
+
+          <!-- Professional Projects -->
+          <div
+            id="modalOpen"
+            class="project-category-card autoBlur"
+            data-project="professional"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <div class="project-image-container">
+              <img
+                src="public/assets/images/professional-projects.png"
+                alt="Professional Projects"
+                class="project-thumbnail"
+              />
+            </div>
+            <h2 class="project-category-heading">Professional Projects</h2>
+            <p class="project-category-description">
+              Client-focused solutions delivering scalable, high-performance
+              applications with modern tech stacks and best practices.
+            </p>
+          </div>
+        </div>
+
+        <!-- Modal Popup for Project Details -->
+        <div id="projectModal" class="modal">
+          <div class="modal-overlay"></div>
+
+          <div class="modal-content project-modal-content">
+            <button class="modal-close" id="closeProjectModal">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h1 class="modal-title" id="projectModalTitle">My Selected Work</h1>
+            <!-- Left Navigation Arrow (edge of left div) -->
+            <div
+              class="project-arrow left"
+              onclick="navigateProject('previous')"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </div>
+            <div class="project-modal-body" id="projectModalBody">
+              <!-- Left Side - Project Details -->
+              <div class="project-details-side">
+                <img
+                  src=""
+                  alt="spotlight"
+                  class="project-spotlight"
+                  id="projectSpotlight"
+                />
+                <div class="project-logo-container" id="projectLogoContainer">
+                  <img
+                    class="project-logo"
+                    src=""
+                    alt="logo"
+                    id="projectLogo"
+                  />
+                </div>
+                <div class="project-info">
+                  <h2 class="project-title" id="projectTitle">Project Title</h2>
+                  <p class="project-desc" id="projectDesc">
+                    Project description goes here...
+                  </p>
+                  <p class="project-subdesc" id="projectSubdesc">
+                    Additional details...
+                  </p>
+                </div>
+                <div class="project-tags" id="projectTags">
+                  <!-- Tech tags will be inserted here -->
+                </div>
+                <div class="project-actions">
+                  <a
+                    class="project-btn btn-view-code"
+                    id="btnViewCode"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <i class="fa-brands fa-github"></i>
+                    <span>View Code</span>
+                  </a>
+                  <a
+                    class="project-btn btn-view-live"
+                    id="btnViewLive"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span>View Live Site</span>
+                  </a>
+                </div>
+              </div>
+              <!-- Right Side - 3D Model Preview -->
+              <div class="project-preview-side" id="project3DContainer">
+                <canvas id="laptopCanvas"></canvas>
+              </div>
+            </div>
+            <!-- Right Navigation Arrow (edge of right div) -->
+            <div class="project-arrow right" onclick="navigateProject('next')">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <!-- Project Counter -->
+            <div class="project-counter" id="projectCounter">1 / 1</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="skills-section" id="skills-section">
+        <h1 class="section-title autoDisplay">
+          <span class="title-text">Skill Matrix</span>
+          <img
+            src="public/assets/icons/skills-section-header-icon.png"
+            alt="projects-section-header-icon"
+          />
+        </h1>
+        <p class="skills-subtitle">
+          A collection of my technical skills and expertise honed through
+          various projects and experiences
+        </p>
+
+        <div class="skills-categories-wrapper">
+          <!-- Frontend Skills -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">Frontend</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/html.png"
+                  alt="HTML"
+                /><span>HTML</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/css.png"
+                  alt="CSS"
+                /><span>CSS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/sass.png"
+                  alt="SASS"
+                /><span>SASS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/javascript.png"
+                  alt="JavaScript"
+                /><span>JavaScript</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/reactjs.png"
+                  alt="React JS"
+                /><span>React JS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/angular.png"
+                  alt="Angular"
+                /><span>Angular</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/redux.png"
+                  alt="Redux"
+                /><span>Redux</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/nextjs.png"
+                  alt="Next JS"
+                /><span>Next JS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/tailwindcss.png"
+                  alt="Tailwind CSS"
+                /><span>Tailwind CSS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/gsap.png"
+                  alt="GSAP"
+                /><span>GSAP</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/materialui.png"
+                  alt="Material UI"
+                /><span>Material UI</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/bootstrap.png"
+                  alt="Bootstrap"
+                /><span>Bootstrap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend Skills -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">Backend</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/springboot.png"
+                  alt="Springboot"
+                /><span>Springboot</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/nodejs.png"
+                  alt="Node JS"
+                /><span>Node JS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/express.png"
+                  alt="Express JS"
+                /><span>Express JS</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/mysql.png"
+                  alt="MySQL"
+                /><span>MySQL</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/mongodb.png"
+                  alt="MongoDB"
+                /><span>MongoDB</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/firebase.png"
+                  alt="Firebase"
+                /><span>Firebase</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/postgre.png"
+                  alt="PostgreSQL"
+                /><span>PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">Languages</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <img src="public/assets/icons/tech_logo/c.png" alt="C" /><span
+                  >C</span
+                >
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/cpp.png"
+                  alt="C++"
+                /><span>C++</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/java.png"
+                  alt="Java"
+                /><span>Java</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/python.png"
+                  alt="Python"
+                /><span>Python</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/csharp.png"
+                  alt="C#"
+                /><span>C#</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/javascript.png"
+                  alt="JavaScript"
+                /><span>JavaScript</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/typescript.png"
+                  alt="TypeScript"
+                /><span>TypeScript</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div class="skill-category-card">
+            <h3 class="skill-category-title">Tools</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/git.png"
+                  alt="Git"
+                /><span>Git</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/github.png"
+                  alt="GitHub"
+                /><span>GitHub</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/vscode.png"
+                  alt="VS Code"
+                /><span>VS Code</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/postman.png"
+                  alt="Postman"
+                /><span>Postman</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/mc.png"
+                  alt="Compass"
+                /><span>Compass</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/vercel.png"
+                  alt="Vercel"
+                /><span>Vercel</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/netlify.png"
+                  alt="Netlify"
+                /><span>Netlify</span>
+              </div>
+              <div class="skill-item">
+                <img
+                  src="public/assets/icons/tech_logo/figma.png"
+                  alt="Figma"
+                /><span>Figma</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience Section -->
+      <section class="experience-section" id="experience-section">
+        <h1 class="section-title autoDisplay">
+          <span class="title-text">Professional Engagements</span>
+          <img
+            src="public/assets/icons/experience-section-header-icon.png"
+            alt="experience-section-header-icon"
+          />
+        </h1>
+
+        <div class="experience-section-wrapper autoBlur">
+          <!-- Left side: Image -->
+          <div class="experience-image-side">
+            <div class="modal-image-wrapper">
+              <img
+                src="public/assets/images/experience-dp.png"
+                alt="Biswajit Panda"
+              />
+            </div>
+          </div>
+
+          <!-- Right side: Experience timeline -->
+          <div class="timeline-section" id="experience-timeline">
+            <div class="experience-content">
+              <div class="timeline-wrapper">
+                <div class="timeline-line"></div>
+                <div class="timeline-line-mask"></div>
+              </div>
+
+              <div class="experience-cards-container">
+                <div class="exp-card-wrapper">
+                  <div class="glow-card" data-card="1">
+                    <div class="glow-border"></div>
+                    <div class="card-content">
+                      <div class="card-header">
+                        <img
+                          src="public/assets/images/work/tech-mahindra.png"
+                          alt="Company Logo"
+                          class="company-logo"
+                        />
+                        <div class="header-text">
+                          <h3 class="company-name">Tech Mahindra</h3>
+                          <p class="job-position">
+                            Associate Software Engineer
+                          </p>
+                        </div>
+                      </div>
+                      <p class="job-date">
+                        <i class="fa-regular fa-calendar"></i> September 2024 -
+                        Present
+                      </p>
+                      <ul class="responsibilities">
+                        <li>
+                          Developed and maintained web applications using React
+                          and Node.js
+                        </li>
+                        <li>
+                          Collaborated with cross-functional teams to define,
+                          design, and ship new features
+                        </li>
+                        <li>
+                          Implemented responsive design and ensured
+                          cross-browser compatibility
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="timeline-icon">
+                    <img
+                      src="public/assets/images/work/tech-mahindra.png"
+                      alt="Experience Icon"
+                    />
+                  </div>
+                </div>
+
+                <div class="exp-card-wrapper">
+                  <div class="glow-card" data-card="2">
+                    <div class="glow-border"></div>
+                    <div class="card-content">
+                      <div class="card-header">
+                        <img
+                          src="public/assets/images/experience/logo2.png"
+                          alt="Company Logo"
+                          class="company-logo"
+                        />
+                        <div class="header-text">
+                          <h3 class="company-name">Novion Technologies</h3>
+                          <p class="job-position">Data Engineering Intern</p>
+                        </div>
+                      </div>
+                      <p class="job-date">
+                        <i class="fa-regular fa-calendar"></i> December 2023 -
+                        July 2024
+                      </p>
+                      <ul class="responsibilities">
+                        <li>
+                          Built user interfaces for enterprise-level
+                          applications
+                        </li>
+                        <li>
+                          Optimized application performance and reduced load
+                          times by 40%
+                        </li>
+                        <li>
+                          Mentored junior developers and conducted code reviews
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="timeline-icon">
+                    <img
+                      src="public/assets/images/work/novion.png"
+                      alt="Experience Icon"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact-section">
+        <h1 class="section-title autoDisplay">
+          <span class="title-text">Let's Connect</span>
+          <img
+            src="public/assets/icons/contact-section-header-icon.png"
+            alt="contact-section-header-icon"
+          />
+        </h1>
+
+        <div class="contact-form-wrapper autoBlur">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="fullName" class="form-label">Full Name <span class="required-star">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user input-icon"></i>
+                <input type="text" id="fullName" name="fullName" placeholder="Your Name" required />
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address <span class="required-star">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <input type="email" id="email" name="email" placeholder="Your Email" required />
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message <span class="required-star">*</span></label>
+              <div class="input-wrapper textarea-wrapper">
+                <i class="fa-solid fa-message input-icon"></i>
+                <textarea id="message" name="message" placeholder="Your Message" rows="4" required></textarea>
+                <span class="input-focus-border"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span class="btn-spinner"><i class="fa-solid fa-spinner"></i></span>
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
+              <div class="btn-glow"></div>
+            </button>
+          </form>
+
+          <!-- Contact Info Below Form -->
+          <div class="contact-info-row">
+            <div class="contact-copy-item" data-copy="biswajitpanda754@gmail.com">
+              <i class="fa-solid fa-envelope contact-type-icon"></i>
+              <span class="contact-copy-text">biswajitpanda754@gmail.com</span>
+              <span class="copy-icon-wrapper">
+                <i class="fa-regular fa-copy copy-icon"></i>
+                <span class="copy-tooltip">Copied!</span>
+              </span>
+            </div>
+            <div class="contact-copy-item" data-copy="+919658309750">
+              <i class="fa-solid fa-phone contact-type-icon"></i>
+              <span class="contact-copy-text">+91 9658309750</span>
+              <span class="copy-icon-wrapper">
+                <i class="fa-regular fa-copy copy-icon"></i>
+                <span class="copy-tooltip">Copied!</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p><img src="public/assets/icons/footer-icon.png" alt="Design Icon"> Designed and developed by Biswajit Panda. © 2025 All rights reserved.</p>
+      </footer>
+    </div>
+
+    <!-- Message Sent Success Modal (outside container for proper z-index) -->
+    <div class="message-sent-modal" id="messageSentModal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <dotlottie-player
+          id="successLottie"
+          src="public/assets/animations/message-sent.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 120px; height: 120px; margin: 0 auto 15px;"
+          loop="false"
+        ></dotlottie-player>
+        <h2 class="modal-title">Thank You!</h2>
+        <p class="modal-message">Your Message Has Been Sent Successfully! </p>
+        <div class="modal-loader-container">
+          <div class="modal-loader-bar" id="modalLoaderBar"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Three.js (MUST BE FIRST) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.core.min.js"></script>
+
+    <!-- GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Now load your scripts -->
+    <script src="public/assets/js/starfield.js"></script>
+    <script src="public/assets/js/tech-network.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Finally your app -->
+    <script src="public/assets/js/app.js"></script>
+  </body>
+</html>
