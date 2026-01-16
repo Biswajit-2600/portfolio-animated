@@ -1078,12 +1078,40 @@
   }
 
   // Visibility change handler - pause when tab is not visible
-  document.addEventListener("visibilitychange", () => {
+  function handleVisibilityChange() {
     isVisible = !document.hidden;
     if (isVisible) {
       lastFrameTime = performance.now(); // Reset time to prevent large delta jumps
     }
-  });
+  }
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  // Cleanup function for memory management
+  function cleanup() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    if (resizeTimeout) {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = null;
+    }
+    // Remove event listeners
+    techCanvas.removeEventListener("mousedown", handleMouseDown);
+    techCanvas.removeEventListener("mousemove", handleMouseMove);
+    techCanvas.removeEventListener("mouseup", handleMouseUp);
+    techCanvas.removeEventListener("mouseleave", handleMouseUp);
+    techCanvas.removeEventListener("wheel", handleWheel);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    // Clear arrays
+    iconNodes = [];
+    binaryDigits = [];
+    fractalRings = [];
+  }
+
+  // Cleanup on page unload to prevent memory leaks
+  window.addEventListener('beforeunload', cleanup);
+  window.addEventListener('unload', cleanup);
 
   // Initialize after fonts are ready
   loadFonts()
