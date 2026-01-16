@@ -310,7 +310,7 @@ function showMessageSentModal() {
     }, interval);
     
     // Store interval ID so we can clear it if needed
-    modal._loaderIntervalId = loaderInterval;
+    modal.dataset.loaderInterval = loaderInterval;
   }, 100);
 }
 
@@ -320,9 +320,8 @@ function closeMessageSentModal() {
   if (!modal) return;
   
   // Clear any running interval
-  if (modal._loaderIntervalId) {
-    clearInterval(modal._loaderIntervalId);
-    modal._loaderIntervalId = null;
+  if (modal.dataset.loaderInterval) {
+    clearInterval(parseInt(modal.dataset.loaderInterval));
   }
   
   // Hide modal with animation
@@ -572,7 +571,6 @@ function navigateProject(direction) {
 let scene3D, camera3D, renderer3D, laptop3D, controls3D;
 let isModel3DInitialized = false;
 let animationFrame3D = null;
-let resizeHandler3D = null; // Track resize handler for cleanup
 
 // Cleanup function to dispose 3D resources and prevent memory leaks
 function cleanup3DResources() {
@@ -582,18 +580,11 @@ function cleanup3DResources() {
     animationFrame3D = null;
   }
 
-  // Remove resize event listener to prevent memory leak
-  if (resizeHandler3D) {
-    window.removeEventListener('resize', resizeHandler3D);
-    resizeHandler3D = null;
-  }
-
   // Pause and cleanup video
   if (videoElement3D) {
     videoElement3D.pause();
     videoElement3D.src = "";
     videoElement3D.load();
-    videoElement3D = null;
   }
 
   // Dispose video texture
@@ -705,6 +696,31 @@ function init3DModel() {
     function (gltf) {
       laptop3D = gltf.scene;
 
+      const screenMesh = laptop3D.getObjectByName("Object_8");
+
+      if (screenMesh) {
+        const video = document.createElement("video");
+        video.src = "public/assets/videos/sample.mp4"; // temporary placeholder
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.autoplay = true;
+
+        video.addEventListener("loadeddata", () => {
+          const videoTex = new THREE.VideoTexture(video);
+          videoTex.minFilter = THREE.LinearFilter;
+          videoTex.magFilter = THREE.LinearFilter;
+          videoTex.format = THREE.RGBAFormat;
+
+          screenMesh.material = new THREE.MeshBasicMaterial({
+            map: videoTex,
+            toneMapped: false,
+          });
+
+          video.play();
+        });
+      }
+
       // Center and scale the model
       const box = new THREE.Box3().setFromObject(laptop3D);
       const center = box.getCenter(new THREE.Vector3());
@@ -769,16 +785,16 @@ function init3DModel() {
     }
   );
 
-  // Handle window resize - track handler for cleanup
-  resizeHandler3D = function onWindowResize() {
+  // Handle window resize
+  function onWindowResize() {
     if (!container || !camera3D || !renderer3D) return;
 
     camera3D.aspect = container.clientWidth / container.clientHeight;
     camera3D.updateProjectionMatrix();
     renderer3D.setSize(container.clientWidth, container.clientHeight);
-  };
+  }
 
-  window.addEventListener("resize", resizeHandler3D);
+  window.addEventListener("resize", onWindowResize);
 
   isModel3DInitialized = true;
 }
@@ -851,7 +867,6 @@ if (typeof AOS !== "undefined") {
 // Manual blur control for hero-skills-animation to match hero-info behavior
 const heroSkillsAnimation = document.querySelector(".hero-skills-animation");
 const heroSection = document.querySelector(".hero-section");
-let heroObserver = null; // Track observer for potential cleanup
 
 if (heroSkillsAnimation && heroSection) {
   let currentBlur = 0;
@@ -885,7 +900,7 @@ if (heroSkillsAnimation && heroSection) {
   }
 
   // Create intersection observer for the hero section
-  heroObserver = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         const scrollProgress = entry.intersectionRatio;
@@ -927,19 +942,8 @@ if (heroSkillsAnimation && heroSection) {
     }
   );
 
-  heroObserver.observe(heroSection);
+  observer.observe(heroSection);
 }
-
-// Cleanup function for hero observer
-function cleanupHeroObserver() {
-  if (heroObserver) {
-    heroObserver.disconnect();
-    heroObserver = null;
-  }
-}
-
-// Cleanup on page unload
-window.addEventListener('beforeunload', cleanupHeroObserver);
 
 // General Modal Functionality
 const modalBtn = document.getElementById("modalOpen");
@@ -1192,31 +1196,12 @@ function initExperienceAnimations() {
       );
       registerExperienceAnimation(glowAnimation);
 
-      // Timeline icon pop in animation
+      // Timeline icon - always visible (no scroll animation)
       if (icon) {
-        const iconAnimation = gsap.fromTo(
-          icon,
-          {
-            scale: 0,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: card,
-              scroller:
-                section.querySelector(
-                  ".experience-content, .academic-content"
-                ) || section,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-        registerExperienceAnimation(iconAnimation);
+        gsap.set(icon, {
+          scale: 1,
+          opacity: 1,
+        });
       }
 
       // Text elements fade in
@@ -1326,30 +1311,12 @@ function reinitModalTimelineAnimations() {
       );
       registerExperienceAnimation(glowAnimation);
 
-      // Timeline icon animation
+      // Timeline icon - always visible (no scroll animation)
       if (icon) {
-        const iconAnimation = gsap.fromTo(
-          icon,
-          {
-            scale: 0,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: card,
-              scroller: section.querySelector(
-                ".experience-content, .academic-content"
-              ),
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-        registerExperienceAnimation(iconAnimation);
+        gsap.set(icon, {
+          scale: 1,
+          opacity: 1,
+        });
       }
 
       // Text elements fade in

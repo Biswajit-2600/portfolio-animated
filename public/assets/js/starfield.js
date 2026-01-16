@@ -195,17 +195,9 @@ function cleanup() {
     cancelAnimationFrame(animationId);
     animationId = null;
   }
-  if (resizeTimeout) {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = null;
-  }
   stars = [];
   gridCells = [];
 }
-
-// Cleanup on page unload to prevent memory leaks
-window.addEventListener('beforeunload', cleanup);
-window.addEventListener('unload', cleanup);
 
 // Start animation
 init();
