@@ -3263,18 +3263,55 @@ section h1 img{
 .cert-popup-icons {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  max-width: 310px;
+  min-height: 100px;
+  overflow: hidden;
+  align-items: center;
+  padding: 10px 0;
 }
 
-.cert-popup-icons img {
+/* Carousel track that holds duplicated icons for seamless loop */
+.cert-carousel-track {
+  display: flex;
+  gap: 12px;
+  animation: certCarouselScroll 8s linear infinite;
+  width: max-content;
+  align-items: center;
+  min-height: 100px;
+}
+
+/* Pause animation on hover */
+.cert-popup:hover .cert-carousel-track {
+  animation-play-state: paused;
+}
+
+/* When 3 or fewer icons, no animation needed */
+.cert-carousel-track.no-scroll {
+  animation: none;
+}
+
+@keyframes certCarouselScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.cert-popup-icons img,
+.cert-carousel-track img {
   width: 90px;
   height: 90px;
   object-fit: contain;
   cursor: pointer;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
-.cert-popup-icons img:hover {
+.cert-popup-icons img:hover,
+.cert-carousel-track img:hover {
   transform: scale(1.15);
 }
 
