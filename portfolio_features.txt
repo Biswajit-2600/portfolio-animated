@@ -16,13 +16,13 @@
 
 Features from videos in playlist (tentative):-
 
--- background: 6			-- done
--- header: 6 				-- done
+-- background: 6						-- done
+-- header: 6 							-- done
 -- landing: 3(changing text feature), 6 -- done
--- about/overview: 1, 4, 5		-- pending (put carousel in certification section)
--- projects: 2, 5, 6, 7			-- on hold (laptop model incorporation)
--- skills: 6, 7				-- ongoing
--- experience/education: 3, 7		-- 	
--- contact: 3, 4			-- 	(ideas -- an icon will be there and on clicking it, all the different icons will open from it like a 							  graph or wheel)
+-- about/overview: 1, 4, 5				-- pending (put carousel in certification section)
+-- projects: 2, 5, 6, 7					-- on hold (laptop model incorporation)
+-- skills: 6, 7							-- ongoing
+-- experience/education: 3, 7			-- 	
+-- contact: 3, 4						-- 	(ideas -- an icon will be there and on clicking it, all the different icons will open from it like a 							  graph or wheel)
 
 social icons -- contact section (facebook, instagram, whatsapp, twitter, discord, telegram)
